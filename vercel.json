@@ -1,7 +1,17 @@
 {
   "version": 2,
-  "builds": [{ "src": "*.html", "use": "@vercel/static" }, { "src": "style.css", "use": "@vercel/static" }],
   "routes": [
-    { "src": "/", "dest": "/index.html" }
+    {
+      "src": "/sitemap.xml",
+      "dest": "/sitemap.xml"
+    },
+    {
+      "src": "/robots.txt",
+      "dest": "/robots.txt"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
   ]
 }
