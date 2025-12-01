@@ -10,39 +10,43 @@
   <url>
     <loc>https://ztera.vercel.app/player.html</loc>
     <priority>0.9</priority>
-    <changefreq>daily</changefreq>
+    <changefreq>weekly</changefreq>
   </url>
 
   <url>
     <loc>https://ztera.vercel.app/downloader.html</loc>
     <priority>0.9</priority>
-    <changefreq>daily</changefreq>
+    <changefreq>weekly</changefreq>
   </url>
 
   <url>
     <loc>https://ztera.vercel.app/blog.html</loc>
     <priority>0.8</priority>
-    <changefreq>daily</changefreq>
+    <changefreq>weekly</changefreq>
   </url>
 
   <url>
     <loc>https://ztera.vercel.app/blog1.html</loc>
     <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
   </url>
 
   <url>
     <loc>https://ztera.vercel.app/blog2.html</loc>
     <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
   </url>
 
   <url>
     <loc>https://ztera.vercel.app/blog3.html</loc>
     <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
   </url>
 
   <url>
     <loc>https://ztera.vercel.app/blog4.html</loc>
     <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
   </url>
 
 </urlset>
