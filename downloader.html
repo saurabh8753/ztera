@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZTERA – TeraBox Downloader</title>
+<meta name="description" content="Generate direct download links for TeraBox videos using ZTERA Downloader.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap"><span class="logo">ZTERA</span><nav><a href="/index.html">Home</a><a href="/player.html">Player</a><a href="/blog.html">Blog</a></nav></div>
+</header>
+
+<main class="wrap box">
+  <h2>TeraBox HD Downloader</h2>
+  <p>Paste your TeraBox link to generate a direct download link.</p>
+
+  <input id="dlUrl" placeholder="Enter TeraBox URL..." />
+  <button id="dlBtn">⬇ Generate Link</button>
+
+  <div id="linkArea" style="margin-top:18px;"></div>
+</main>
+
+<script>
+document.getElementById('dlBtn').addEventListener('click', generate);
+
+function generate(){
+  let url = document.getElementById('dlUrl').value.trim();
+  if(!url || url.length < 8){ alert('Enter valid TeraBox URL'); return; }
+  if(!url.startsWith('http')) url = 'https://' + url;
+  const api = "https://iteraplay.com/api/play.php?url=" + encodeURIComponent(url) + "&key=iTeraPlay2025";
+  document.getElementById('linkArea').innerHTML = '<a class="download-link" href="'+api+'" target="_blank" rel="noopener">⬇ Download Now</a>';
+}
+</script>
+
+</body>
+</html>
