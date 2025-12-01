@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZTERA – TeraBox Player</title>
+<meta name="description" content="Play TeraBox videos online free with ZTERA Player.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="logo">ZTERA</span>
+    <nav><a href="/index.html">Home</a><a href="/downloader.html">Downloader</a><a href="/blog.html">Blog</a></nav>
+  </div>
+</header>
+
+<main class="wrap box">
+  <h2>TeraBox HD Video Player</h2>
+  <p>Paste TeraBox URL below to play video instantly.</p>
+
+  <input id="urlInput" placeholder="Enter TeraBox URL like https://terabox.com/s/..." />
+  <button id="playBtn">▶ Play Now</button>
+
+  <p id="err" class="error" style="display:none;">Invalid URL</p>
+</main>
+
+<script>
+document.getElementById('playBtn').addEventListener('click', play);
+document.getElementById('urlInput').addEventListener('keydown', function(e){ if(e.key==='Enter') play(); });
+
+function normalize(link){
+  if(!link) return '';
+  return link.replace('1024tera.com','terabox.com').replace('1024terabox.com','terabox.com');
+}
+
+function play(){
+  let url = document.getElementById('urlInput').value.trim();
+  if(!url || url.length < 8){ document.getElementById('err').style.display='block'; return; }
+  document.getElementById('err').style.display='none';
+  url = normalize(url);
+  if(!url.startsWith('http')) url = 'https://' + url;
+  const finalUrl = "https://iteraplay.com/api/play.php?url=" + encodeURIComponent(url) + "&key=iTeraPlay2025";
+  window.open(finalUrl, '_blank','noopener');
+}
+</script>
+
+</body>
+</html>
