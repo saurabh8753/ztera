@@ -1,28 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url>
-    <loc>https://ztera.fun/</loc>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
+<url>
+  <loc>https://ztera.fun/</loc>
+  <priority>1.0</priority>
+</url>
 
-  <url>
-    <loc>https://ztera.fun/player</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.95</priority>
-  </url>
+<url>
+  <loc>https://ztera.fun/player.html</loc>
+  <priority>0.9</priority>
+</url>
 
-  <url>
-    <loc>https://ztera.fun/downloader</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.90</priority>
-  </url>
+<url>
+  <loc>https://ztera.fun/downloader.html</loc>
+  <priority>0.9</priority>
+</url>
 
-  <url>
-    <loc>https://ztera.fun/blog</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.85</priority>
-  </url>
+<url>
+  <loc>https://ztera.fun/blog.html</loc>
+  <priority>0.8</priority>
+</url>
+
+<url>
+  <loc>https://ztera.fun/blog1.html</loc>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://ztera.fun/blog2.html</loc>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://ztera.fun/blog3.html</loc>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://ztera.fun/blog4.html</loc>
+  <priority>0.7</priority>
+</url>
 
 </urlset>
