@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://ztera.vercel.app/sitemap.xml
+
+Sitemap: https://ztera.fun/sitemap.xml
