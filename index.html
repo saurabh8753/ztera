@@ -3,16 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Terabox Video Player — TeraBox Player</title>
 
-<title>ZTERA – TeraBox Video Player & Downloader (HD Online Player)</title>
-
-<!-- ⭐ Favicon -->
-<link rel="icon" type="image/png" 
-href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABYUlEQVR4nO3aMU4CURSF4ZeJgpQAyEykhDIhDSQTSJDMhczASrCipA8ihDJIIXN0d7d+7e8GR2cblt2t7tz12Znd2V9k13u8z/M4z7u9zHkU05wAAQIECBAgQIAAgWEOKHcCbn5wCMZTtqFjA+YH/DLy8rrR8ACa+o6E7ggrN2M8IcWvJ5P8fw8Ky3nDfcjLvYEQz1h0zG2BCyEwF6t2lYpZ2gCAtwTlxMSJKwm2VbzoCj3tZ2f4Kb9p44YhvyaG6q0N3qGZJPNvs+jJ5H6p0sS9ym6u6LcT+ca2bGoP0t1vkl6rl4p9e/UHY5B2nzLjkYqcMIn2zBrrKZSe1mwE2ZLx4nWilSbEm4nl/5WkU2p7E6Z5w7xI7+IKbF3y5E4DUtcgQIECBAgAABAwb4Av4BR8dRlFZpJ5UAAAAASUVORK5CYII=" />
-
-<meta name="description" content="ZTERA is the fastest TeraBox Video Player & Downloader. Play Terabox videos online in HD without ads. Generate direct download links instantly. Works on PC & Mobile.">
-
-<meta name="keywords" content="ZTERA, Terabox Player, Terabox Downloader, Terabox Online Player, HD Terabox Player, Terabox Link Generator, Play Terabox Video">
+<!-- ⭐ Favicon Added -->
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABYUlEQVR4nO3aMU4CURSF4ZeJgpQAyEykhDIhDSQTSJDMhczASrCipA8ihDJIIXN0d7d+7e8GR2cblt2t7tz12Znd2V9k13u8z/M4z7u9zHkU05wAAQIECBAgQIAAgWEOKHcCbn5wCMZTtqFjA+YH/DLy8rrR8ACa+o6E7ggrN2M8IcWvJ5P8fw8Ky3nDfcjLvYEQz1h0zG2BCyEwF6t2lYpZ2gCAtwTlxMSJKwm2VbzoCj3tZ2f4Kb9p44YhvyaG6q0N3qGZJPNvs+jJ5H6p0sS9ym6u6LcT+ca2bGoP0t1vkl6rl4p9e/UHY5B2nzLjkYqcMIn2zBrrKZSe1mwE2ZLx4nWilSbEm4nl/5WkU2p7E6Z5w7xI7+IKbF3y5E4DUtcgQIECBAgAABAwb4Av4BR8dRlFZpJ5UAAAAASUVORK5CYII=" />
 
 <style>
   :root{
@@ -85,41 +79,47 @@ href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABYUlE
   }
 
   @keyframes neonPulseAnim{
-    0%{ transform:scale(1); }
-    50%{ transform:scale(1.08); }
-    100%{ transform:scale(1); }
+    0%{
+      transform:scale(1);
+      box-shadow:0 0 12px rgba(124,58,237,.8),0 0 28px rgba(79,70,229,.6);
+    }
+    50%{
+      transform:scale(1.08);
+      box-shadow:0 0 28px rgba(124,58,237,1),0 0 60px rgba(79,70,229,.9);
+    }
+    100%{
+      transform:scale(1);
+      box-shadow:0 0 12px rgba(124,58,237,.8),0 0 28px rgba(79,70,229,.6);
+    }
   }
 
-  .section{
-    margin-top:40px;
-    background:white;
-    padding:20px 24px;
-    border-radius:20px;
-    border:1px solid #e5e7ff;
-    box-shadow:0 6px 18px rgba(0,0,0,0.07);
-  }
-
-  .section h2{
-    color:#3248f5;
-    margin-bottom:10px;
-  }
-
-  ul li{margin:8px 0;}
-
-  a.internal{
-    color:#3248f5;
+  .neonNote{
+    text-align:center;
+    margin-top:14px;
+    padding:10px 16px;
+    font-size:15px;
     font-weight:600;
-    text-decoration:none;
+    color:#ff4d4d;
+    background:rgba(255,0,0,0.15);
+    border:1px solid rgba(255,0,0,0.4);
+    border-radius:14px;
+    box-shadow:
+      0 0 12px rgba(255,0,0,0.8),
+      0 0 28px rgba(255,0,0,0.6);
+    animation:neonWarnRed 1.8s infinite ease-in-out;
+  }
+  
+  @media(max-width:520px){
+    h1{font-size:28px;}
   }
 </style>
 </head>
 
 <body>
 <div class="wrap">
-
   <header class="hero">
-    <h1>ZTERA – TeraBox HD Video <span style="color:#1F2BF5">Player</span></h1>
-    <p class="lead">Play and Download Terabox Videos Without Ads – Fast, Secure & HD Quality</p>
+    <h1>TeraBox Video <span style="color:#1F2BF5">Player</span></h1>
+    <p class="lead">Play Terabox Video Without ads</p>
   </header>
 
   <section class="card">
@@ -135,62 +135,27 @@ href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABYUlE
       ⚠ <b>Note:</b> Turn on your mobile Auto-rotate mode for full-screen video.
     </p>
 
-    <div id="error" class="note">⚠ Invalid URL</div>
+    <!-- ❌ Invalid URL Note Removed -->
   </section>
-
-  <!-- ⭐ SEO CONTENT SECTION -->
-  <section class="section">
-    <h2>What is ZTERA?</h2>
-    <p>
-      ZTERA is the fastest online <b>TeraBox Video Player</b> and <b>TeraBox Downloader</b>. 
-      You can paste any Terabox video link and instantly watch the video in HD without ads.
-    </p>
-
-    <h2>Why ZTERA is Better?</h2>
-    <ul>
-      <li>No ads while watching videos</li>
-      <li>Fast video loading (1–2 seconds)</li>
-      <li>Auto-detect Terabox links</li>
-      <li>Works on all devices – Android, iPhone, PC</li>
-      <li>Direct download button for faster file saving</li>
-    </ul>
-
-    <h2>Useful ZTERA Tools</h2>
-    <ul>
-      <li><a href="player.html" class="internal">▶ ZTERA Terabox Video Player</a></li>
-      <li><a href="downloader.html" class="internal">⬇ ZTERA Terabox Downloader</a></li>
-      <li><a href="blog.html" class="internal">📚 ZTERA Blog – Tips & Guides</a></li>
-    </ul>
-
-    <h2>How to Play Terabox Video Online?</h2>
-    <ol>
-      <li>Open ZTERA Homepage</li>
-      <li>Paste your Terabox video link</li>
-      <li>Click “Open Video”</li>
-      <li>Enjoy HD video playback</li>
-    </ol>
-
-    <h2>FAQs (Google Ranking Support)</h2>
-    <p><b>Is ZTERA safe?</b> — Yes, 100% safe, no login required.</p>
-    <p><b>Does ZTERA support HD?</b> — Yes, supports 360p to 1080p.</p>
-    <p><b>Can I download Terabox videos?</b> — Yes, use the ZTERA Downloader.</p>
-  </section>
-
 </div>
 
 <script>
-/* Same JS code from your homepage (unchanged) */
+/* Mirror domains */
 const mirrors = [
   "1024tera.com","1024terabox.com","nephobox.com",
   "gibibox.com","4funbox.com","teraboxurl.com",
   "teraboxlink.com","teraboxapp.com","teraboxcdn.com"
 ];
 
+/* Normalize mirror → terabox.com */
 function normalize(link){
-  mirrors.forEach(m=>{ link = link.replace(m,"terabox.com"); });
+  mirrors.forEach(m=>{
+    link = link.replace(m,"terabox.com");
+  });
   return link;
 }
 
+/* AUTO DETECT LINK FROM RANDOM TEXT */
 function autoDetect(text){
   const mirrorsPattern = mirrors.join("|").replace(/\./g,"\\.");
   const regex = new RegExp(
@@ -202,38 +167,54 @@ function autoDetect(text){
 }
 
 const input = document.getElementById('tbxUrl');
+const openBtn = document.getElementById('openPopup');
+
+/* Auto Detect on typing/paste */
 input.addEventListener("input", ()=>{
   const detected = autoDetect(input.value);
-  if(detected){ input.value = normalize(detected); }
+  if(detected){
+    input.value = normalize(detected);
+  }
 });
 
-const openBtn = document.getElementById('openPopup');
-const errorBox = document.getElementById('error');
-
+/* Popup Window */
 function openCentered(url,w=1050,h=720){
-  const isMobile = window.innerWidth<540;
-  if(isMobile){ return window.open(url,"_blank","noopener"); }
+  const isMobile = window.innerWidth<540 || /Mobi|Android/i.test(navigator.userAgent);
+  if(isMobile){
+    return window.open(url,"_blank","noopener");
+  }
   const left = window.screenX + (window.outerWidth - w)/2;
   const top  = window.screenY + (window.outerHeight - h)/2;
-  return window.open(url,"_blank",`width=${w},height=${h},left=${left},top=${top}`);
+  const opts = `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`;
+  return window.open(url,"_blank",opts);
 }
 
+/* Open Video Button Click */
 openBtn.addEventListener("click",()=>{
   let url = input.value.trim();
   if(url.length<10){
-    errorBox.style.display="block";
-    return;
+    return; // removed error note
   }
-  errorBox.style.display="none";
   url = normalize(url);
-  if(!url.startsWith("http")){ url = "https://" + url; }
-
+  if(!url.startsWith("http")){
+    url = "https://" + url;
+  }
   const final =
     "https://iteraplay.com/api/play.php?url=" +
-    encodeURIComponent(url) + "&key=iTeraPlay2025";
-
+    encodeURIComponent(url) +
+    "&key=iTeraPlay2025";
   const win = openCentered(final);
-  if(!win){ alert("⚠ Popup blocked. Allow popups."); }
+  if(!win){
+    alert("⚠ Popup blocked. Allow popups for this website.");
+  }
+});
+
+/* Enter Key Support */
+input.addEventListener("keydown",(e)=>{
+  if(e.key==="Enter"){
+    e.preventDefault();
+    openBtn.click();
+  }
 });
 </script>
 
