@@ -207,7 +207,6 @@ input.addEventListener("input", ()=>{
 });
 
 const openBtn = document.getElementById('openPopup');
-const errorBox = document.getElementById('error');
 
 function openCentered(url,w=1050,h=720){
   const isMobile = window.innerWidth<540;
@@ -220,10 +219,9 @@ function openCentered(url,w=1050,h=720){
 openBtn.addEventListener("click",()=>{
   let url = input.value.trim();
   if(url.length<10){
-    errorBox.style.display="block";
+    alert("⚠ Enter a valid TeraBox link.");
     return;
   }
-  errorBox.style.display="none";
   url = normalize(url);
   if(!url.startsWith("http")){ url = "https://" + url; }
 
