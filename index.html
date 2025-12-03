@@ -1,222 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Terabox Video Player — TeraBox Player</title>
+<section class="card" style="margin-top:25px">
+  <h2 style="color:#3248f5; font-size:26px; font-weight:800;">What is ZTERA TeraBox Player?</h2>
+  <p style="font-size:16px; color:#333;">
+    ZTERA ek fast, clean aur ad-free <b>TeraBox Video Player</b> aur <b>TeraBox Downloader</b> tool hai.
+    Iska main purpose hai users ko bina ads ke smooth HD playback provide karna. 
+    TeraBox ka official player slow hota hai aur usme ad interruptions aate hain, 
+    isliye ZTERA ek lightweight, super-fast, mobile-friendly solution ke roop me design kiya gaya hai.
+  </p>
 
-<!-- ⭐ Favicon Added -->
-<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABYUlEQVR4nO3aMU4CURSF4ZeJgpQAyEykhDIhDSQTSJDMhczASrCipA8ihDJIIXN0d7d+7e8GR2cblt2t7tz12Znd2V9k13u8z/M4z7u9zHkU05wAAQIECBAgQIAAgWEOKHcCbn5wCMZTtqFjA+YH/DLy8rrR8ACa+o6E7ggrN2M8IcWvJ5P8fw8Ky3nDfcjLvYEQz1h0zG2BCyEwF6t2lYpZ2gCAtwTlxMSJKwm2VbzoCj3tZ2f4Kb9p44YhvyaG6q0N3qGZJPNvs+jJ5H6p0sS9ym6u6LcT+ca2bGoP0t1vkl6rl4p9e/UHY5B2nzLjkYqcMIn2zBrrKZSe1mwE2ZLx4nWilSbEm4nl/5WkU2p7E6Z5w7xI7+IKbF3y5E4DUtcgQIECBAgAABAwb4Av4BR8dRlFZpJ5UAAAAASUVORK5CYII=" />
+  <h2 style="color:#3248f5; font-size:24px; font-weight:700;">Why ZTERA is the Fastest Terabox Player?</h2>
+  <ul style="font-size:15px; color:#333; line-height:1.6;">
+    <li>✔ 1-Click HD Playback</li>
+    <li>✔ Ad-Free Player Interface</li>
+    <li>✔ Auto-Detect Terabox Links</li>
+    <li>✔ Mobile Auto-Rotate Supported</li>
+    <li>✔ External Window Fullscreen Support</li>
+    <li>✔ Works With All Terabox Mirrors</li>
+  </ul>
 
-<style>
-  :root{
-    --bg1:#eef3ff; 
-    --bg2:#f8fbff;
-    --text:#0f172a;
-  }
-  body{
-    margin:0;
-    font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
-    color:var(--text);
-    background:linear-gradient(180deg,var(--bg1),var(--bg2));
-  }
-  .wrap{
-    max-width:980px;
-    margin:30px auto;
-    padding:16px;
-  }
-  .hero{text-align:center;}
-  h1{
-    font-size:40px;
-    margin:8px 0;
-    color:#3248f5;
-    font-weight:800;
-  }
-  p.lead{
-    color:#6f7280;
-    margin:0 0 20px;
-    font-size:17px;
-  }
-  .card{
-    background:#fff;
-    padding:22px;
-    border-radius:20px;
-    border:1px solid #e7e9ff;
-    box-shadow:0 12px 26px rgba(0,0,0,.08);
-  }
-  .row{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-  }
-  .row input{
-    flex:1;
-    padding:14px 16px;
-    font-size:16px;
-    border-radius:14px;
-    border:1px solid #d7d9ef;
-    background:#f8f9ff;
-  }
+  <p style="font-size:16px; color:#333;">
+    ZTERA ka engine specially optimize kiya gaya hai taaki Terabox ke heavy pages load na ho
+    aur video direct player se open ho jaye. 
+    Isse buffering time 60% kam ho jata hai aur user experience best hota hai.
+  </p>
 
-  .btn{
-    padding:14px 26px;
-    border:0;
-    border-radius:16px;
-    font-size:18px;
-    font-weight:700;
-    color:white;
-    cursor:pointer;
-    background:linear-gradient(135deg,#6d28d9,#4f46e5,#7c3aed);
-    display:inline-block;
-    margin:0 auto;
-  }
+  <h2 style="color:#3248f5; font-size:24px; font-weight:700;">How to Use ZTERA Player (Step-by-Step)</h2>
+  <ol style="font-size:15px; color:#333; line-height:1.7;">
+    <li>TeraBox se video ka लिंक copy karo</li>
+    <li>ZTERA player me input box me paste karo</li>
+    <li>“Open Video” button par click karo</li>
+    <li>Video popup window me HD quality me play ho jayega</li>
+  </ol>
 
-  .neonPulse{
-    animation:neonPulseAnim 1.8s infinite ease-in-out;
-    box-shadow:
-      0 0 14px rgba(124,58,237,.8),
-      0 0 28px rgba(79,70,229,.6);
-  }
+  <p style="font-size:16px; color:#333;">
+    Agar tumhare device me auto-rotate enabled hai toh video full-screen automatically adjust ho jayega.
+  </p>
 
-  @keyframes neonPulseAnim{
-    0%{
-      transform:scale(1);
-      box-shadow:0 0 12px rgba(124,58,237,.8),0 0 28px rgba(79,70,229,.6);
-    }
-    50%{
-      transform:scale(1.08);
-      box-shadow:0 0 28px rgba(124,58,237,1),0 0 60px rgba(79,70,229,.9);
-    }
-    100%{
-      transform:scale(1);
-      box-shadow:0 0 12px rgba(124,58,237,.8),0 0 28px rgba(79,70,229,.6);
-    }
-  }
+  <h2 style="color:#3248f5; font-size:24px; font-weight:700;">ZTERA TeraBox Downloader</h2>
+  <p style="font-size:16px; color:#333;">
+    ZTERA sirf video player nahi, balki ek powerful <b>TeraBox Direct Link Downloader</b> bhi hai.
+    Agar aapko Terabox se fast download chahiye, toh ZTERA Downloader best option hai.
+  </p>
 
-  .neonNote{
-    text-align:center;
-    margin-top:14px;
-    padding:10px 16px;
-    font-size:15px;
-    font-weight:600;
-    color:#ff4d4d;
-    background:rgba(255,0,0,0.15);
-    border:1px solid rgba(255,0,0,0.4);
-    border-radius:14px;
-    box-shadow:
-      0 0 12px rgba(255,0,0,0.8),
-      0 0 28px rgba(255,0,0,0.6);
-    animation:neonWarnRed 1.8s infinite ease-in-out;
-  }
-  
-  @media(max-width:520px){
-    h1{font-size:28px;}
-  }
-</style>
-</head>
+  <p style="font-size:16px; color:#333;">
+    👉 Direct link generator page: <a href="downloader.html" style="color:#3248f5; font-weight:700;">
+      ZTERA Downloader
+    </a>
+  </p>
 
-<body>
-<div class="wrap">
-  <header class="hero">
-    <h1>TeraBox Video <span style="color:#1F2BF5">Player</span></h1>
-    <p class="lead">Play Terabox Video Without ads</p>
-  </header>
+  <h2 style="color:#3248f5; font-size:24px; font-weight:700;">ZTERA Blog – Latest Terabox Guides</h2>
+  <p style="font-size:16px; color:#333;">
+    Agar aap TeraBox ke बारे में tips, tricks, fixes aur updates dekhna chahte ho,
+    toh ZTERA Blog me daily fresh content publish hota hai. 
+  </p>
 
-  <section class="card">
-    <div class="row">
-      <input id="tbxUrl" type="url" placeholder="Enter TeraBox link here…">
-    </div>
+  <ul style="font-size:15px; color:#333;">
+    <li><a href="blog.html" style="color:#3248f5; font-weight:700;">How to Play Terabox Videos Fast</a></li>
+    <li><a href="blog.html" style="color:#3248f5; font-weight:700;">Terabox Downloader Errors Fix</a></li>
+    <li><a href="blog.html" style="color:#3248f5; font-weight:700;">Terabox Direct Link Method</a></li>
+    <li><a href="blog.html" style="color:#3248f5; font-weight:700;">Best Terabox Player Alternatives (2025)</a></li>
+  </ul>
 
-    <div style="text-align:center; margin-top:18px;">
-      <button id="openPopup" class="btn neonPulse">▶ Open Video</button>
-    </div>
+  <h2 style="color:#3248f5; font-size:24px; font-weight:800;">Is ZTERA Safe?</h2>
+  <p style="font-size:16px; color:#333;">
+    Yes, ZTERA 100% safe tool hai. 
+    Isme:
+    <br>– ❌ No login required  
+    <br>– ❌ No data collection  
+    <br>– ✔ Only direct video playback  
+  </p>
 
-    <p class="neonNote">
-      ⚠ <b>Note:</b> Turn on your mobile Auto-rotate mode for full-screen video.
-    </p>
+  <h2 style="color:#3248f5; font-size:24px; font-weight:800;">Frequently Asked Questions</h2>
 
-    <!-- ❌ Invalid URL Note Removed -->
-  </section>
-</div>
+  <p><b>1. Kya ZTERA TeraBox ka official tool hai?</b><br>
+  Nahi, ZTERA ek independent fast player hai.</p>
 
-<script>
-/* Mirror domains */
-const mirrors = [
-  "1024tera.com","1024terabox.com","nephobox.com",
-  "gibibox.com","4funbox.com","teraboxurl.com",
-  "teraboxlink.com","teraboxapp.com","teraboxcdn.com"
-];
+  <p><b>2. Kya downloads unlimited hain?</b><br>
+  Haan, ZTERA Downloader unlimited downloads support karta hai.</p>
 
-/* Normalize mirror → terabox.com */
-function normalize(link){
-  mirrors.forEach(m=>{
-    link = link.replace(m,"terabox.com");
-  });
-  return link;
-}
+  <p><b>3. Kya ZTERA mobile me work karta hai?</b><br>
+  100% — ZTERA mobile-first optimized player hai.</p>
 
-/* AUTO DETECT LINK FROM RANDOM TEXT */
-function autoDetect(text){
-  const mirrorsPattern = mirrors.join("|").replace(/\./g,"\\.");
-  const regex = new RegExp(
-    `(https?:\\/\\/(?:www\\.)?(?:${mirrorsPattern}|terabox\\.com)\\/s\\/[^\\s]+)`,
-    "i"
-  );
-  const match = text.match(regex);
-  return match ? match[1] : "";
-}
+  <p><b>4. Kya ZTERA ads free hai?</b><br>
+  Haan — video playback 100% ads free hai.</p>
 
-const input = document.getElementById('tbxUrl');
-const openBtn = document.getElementById('openPopup');
+  <h2 style="color:#3248f5; font-size:24px; font-weight:800;">Internal Links</h2>
+  <ul style="font-size:15px; color:#333;">
+    <li><a href="player.html" style="color:#3248f5;">ZTERA TeraBox Player</a></li>
+    <li><a href="downloader.html" style="color:#3248f5;">ZTERA TeraBox Downloader</a></li>
+    <li><a href="blog.html" style="color:#3248f5;">ZTERA Blog</a></li>
+  </ul>
 
-/* Auto Detect on typing/paste */
-input.addEventListener("input", ()=>{
-  const detected = autoDetect(input.value);
-  if(detected){
-    input.value = normalize(detected);
-  }
-});
-
-/* Popup Window */
-function openCentered(url,w=1050,h=720){
-  const isMobile = window.innerWidth<540 || /Mobi|Android/i.test(navigator.userAgent);
-  if(isMobile){
-    return window.open(url,"_blank","noopener");
-  }
-  const left = window.screenX + (window.outerWidth - w)/2;
-  const top  = window.screenY + (window.outerHeight - h)/2;
-  const opts = `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`;
-  return window.open(url,"_blank",opts);
-}
-
-/* Open Video Button Click */
-openBtn.addEventListener("click",()=>{
-  let url = input.value.trim();
-  if(url.length<10){
-    return; // removed error note
-  }
-  url = normalize(url);
-  if(!url.startsWith("http")){
-    url = "https://" + url;
-  }
-  const final =
-    "https://iteraplay.com/api/play.php?url=" +
-    encodeURIComponent(url) +
-    "&key=iTeraPlay2025";
-  const win = openCentered(final);
-  if(!win){
-    alert("⚠ Popup blocked. Allow popups for this website.");
-  }
-});
-
-/* Enter Key Support */
-input.addEventListener("keydown",(e)=>{
-  if(e.key==="Enter"){
-    e.preventDefault();
-    openBtn.click();
-  }
-});
-</script>
-
-</body>
-</html>
+  <p style="font-size:16px; color:#333; font-weight:600;">
+    ZTERA ka goal simple hai — TeraBox videos ko ad-free, fast aur smooth banाना.
+    Ye homepage aapko full guide deta hai TeraBox video playback ke best तरीके ke बारे में.
+  </p>
+</section>
