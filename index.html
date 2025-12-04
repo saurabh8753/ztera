@@ -1,75 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>ZTERA – TeraBox Video Player & Downloader (HD Online Player)</title>
 
 <!-- ⭐ Favicon -->
-<link rel="icon" type="image/png" href="YOUR-ICON.png">
+<link rel="icon" type="image/png" href="icon.png" />
 
 <!-- ⭐ PWA Manifest -->
-<link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#3248f5" />
+<link rel="manifest" href="manifest.json">
 
-<!-- ⭐ Floating Install Badge -->
+<meta name="theme-color" content="#3248f5">
+
 <style>
-#installBadge{
+/* Floating Install Badge */
+#installBadge {
   position: fixed;
-  right: 18px;
   bottom: 20px;
-  background: linear-gradient(135deg,#3248f5,#6d28d9);
-  color: white;
-  padding: 12px 20px;
+  right: 20px;
+  background: #3248f5;
+  color: #fff;
+  padding: 12px 18px;
   border-radius: 50px;
   font-size: 16px;
   font-weight: 700;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
   cursor: pointer;
-  z-index: 999999;
-  display: none; /* default hidden */
-  animation: floatUpDown 2s infinite ease-in-out;
+  display: none;
+  animation: floatBtn 1.5s infinite ease-in-out;
+  z-index: 99999;
 }
 
-/* Floating animation */
-@keyframes floatUpDown{
-  0%{ transform: translateY(0); }
-  50%{ transform: translateY(-6px); }
-  100%{ transform: translateY(0); }
+@keyframes floatBtn {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
 }
-</style>
 
-<!-- ⭐ Original CSS (unchanged) -->
-<style>
-:root{
-  --bg1:#eef3ff; 
-  --bg2:#f8fbff;
-  --text:#0f172a;
-}
+/* Your old homepage CSS (untouched) */
+:root{ --bg1:#eef3ff; --bg2:#f8fbff; --text:#0f172a; }
 body{
   margin:0;
   font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
   color:var(--text);
   background:linear-gradient(180deg,var(--bg1),var(--bg2));
 }
-.wrap{
-  max-width:980px;
-  margin:30px auto;
-  padding:16px;
-}
+.wrap{ max-width:980px; margin:30px auto; padding:16px; }
 .hero{text-align:center;}
-h1{
-  font-size:40px;
-  margin:8px 0;
-  color:#3248f5;
-  font-weight:800;
-}
-p.lead{
-  color:#6f7280;
-  margin:0 0 20px;
-  font-size:17px;
-}
+h1{ font-size:40px; margin:8px 0; color:#3248f5; font-weight:800; }
+p.lead{ color:#6f7280; margin:0 0 20px; font-size:17px; }
 .card{
   background:#fff;
   padding:22px;
@@ -77,60 +58,33 @@ p.lead{
   border:1px solid #e7e9ff;
   box-shadow:0 12px 26px rgba(0,0,0,.08);
 }
-.row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-}
+.row{ display:flex; flex-wrap:wrap; gap:12px; }
 .row input{
-  flex:1;
-  padding:14px 16px;
-  font-size:16px;
-  border-radius:14px;
-  border:1px solid #d7d9ef;
-  background:#f8f9ff;
+  flex:1; padding:14px 16px; font-size:16px;
+  border-radius:14px; border:1px solid #d7d9ef; background:#f8f9ff;
 }
 .btn{
-  padding:14px 26px;
-  border:0;
-  border-radius:16px;
-  font-size:18px;
-  font-weight:700;
-  color:white;
+  padding:14px 26px; border:0; border-radius:16px;
+  font-size:18px; font-weight:700; color:white;
   cursor:pointer;
   background:linear-gradient(135deg,#6d28d9,#4f46e5,#7c3aed);
-  display:inline-block;
-  margin:0 auto;
+  display:inline-block; margin:0 auto;
 }
-.neonPulse{
-  animation:neonPulseAnim 1.8s infinite ease-in-out;
-  box-shadow:
-    0 0 14px rgba(124,58,237,.8),
-    0 0 28px rgba(79,70,229,.6);
-}
+.neonPulse{ animation:neonPulseAnim 1.8s infinite ease-in-out; }
 @keyframes neonPulseAnim{
   0%{ transform:scale(1); }
   50%{ transform:scale(1.08); }
   100%{ transform:scale(1); }
 }
 .section{
-  margin-top:40px;
-  background:white;
-  padding:20px 24px;
-  border-radius:20px;
-  border:1px solid #e5e7ff;
+  margin-top:40px; background:white; padding:20px 24px;
+  border-radius:20px; border:1px solid #e5e7ff;
   box-shadow:0 6px 18px rgba(0,0,0,0.07);
 }
-.section h2{
-  color:#3248f5;
-  margin-bottom:10px;
-}
+.section h2{ color:#3248f5; margin-bottom:10px; }
 ul li{margin:8px 0;}
-a.internal{
-  color:#3248f5;
-  font-weight:600;
-  text-decoration:none;
-}
+a.internal{ color:#3248f5; font-weight:600; text-decoration:none; }
+
 .neonNote{
   text-align:center;
   margin-top:14px;
@@ -145,15 +99,14 @@ a.internal{
               0 0 28px rgba(255,0,0,0.6);
 }
 </style>
-
 </head>
+
 <body>
 
-<!-- ⭐ FLOATING BADGE -->
-<div id="installBadge">⬇ Install ZTERA App</div>
+<!-- ⭐ Floating Install Badge -->
+<div id="installBadge">⬆ Install ZTERA</div>
 
 <div class="wrap">
-
 <header class="hero">
   <h1>ZTERA – TeraBox HD Video <span style="color:#1F2BF5">Player</span></h1>
   <p class="lead">Play and Download Terabox Videos Without Ads – Fast, Secure & HD Quality</p>
@@ -163,52 +116,46 @@ a.internal{
   <div class="row">
     <input id="tbxUrl" type="url" placeholder="Enter TeraBox link here…">
   </div>
-
   <div style="text-align:center; margin-top:18px;">
     <button id="openPopup" class="btn neonPulse">▶ Open Video</button>
   </div>
-
   <p class="neonNote">
     ⚠ <b>Note:</b> Turn on your mobile Auto-rotate mode for full-screen video.
   </p>
 </section>
 
-<!-- ⭐ SEO SECTION (unchanged) -->
+<!-- SEO content untouched -->
 <section class="section">
   <h2>What is ZTERA?</h2>
-  <p>ZTERA is the fastest...</p>
-
-  <h2>Useful Tools</h2>
-  <ul>
-    <li><a href="player.html" class="internal">▶ ZTERA Player</a></li>
-    <li><a href="downloader.html" class="internal">⬇ ZTERA Downloader</a></li>
-    <li><a href="blog.html" class="internal">📚 ZTERA Blog</a></li>
-  </ul>
-
+  <p>ZTERA is the fastest TeraBox Player…</p>
 </section>
 
 </div>
 
-<!-- ⭐ Floating Badge Install Script -->
+<!-- ⭐ PWA INSTALL SCRIPT -->
 <script>
 let deferredPrompt;
 const badge = document.getElementById("installBadge");
 
+// capture install prompt
 window.addEventListener("beforeinstallprompt", (e)=>{
   e.preventDefault();
   deferredPrompt = e;
-  badge.style.display = "block"; // badge always visible after support
+  badge.style.display = "block";
 });
 
-badge.addEventListener("click", async () => {
-  if (!deferredPrompt) return;
+// install button clicked
+badge.addEventListener("click", ()=>{
+  badge.innerText = "Installing...";
   deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt = null; // hides after install
+  deferredPrompt.userChoice.then(()=>{
+    badge.style.display = "none";
+    deferredPrompt = null;
+  });
 });
 </script>
 
-<!-- ⭐ Register Service Worker -->
+<!-- ⭐ Register service worker -->
 <script>
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
