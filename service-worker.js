@@ -1,15 +1,16 @@
-self.addEventListener("install", e => {
+self.addEventListener("install", (e) => {
+  console.log("ZTERA SW Installed");
   e.waitUntil(
-    caches.open("ztera-cache").then(cache => {
-      return cache.addAll(["/", "/index.html"]);
+    caches.open("ztera-cache").then((cache) => {
+      return cache.addAll(["/"]);
     })
   );
 });
 
-self.addEventListener("fetch", e => {
+self.addEventListener("fetch", (e) => {
   e.respondWith(
-    caches.match(e.request).then(resp => {
-      return resp || fetch(e.request);
+    caches.match(e.request).then((response) => {
+      return response || fetch(e.request);
     })
   );
 });
