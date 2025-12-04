@@ -1,88 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<title>ZTERA – TeraBox Video Player & Downloader (HD Online Player)</title>
+<title>ZTERA – TeraBox HD Video Player & Downloader (Official)</title>
 
-<!-- ⭐ Favicon -->
-<link rel="icon" type="image/png" href="/icon.png" />
+<meta name="description" content="ZTERA is the fastest TeraBox Video Player & Downloader. Play Terabox videos online in HD without ads. Generate direct download links instantly. Works on PC & Mobile.">
+<meta name="keywords" content="ZTERA, Terabox Player, Terabox Downloader, Terabox Online Player, HD Terabox Player, Terabox Link Generator, Play Terabox Video">
 
-<!-- ⭐ PWA Manifest -->
+<!-- ⭐ Favicon (from local file placed in root) -->
+<link rel="icon" type="image/png" href="/mnt/data/ztera_favicon.ico">
+
+<!-- PWA manifest -->
 <link rel="manifest" href="/manifest.json">
-
-<!-- iOS Support -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="apple-touch-icon" href="/icon.png">
+<meta name="theme-color" content="#4F46E5">
 
 <style>
-.installBox{
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #4F46E5;
-  color: white;
-  padding: 14px 24px;
-  border-radius: 16px;
-  font-size: 18px;
-  font-weight: 700;
-  display: none;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-  cursor:pointer;
-}
+  :root{
+    --bg1:#eef3ff;
+    --bg2:#f8fbff;
+    --text:#0f172a;
+  }
+  body{
+    margin:0;
+    font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+    color:var(--text);
+    background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  }
+  .wrap{
+    max-width:980px;
+    margin:30px auto;
+    padding:16px;
+  }
+  .hero{text-align:center;}
+  h1{
+    font-size:40px;
+    margin:8px 0;
+    color:#3248f5;
+    font-weight:800;
+  }
+  p.lead{
+    color:#6f7280;
+    margin:0 0 20px;
+    font-size:17px;
+  }
+  .card{
+    background:#fff;
+    padding:22px;
+    border-radius:20px;
+    border:1px solid #e7e9ff;
+    box-shadow:0 12px 26px rgba(0,0,0,.08);
+  }
+  .row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .row input{
+    flex:1;
+    padding:14px 16px;
+    font-size:16px;
+    border-radius:14px;
+    border:1px solid #d7d9ef;
+    background:#f8f9ff;
+  }
+
+  .btn{
+    padding:14px 26px;
+    border:0;
+    border-radius:16px;
+    font-size:18px;
+    font-weight:700;
+    color:white;
+    cursor:pointer;
+    background:linear-gradient(135deg,#6d28d9,#4f46e5,#7c3aed);
+    display:inline-block;
+    margin:0 auto;
+  }
+
+  .neonPulse{
+    animation:neonPulseAnim 1.8s infinite ease-in-out;
+    box-shadow:
+      0 0 14px rgba(124,58,237,.8),
+      0 0 28px rgba(79,70,229,.6);
+  }
+
+  @keyframes neonPulseAnim{
+    0%{
+      transform:scale(1);
+      box-shadow:0 0 12px rgba(124,58,237,.8),0 0 28px rgba(79,70,229,.6);
+    }
+    50%{
+      transform:scale(1.08);
+      box-shadow:0 0 28px rgba(124,58,237,1),0 0 60px rgba(79,70,229,.9);
+    }
+    100%{
+      transform:scale(1);
+      box-shadow:0 0 12px rgba(124,58,237,.8),0 0 28px rgba(79,70,229,.6);
+    }
+  }
+
+  .neonNote{
+    text-align:center;
+    margin-top:14px;
+    padding:10px 16px;
+    font-size:15px;
+    font-weight:600;
+    color:#ff4d4d;
+    background:rgba(255,0,0,0.15);
+    border:1px solid rgba(255,0,0,0.4);
+    border-radius:14px;
+    box-shadow:
+      0 0 12px rgba(255,0,0,0.8),
+      0 0 28px rgba(255,0,0,0.6);
+    animation:neonWarnRed 1.8s infinite ease-in-out;
+  }
+
+  @keyframes neonWarnRed{
+    0%{
+      opacity:0.85;
+      box-shadow:0 0 12px rgba(255,0,0,0.8),0 0 28px rgba(255,0,0,0.6);
+    }
+    50%{
+      opacity:1;
+      box-shadow:0 0 22px rgba(255,60,60,1),0 0 48px rgba(255,60,60,0.9);
+    }
+    100%{
+      opacity:0.85;
+      box-shadow:0 0 12px rgba(255,0,0,0.8),0 0 28px rgba(255,0,0,0.6);
+    }
+  }
+
+  .note{
+    margin-top:12px;
+    color:#d32f2f;
+    display:none;
+  }
+
+  @media(max-width:520px){
+    h1{font-size:28px;}
+  }
+
+  /* PWA Install Modal (simple persistent modal) */
+  .pwa-modal {
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    width:320px;
+    max-width:calc(100% - 36px);
+    background:linear-gradient(180deg,#ffffff,#f7f8ff);
+    border-radius:14px;
+    box-shadow:0 18px 40px rgba(20,20,60,0.2);
+    padding:14px;
+    display:none;
+    z-index:9999;
+    border:1px solid rgba(79,70,229,0.08);
+  }
+  .pwa-modal.show { display:block; }
+  .pwa-modal .title { font-weight:800; color:#2b2f8a; margin-bottom:6px; }
+  .pwa-modal .desc { font-size:14px; color:#444; margin-bottom:10px; }
+  .pwa-modal .actions { display:flex; gap:8px; justify-content:flex-end; }
+  .pwa-btn { padding:10px 12px; border-radius:10px; border:0; cursor:pointer; font-weight:700; }
+  .pwa-btn.primary { background:#4F46E5; color:#fff; }
+  .pwa-btn.secondary { background:transparent; color:#4F46E5; border:1px solid rgba(79,70,229,0.12); }
+  .pwa-close { position:absolute; left:10px; top:8px; background:transparent; border:0; color:#999; font-weight:700; cursor:pointer; }
 </style>
 </head>
 
 <body>
+<div class="wrap">
 
-<!-- ⭐ INSTALL POPUP -->
-<div id="installBox" class="installBox">📥 Install ZTERA App</div>
+  <header class="hero">
+    <h1>ZTERA – TeraBox HD Video <span style="color:#1F2BF5">Player</span></h1>
+    <p class="lead">Play and Download Terabox Videos Without Ads – Fast, Secure & HD Quality</p>
+  </header>
+
+  <section class="card">
+    <div class="row">
+      <input id="tbxUrl" type="url" placeholder="Enter TeraBox link here…">
+    </div>
+
+    <div style="text-align:center; margin-top:18px;">
+      <button id="openPopup" class="btn neonPulse">▶ Open Video</button>
+    </div>
+
+    <!-- removed invalid URL note per user request -->
+  </section>
+
+  <!-- ⭐ SEO CONTENT SECTION (expanded) -->
+  <section class="section" id="seo-content">
+    <h2>What is ZTERA?</h2>
+    <p>
+      ZTERA is the fastest online <strong>TeraBox Video Player</strong> and <strong>TeraBox Downloader</strong>.
+      With ZTERA you can paste any Terabox share link and watch the video instantly in high quality.
+      ZTERA focuses on <em>speed, privacy and zero ads</em> — optimized for mobile and desktop.
+    </p>
+
+    <h2>Why ZTERA is Better?</h2>
+    <ul>
+      <li>No ads while watching videos</li>
+      <li>Fast video loading (1–2 seconds on good connection)</li>
+      <li>Auto-detect Terabox links from pasted text</li>
+      <li>Works on all devices — Android, iPhone, Windows, Mac</li>
+      <li>Direct download button for faster file saving</li>
+    </ul>
+
+    <h2>Useful ZTERA Tools</h2>
+    <ul>
+      <li><a href="player.html" class="internal">▶ ZTERA Terabox Video Player</a></li>
+      <li><a href="downloader.html" class="internal">⬇ ZTERA Terabox Downloader</a></li>
+      <li><a href="blog.html" class="internal">📚 ZTERA Blog – Tips & Guides</a></li>
+    </ul>
+
+    <h2>How to Play Terabox Video Online?</h2>
+    <ol>
+      <li>Open ZTERA Homepage</li>
+      <li>Paste your Terabox video link</li>
+      <li>Click “Open Video”</li>
+      <li>Enjoy HD video playback</li>
+    </ol>
+
+    <h2>ZTERA – Tips for Best Experience</h2>
+    <p>
+      For best playback: use a modern browser (Chrome, Edge), ensure a stable internet connection,
+      and enable auto-rotate on mobile for fullscreen. If a link doesn't play, try generating a fresh share link from the TeraBox app.
+    </p>
+
+    <h2>FAQs</h2>
+    <p><strong>Is ZTERA safe?</strong> — Yes. ZTERA does not require login and does not store your files.</p>
+    <p><strong>Does ZTERA support HD?</strong> — Yes, ZTERA supports resolutions from 360p up to 1080p (depending on the original file).</p>
+    <p><strong>Can I download Terabox videos?</strong> — Yes. Use the <a href="downloader.html" class="internal">ZTERA Downloader</a> to create direct download links and save files.</p>
+
+    <h2>Internal Links (help search engines crawl)</h2>
+    <ul>
+      <li><a href="index.html" class="internal">Homepage</a></li>
+      <li><a href="player.html" class="internal">Player</a></li>
+      <li><a href="downloader.html" class="internal">Downloader</a></li>
+      <li><a href="blog.html" class="internal">Blog</a></li>
+    </ul>
+  </section>
+
+</div>
+
+<!-- PWA Install Modal (persistent until installed or user hides it) -->
+<div id="pwaModal" class="pwa-modal" aria-hidden="true">
+  <button class="pwa-close" id="pwaClose">✕</button>
+  <div class="title">Install ZTERA</div>
+  <div class="desc">Install ZTERA on your device for faster access and offline support.</div>
+  <div class="actions">
+    <button class="pwa-btn secondary" id="learnBtn">How to install</button>
+    <button class="pwa-btn primary" id="installBtn">Install</button>
+  </div>
+</div>
 
 <script>
-let deferredPrompt;
+/* ========== EXISTING HOMEPAGE JS (unchanged core behavior) ========== */
+const mirrors = [
+  "1024tera.com","1024terabox.com","nephobox.com",
+  "gibibox.com","4funbox.com","teraboxurl.com",
+  "teraboxlink.com","teraboxapp.com","teraboxcdn.com"
+];
 
-// Browser triggers event ONE time → Save it for later
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
+function normalize(link){
+  mirrors.forEach(m=>{ link = link.replace(m,"terabox.com"); });
+  return link;
+}
 
-    // Always show popup
-    showInstallPopup();
+function autoDetect(text){
+  const mirrorsPattern = mirrors.join("|").replace(/\./g,"\\.");
+  const regex = new RegExp(
+    `(https?:\\/\\/(?:www\\.)?(?:${mirrorsPattern}|terabox\\.com)\\/s\\/[^\\s]+)`,
+    "i"
+  );
+  const match = text.match(regex);
+  return match ? match[1] : "";
+}
+
+const input = document.getElementById('tbxUrl');
+input.addEventListener("input", ()=>{
+  const detected = autoDetect(input.value);
+  if(detected){ input.value = normalize(detected); }
 });
 
-// Show popup always
-function showInstallPopup() {
-    const box = document.getElementById("installBox");
-    box.style.display = "block";
+const openBtn = document.getElementById('openPopup');
 
-    box.onclick = async () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const choice = await deferredPrompt.userChoice;
-
-            // Reset so popup can reappear
-            deferredPrompt = null;
-
-            // Show popup again after delay
-            setTimeout(showInstallPopup, 15000);
-        }
-    };
+function openCentered(url,w=1050,h=720){
+  const isMobile = window.innerWidth<540 || /Mobi|Android/i.test(navigator.userAgent);
+  if(isMobile){ return window.open(url,"_blank","noopener"); }
+  const left = window.screenX + (window.outerWidth - w)/2;
+  const top  = window.screenY + (window.outerHeight - h)/2;
+  const opts = `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`;
+  return window.open(url,"_blank",opts);
 }
 
-// If user dismiss popup → show again after 15 sec
-setInterval(()=>{
-    if (!window.matchMedia('(display-mode: standalone)').matches) {
-        if (!deferredPrompt) return;  
-        showInstallPopup();
+openBtn.addEventListener("click",()=>{
+  let url = input.value.trim();
+  if(url.length<10){
+    // no invalid note (removed) — show simple alert instead
+    alert("Please paste a valid TeraBox link.");
+    return;
+  }
+  url = normalize(url);
+  if(!url.startsWith("http")){ url = "https://" + url; }
+
+  const final =
+    "https://iteraplay.com/api/play.php?url=" +
+    encodeURIComponent(url) + "&key=iTeraPlay2025";
+  const win = openCentered(final);
+  if(!win){ alert("⚠ Popup blocked. Allow popups for this website."); }
+});
+
+/* ========== PWA: service worker registration + install handling ========== */
+let deferredPrompt = null;
+const pwaModal = document.getElementById('pwaModal');
+const installBtn = document.getElementById('installBtn');
+const learnBtn = document.getElementById('learnBtn');
+const pwaClose = document.getElementById('pwaClose');
+
+function showPwaModal(){
+  // Show modal if not installed and not hidden by user
+  const hidden = localStorage.getItem('ztera_pwa_hide');
+  const installed = navigator.standalone || window.matchMedia('(display-mode: standalone)').matches || localStorage.getItem('ztera_pwa_installed');
+  if(!installed && hidden !== 'true'){
+    pwaModal.classList.add('show');
+    pwaModal.setAttribute('aria-hidden','false');
+  }
+}
+
+// Listen for the beforeinstallprompt event
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault(); // prevent automatic prompt
+  deferredPrompt = e; // save for later
+  showPwaModal(); // show our own modal
+});
+
+// If app already installed, hide modal
+window.addEventListener('appinstalled', () => {
+  localStorage.setItem('ztera_pwa_installed','true');
+  pwaModal.classList.remove('show');
+});
+
+// Install button behavior
+installBtn.addEventListener('click', async () => {
+  // If we have the saved beforeinstallprompt event, trigger native prompt
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    const choice = await deferredPrompt.userChoice.catch(()=>({outcome:'dismissed'}));
+    if(choice.outcome === 'accepted'){
+      localStorage.setItem('ztera_pwa_installed','true');
+      pwaModal.classList.remove('show');
+    } else {
+      // user dismissed native prompt — keep showing our modal next time
+      deferredPrompt = null;
     }
-},15000);
+    return;
+  }
 
-// Register Service Worker
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js");
-}
+  // If no beforeinstallprompt available (Safari or it wasn't fired),
+  // show a short help text how to install manually:
+  alert("To install ZTERA: open browser menu → Add to Home screen (Android / Chrome). On iOS Safari: Share → Add to Home Screen.");
+});
+
+// Learn button shows manual instructions
+learnBtn.addEventListener('click', ()=>{
+  alert("Install instructions:\\n\\nAndroid (Chrome): Menu → Add to Home screen.\\niOS (Safari): Share → Add to Home Screen.\\nDesktop: In Chrome, click the install icon in the address bar or use menu → Install.");
+});
+
+// Close/hide modal — but we will NOT permanently hide unless user chooses so
+pwaClose.addEventListener('click', ()=>{
+  pwaModal.classList.remove('show');
+  // store choice to hide for a while (you can clear this storage later)
+  localStorage.setItem('ztera_pwa_hide','true');
+});
+
+// Always try to show modal after page load (best-effort)
+window.addEventListener('load', () => {
+  // register service worker
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('/sw.js').then(()=>{ console.log('SW registered'); }).catch(()=>{});
+  }
+  // show modal after small delay
+  setTimeout(showPwaModal, 1500);
+});
 </script>
 
 </body>
