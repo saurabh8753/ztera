@@ -1,199 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
+<meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<title>ZTERA – TeraBox HD Video Player (Play Terabox Videos Online)</title>
+<title>ZTERA – TeraBox HD Video Player</title>
 
-<meta name="description" content="Play any Terabox video online in HD without ads using ZTERA Player. Paste link and watch instantly. Fastest Terabox viewer with auto-detect support.">
+<meta name="description" content="ZTERA TeraBox Player lets you play any Terabox video online in HD without ads. Fastest Terabox video viewer with auto-detect link and mobile-friendly player.">
 
-<link rel="icon" type="image/png" href="YOUR-ICON.png">
+<link rel="icon" type="image/png" href="YOUR-ICON.png" />
 
-<!-- ⭐ Install Badge -->
+<link rel="stylesheet" href="style.css" />
+
 <style>
-#installBadge {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  background: #3248f5;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 50px;
-  font-family: system-ui;
-  font-size: 16px;
-  display: none;
-  cursor: pointer;
-  box-shadow: 0 6px 22px rgba(0,0,0,0.25);
-  animation: pulseBadge 1.4s infinite ease-in-out;
-  z-index: 99999;
+.videoBox{
+  margin-top:25px;
+  display:none;
 }
-@keyframes pulseBadge {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-  100% { transform: scale(1); }
-}
-</style>
-
-<!-- ⭐ Homepage Style (same UI as homepage) -->
-<style>
-:root{
-  --bg1:#eef3ff;
-  --bg2:#f8fbff;
-  --text:#0f172a;
-}
-body{
-  margin:0;
-  font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
-  background:linear-gradient(180deg,var(--bg1),var(--bg2));
-}
-.wrap{
-  max-width:980px;
-  margin:30px auto;
-  padding:16px;
-}
-.hero{text-align:center;}
-h1{
-  font-size:40px;
-  margin:8px 0;
-  color:#3248f5;
-  font-weight:800;
-}
-p.lead{
-  font-size:17px;
-  color:#6f7280;
-  margin-bottom:20px;
-}
-.card{
-  background:#fff;
-  padding:22px;
-  border-radius:20px;
-  border:1px solid #e7e9ff;
-  box-shadow:0 12px 26px rgba(0,0,0,.08);
-}
-.row{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.row input{
-  flex:1;
-  padding:14px 16px;
-  font-size:16px;
+.videoFrame{
+  width:100%;
+  height:60vh;
+  border:none;
   border-radius:14px;
-  border:1px solid #d7d9ef;
-  background:#f8f9ff;
-}
-.btn{
-  padding:14px 26px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#6d28d9,#4f46e5,#7c3aed);
-  color:white;
-  font-size:18px;
-  font-weight:700;
-  border:0;
-  cursor:pointer;
-}
-.neonPulse{ animation: pulse 1.8s infinite ease-in-out; }
-@keyframes pulse {
-  0%{transform:scale(1);}
-  50%{transform:scale(1.08);}
-  100%{transform:scale(1);}
 }
 .neonNote{
   text-align:center;
-  margin-top:14px;
-  padding:10px 16px;
-  color:#ff4d4d;
-  background:rgba(255,0,0,0.15);
-  border-radius:14px;
-  border:1px solid rgba(255,0,0,0.4);
+  margin-top:12px;
+  padding:10px;
+  background:#ffe6e6;
+  color:#d10000;
+  border-radius:12px;
   font-weight:600;
 }
 </style>
+
 </head>
-
 <body>
-
-<!-- ⭐ Install Badge -->
-<div id="installBadge">📲 Install ZTERA App</div>
 
 <div class="wrap">
 
 <header class="hero">
   <h1>ZTERA – TeraBox HD Video Player</h1>
-  <p class="lead">Paste your Terabox video link and watch instantly in HD without ads.</p>
+  <p class="lead">Paste your Terabox video link and watch instantly in HD – No ads.</p>
 </header>
 
 <section class="card">
   <div class="row">
-    <input id="tbxUrl" type="url" placeholder="Enter Terabox link here…">
+    <input id="playerUrl" type="url" placeholder="Enter TeraBox video link…">
   </div>
 
   <div style="text-align:center; margin-top:18px;">
-    <button id="openVideo" class="btn neonPulse">▶ Play Video</button>
+    <button id="playBtn" class="btn neonPulse">▶ Play Video</button>
   </div>
 
   <p class="neonNote">
-    ⚠ <b>Note:</b> Rotate your phone to landscape for full-screen mode.
+    ⚠ Auto-rotate mode ON rakhein for full-screen playback.
   </p>
 </section>
 
-<!-- ⭐ VIDEO PLAYER -->
-<section id="videoSection" style="margin-top:35px; display:none;">
-  <div style="max-width:1200px; margin:auto; aspect-ratio:16/9;">
-    <iframe id="videoFrame" allowfullscreen style="
-      width:100%; height:100%; border:none; border-radius:10px;"></iframe>
-  </div>
-
-  <!-- ⭐ ADS BELOW VIDEO -->
-  <div style="margin-top:25px; text-align:center;">
-    <script async data-cfasync="false" src="//pl28188629.effectivegatecpm.com/9a259b450791fd97609d22be0d2f1525/invoke.js"></script>
-    <div id="container-9a259b450791fd97609d22be0d2f1525"></div>
-  </div>
+<!-- ⭐ VIDEO IFRAME SECTION -->
+<section id="videoBox" class="videoBox">
+  <iframe id="videoFrame" class="videoFrame" allowfullscreen></iframe>
 </section>
 
 </div>
 
-<!-- ⭐ PWA Badge Script -->
 <script>
-let deferredPrompt;
-const badge = document.getElementById("installBadge");
+document.getElementById("playBtn").addEventListener("click", ()=>{
+  let url = document.getElementById("playerUrl").value.trim();
 
-window.addEventListener("beforeinstallprompt", e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  badge.style.display = "block";
-});
-
-badge.addEventListener("click", async () => {
-  badge.style.display = "none";
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  setTimeout(() => badge.style.display = "block", 15000);
-});
-</script>
-
-<!-- ⭐ Load Video in Iframe -->
-<script>
-document.getElementById("openVideo").addEventListener("click", () => {
-  let url = document.getElementById("tbxUrl").value.trim();
-  if(url.length < 10){ alert("Please enter a valid TeraBox link."); return; }
+  if(url.length < 10){
+    alert("Please enter a valid Terabox link");
+    return;
+  }
 
   if(!url.startsWith("http")) url = "https://" + url;
 
-  let finalURL = 
-    "https://iteraplay.com/api/play.php?url=" + 
-    encodeURIComponent(url) + 
-    "&key=iTeraPlay2025";
+  let final =
+    "https://iteraplay.com/api/play.php?url=" +
+    encodeURIComponent(url) + "&key=iTeraPlay2025";
 
-  document.getElementById("videoFrame").src = finalURL;
-  document.getElementById("videoSection").style.display = "block";
+  document.getElementById("videoFrame").src = final;
+  document.getElementById("videoBox").style.display = "block";
 
-  setTimeout(() => {
-    document.getElementById("videoSection").scrollIntoView({ behavior:"smooth" });
-  }, 400);
+  // Auto scroll
+  setTimeout(()=>{
+    document.getElementById("videoBox").scrollIntoView({behavior:"smooth"});
+  }, 300);
 });
 </script>
 
