@@ -6,87 +6,87 @@
 
 <title>ZTERA – TeraBox HD Video Player</title>
 
-<meta name="description" content="ZTERA TeraBox Player lets you play any Terabox video online in HD without ads. Fastest Terabox video viewer with auto-detect link and mobile-friendly player.">
-
-<link rel="icon" type="image/png" href="YOUR-ICON.png" />
+<meta name="description" content="ZTERA TeraBox Player lets you play Terabox videos online in HD without ads. Paste link & watch instantly.">
+<link rel="icon" type="image/png" href="YOUR-ICON.png">
 
 <link rel="stylesheet" href="style.css" />
 
 <style>
-.videoBox{
-  margin-top:25px;
-  display:none;
+.section{
+  margin-top:40px;
+  background:white;
+  padding:20px 24px;
+  border-radius:20px;
+  border:1px solid #e5e7ff;
 }
-.videoFrame{
-  width:100%;
-  height:60vh;
-  border:none;
-  border-radius:14px;
-}
+.section h2{ color:#3248f5; margin-bottom:10px; }
 .neonNote{
   text-align:center;
-  margin-top:12px;
-  padding:10px;
-  background:#ffe6e6;
-  color:#d10000;
-  border-radius:12px;
+  margin-top:14px;
+  padding:10px 16px;
+  font-size:15px;
   font-weight:600;
+  color:#ff4d4d;
+  background:rgba(255,0,0,0.15);
+  border:1px solid rgba(255,0,0,0.4);
+  border-radius:14px;
 }
+#videoSection{ margin-top:35px; display:none; }
 </style>
-
 </head>
+
 <body>
 
 <div class="wrap">
 
-<header class="hero">
-  <h1>ZTERA – TeraBox HD Video Player</h1>
-  <p class="lead">Paste your Terabox video link and watch instantly in HD – No ads.</p>
-</header>
+  <header class="hero">
+    <h1>ZTERA – TeraBox HD Video Player</h1>
+    <p class="lead">Paste your TeraBox video link and watch instantly in HD.</p>
+  </header>
 
-<section class="card">
-  <div class="row">
-    <input id="playerUrl" type="url" placeholder="Enter TeraBox video link…">
-  </div>
+  <section class="card">
+    <div class="row">
+      <input id="playerUrl" type="url" placeholder="Enter TeraBox video link…">
+    </div>
 
-  <div style="text-align:center; margin-top:18px;">
-    <button id="playBtn" class="btn neonPulse">▶ Play Video</button>
-  </div>
+    <div style="text-align:center; margin-top:18px;">
+      <button id="playBtn" class="btn neonPulse">▶ Play Video</button>
+    </div>
 
-  <p class="neonNote">
-    ⚠ Auto-rotate mode ON rakhein for full-screen playback.
-  </p>
-</section>
+    <p class="neonNote">
+      ⚠ <b>Note:</b> Turn on Auto-rotate for full-screen video.
+    </p>
 
-<!-- ⭐ VIDEO IFRAME SECTION -->
-<section id="videoBox" class="videoBox">
-  <iframe id="videoFrame" class="videoFrame" allowfullscreen></iframe>
-</section>
+  </section>
 
+  <!-- ⭐ IFRAME VIDEO PLAYER -->
+  <section id="videoSection">
+    <div style="max-width:1200px; margin:auto; aspect-ratio:16/9;">
+      <iframe id="videoFrame" allowfullscreen style="
+        width:100%; height:100%; border:none; border-radius:10px;"></iframe>
+    </div>
+  </section>
+
+  <!-- ⭐ SEO Section Same -->
 </div>
 
 <script>
 document.getElementById("playBtn").addEventListener("click", ()=>{
   let url = document.getElementById("playerUrl").value.trim();
-
-  if(url.length < 10){
-    alert("Please enter a valid Terabox link");
-    return;
-  }
+  if(url.length<10){ alert("Enter a valid TeraBox link"); return; }
 
   if(!url.startsWith("http")) url = "https://" + url;
 
-  let final =
-    "https://iteraplay.com/api/play.php?url=" +
-    encodeURIComponent(url) + "&key=iTeraPlay2025";
+  const finalURL =
+    "https://iteraplay.com/api/play.php?url="+encodeURIComponent(url)+"&key=iTeraPlay2025";
 
-  document.getElementById("videoFrame").src = final;
-  document.getElementById("videoBox").style.display = "block";
+  document.getElementById("videoFrame").src = finalURL;
+  document.getElementById("videoSection").style.display = "block";
 
-  // Auto scroll
   setTimeout(()=>{
-    document.getElementById("videoBox").scrollIntoView({behavior:"smooth"});
-  }, 300);
+    document.getElementById("videoSection")
+      .scrollIntoView({ behavior:"smooth" });
+  },500);
 });
 </script>
 
