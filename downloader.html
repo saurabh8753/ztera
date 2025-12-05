@@ -3,22 +3,27 @@
 <head>
 <meta charset="UTF-8">
 
-<title>ZTERA Downloader – Fast TeraBox Video Downloader (Direct Link Generator)</title>
+<title>ZTERA Downloader – Fast TeraBox HD Video Downloader</title>
 
 <meta name="description" content="ZTERA Downloader is the fastest tool to download TeraBox videos in HD. Generate direct links instantly without ads. Works on Android, iPhone and PC.">
-<meta name="keywords" content="ZTERA Downloader, Terabox Downloader, Terabox Video Download, Terabox Direct Link, Fast Terabox Download, Online Terabox Downloader">
+<meta name="keywords" content="ZTERA Downloader, Terabox Downloader, Terabox Video Download, Terabox link generator, direct link, fast terabox download">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- ⭐ Google Analytics -->
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E6G38YDKRW"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
-function gtag(){ dataLayer.push(arguments); }
-gtag("js", new Date());
-gtag("config", "G-E6G38YDKRW");
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-E6G38YDKRW');
 </script>
 
-<!-- ⭐ Install Badge CSS -->
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="YOUR-ICON.png" />
+
+<link rel="stylesheet" href="style.css">
+
+<!-- ⭐ INSTALL BADGE -->
 <style>
 #installBadge {
   position: fixed;
@@ -38,28 +43,37 @@ gtag("config", "G-E6G38YDKRW");
 }
 @keyframes pulseBadge {
   0% { transform: scale(1); }
-  50% { transform: scale(1.09); }
+  50% { transform: scale(1.08); }
   100% { transform: scale(1); }
 }
 </style>
 
-<!-- ⭐ Favicon -->
-<link rel="icon" type="image/png"
-href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABYUlEQVR4nO3aMU4CURSF4ZeJgpQAyEykhDIhDSQTSJDMhczASrCipA8ihDJIIXN0d7d+7e8GR2cblt2t7tz12Znd2V9k13u8z/M4z7u9zHkU05wAAQIECBAgQIAAgWEOKHcCbn5wCMZTtqFjA+YH/DLy8rrR8ACa+o6E7ggrN2M8IcWvJ5P8fw8Ky3nDfcjLvYEQz1h0zG2BCyEwF6t2lYpZ2gCAtwTlxMSJKwm2VbzoCj3tZ2f4Kb9p44YhvyaG6q0N3qGZJPNvs+jJ5H6p0sS9ym6u6LcT+ca2bGoP0t1vkl6rl4p9e/UHY5B2nzLjkYqcMIn2zBrrKZSe1mwE2ZLx4nWilSbEm4nl/5WkU2p7E6Z5w7xI7+IKbF3y5E4DUtcgQIECBAgAABAwb4Av4BR8dRlFZpJ5UAAAAASUVORK5CYII=" />
-
-<link rel="stylesheet" href="style.css">
+<style>
+.section{
+  background:white;
+  padding:22px;
+  border-radius:20px;
+  border:1px solid #e7e9ff;
+  box-shadow:0 6px 18px rgba(0,0,0,0.07);
+  margin-top:35px;
+}
+.section h2{
+  color:#3248f5;
+  margin-bottom:10px;
+}
+</style>
 
 </head>
 
 <body>
 
-<!-- ⭐ Install Badge -->
+<!-- ⭐ FLOATING BADGE -->
 <div id="installBadge">📲 Install ZTERA App</div>
 
 <div class="wrap">
 
 <header class="hero">
-  <h1>ZTERA – TeraBox HD <span style="color:#1F2BF5">Downloader</span></h1>
+  <h1>ZTERA – TeraBox HD Downloader</h1>
   <p class="lead">Generate Fast Direct Links & Download TeraBox Videos in HD Quality</p>
 </header>
 
@@ -74,58 +88,64 @@ href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABYUlE
   <p class="neonNote">
     ⚠ <b>Note:</b> If download does not start, open link in a new tab or disable popup blocker.
   </p>
+
 </section>
 
-<!-- ⭐ SEO Section (unchanged) -->
+<!-- ⭐ SEO Section -->
 <section class="section">
   <h2>What is ZTERA Downloader?</h2>
-  <p>ZTERA Downloader is the fastest...</p>
+  <p>
+    ZTERA Downloader is the fastest <b>TeraBox HD direct link generator</b> tool.  
+    It instantly converts any Terabox video link into a downloadable HD file with no ads.
+  </p>
 
-  <h2>Useful Links</h2>
+  <h2>Why ZTERA Downloader?</h2>
   <ul>
-    <li><a class="internal" href="index.html">🏠 ZTERA Homepage</a></li>
-    <li><a class="internal" href="player.html">▶ ZTERA TeraBox Player</a></li>
-    <li><a class="internal" href="blog.html">📚 ZTERA Blog</a></li>
+    <li>Fastest 1-Click Direct Link</li>
+    <li>No ads or popups</li>
+    <li>Works on Android, iPhone, PC</li>
+    <li>HD quality download</li>
+    <li>No login needed</li>
   </ul>
+
+  <h2>Useful Pages</h2>
+  <ul>
+    <li><a href="index.html" class="internal">🏠 ZTERA Homepage</a></li>
+    <li><a href="player.html" class="internal">▶ ZTERA Video Player</a></li>
+    <li><a href="blog.html" class="internal">📚 ZTERA Blog</a></li>
+  </ul>
+
 </section>
 
 </div>
 
 <script>
-// ⭐ Install Badge Logic
+function downloadNow(){
+  let url = document.getElementById("url").value.trim();
+  if(url.length < 10){ alert("Invalid link"); return; }
+
+  const final =
+    "https://iteraplay.com/api/play.php?url=" +
+    encodeURIComponent(url) + "&key=iTeraPlay2025";
+
+  window.open(final, "_blank");
+}
+</script>
+
+<!-- ⭐ BADGE JS -->
+<script>
 let deferredPrompt;
-let badge = document.getElementById("installBadge");
+const badge = document.getElementById("installBadge");
 
 window.addEventListener("beforeinstallprompt", (e)=>{
   e.preventDefault();
   deferredPrompt = e;
   badge.style.display = "block";
 });
-
 badge.addEventListener("click", async ()=>{
   badge.style.display = "none";
   deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
 });
-
-// ⭐ Downloader Logic
-function downloadNow(){
-  let url = document.getElementById("url").value.trim();
-  if(url.length<10){ alert("Invalid TeraBox URL"); return; }
-  if(!url.startsWith("http")) url="https://" + url;
-
-  let final =
-    "https://iteraplay.com/api/play.php?url=" +
-    encodeURIComponent(url) +
-    "&key=iTeraPlay2025";
-
-  window.open(final, "_blank");
-}
-
-// ⭐ Service Worker
-if ("serviceWorker" in navigator){
-  navigator.serviceWorker.register("service-worker.js");
-}
 </script>
 
 </body>
