@@ -3,21 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ZTERA – Neon TeraBox Player</title>
+<title>ZTERA – TeraBox Player & Downloader</title>
 
 <meta name="theme-color" content="#3248f5">
 
-<!-- 💰 ADSTERRA SOCIAL BAR -->
-<script>
-(function(){
-  var s=document.createElement("script");
-  s.src="//pl22568764.highrevenuegate.com/1d/72/aa/1d72aa_social.js";
-  s.async=true;
-  document.head.appendChild(s);
-})();
-</script>
-
-<!-- 🔥 HLS.JS -->
+<!-- HLS -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 <style>
@@ -26,85 +16,73 @@ body{margin:0;font-family:Inter,system-ui;background:#eef3ff}
 .hero{text-align:center}
 h1{color:#3248f5;font-size:38px}
 .card{background:#fff;padding:22px;border-radius:20px}
-input{width:100%;padding:14px;border-radius:14px;border:1px solid #ccc}
+
+input{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:1px solid #ccc;
+  font-size:16px
+}
+
 .btn{
-  margin-top:16px;padding:14px;border-radius:16px;
-  background:#4f46e5;color:#fff;font-size:18px;
-  font-weight:700;border:0;width:100%;cursor:pointer
-}
-.note{text-align:center;color:#ff4d4d;font-weight:600}
-
-/* 🌈 PLAYER MODAL */
-.modal{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.75);
-  display:none;align-items:center;justify-content:center;
-  z-index:9000
-}
-.modal-box{
-  width:100%;max-width:920px;
-  padding:14px;border-radius:22px;
-  background:#000;
-  animation:neonPulse 2.2s infinite alternate
-}
-@keyframes neonPulse{
-  from{box-shadow:0 0 18px #4f46e5}
-  to{box-shadow:0 0 55px #22d3ee}
-}
-video{
-  width:100%;max-height:72vh;
-  border-radius:16px;background:#000
-}
-.controls{display:flex;gap:10px;margin-top:12px}
-select,.download-btn{
-  flex:1;padding:12px;border-radius:12px;font-weight:700
-}
-.download-btn{
-  background:#16a34a;color:#fff;
-  text-align:center;text-decoration:none
+  margin-top:16px;
+  padding:14px;
+  border-radius:16px;
+  background:#4f46e5;
+  color:#fff;
+  font-size:18px;
+  font-weight:700;
+  border:0;
+  width:100%;
+  cursor:pointer
 }
 
-/* 🌈 DOWNLOAD MODAL */
-.dl-overlay{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.65);
-  display:none;align-items:center;justify-content:center;
-  z-index:10000;
-}
-.dl-box{
-  background:#0b0b12;
-  width:92%;max-width:360px;
-  padding:20px;border-radius:20px;
-  text-align:center;color:#fff;
-  animation:scaleIn .35s ease;
-}
-@keyframes scaleIn{
-  from{transform:scale(.85);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-.neon-glow{
-  box-shadow:
-    0 0 12px #4f46e5,
-    0 0 30px #22d3ee,
-    0 0 60px rgba(79,70,229,.8);
-  animation:neonPulse 2s infinite alternate;
-}
-.dl-btn{
-  width:100%;padding:12px;margin-top:10px;
-  border-radius:14px;border:0;
-  font-weight:700;font-size:15px;cursor:pointer
-}
-.dl-btn.green{background:#16a34a;color:#fff}
-.dl-btn.blue{background:#2563eb;color:#fff}
-.dl-btn.gray{background:#6b7280;color:#fff}
-.dl-note{font-size:13px;color:#cbd5e1;margin-top:10px}
-.dl-close{margin-top:10px;background:none;border:0;color:#9ca3af}
-
-/* 💰 ADSTERRA IN MODAL */
-.adsterra-zone{
+.loading{
   margin-top:14px;
-  background:#111827;
-  padding:10px;border-radius:12px;
+  text-align:center;
+  font-weight:700;
+  color:#3248f5;
+  display:none
+}
+
+.player{
+  margin-top:22px;
+  display:none
+}
+
+video{
+  width:100%;
+  max-height:70vh;
+  background:#000;
+  border-radius:16px
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+  margin-top:14px
+}
+
+.action-btn{
+  flex:1;
+  padding:14px;
+  border-radius:14px;
+  font-weight:700;
+  text-align:center;
+  text-decoration:none;
+  cursor:pointer
+}
+
+.browser{background:#16a34a;color:#fff}
+.server{background:#2563eb;color:#fff}
+
+.error{
+  margin-top:14px;
+  color:#dc2626;
+  font-weight:700;
+  text-align:center;
+  display:none
 }
 </style>
 </head>
@@ -113,81 +91,91 @@ select,.download-btn{
 
 <div class="wrap">
 <header class="hero">
-<h1>ZTERA – Neon HD Player</h1>
-<p>Play & Download in Browser (One Click)</p>
+<h1>ZTERA – Inline Player</h1>
+<p>Play & Download TeraBox Videos</p>
 </header>
 
 <section class="card">
 <input id="tbxUrl" placeholder="Paste Terabox link here">
-<button class="btn" onclick="loadVideo()">▶ Play Video</button>
-<p class="note">⚠ Rotate phone for best experience</p>
+<button class="btn" onclick="start()">▶ Play Video</button>
+
+<div id="loading" class="loading">⏳ Fetching video…</div>
+<div id="error" class="error"></div>
+
+<div id="player" class="player">
+  <video id="video" controls playsinline preload="auto"></video>
+
+  <div class="actions">
+    <button class="action-btn browser" onclick="browserPlay()">
+      ▶ Browser Play & Download
+    </button>
+    <button class="action-btn server" onclick="serverDownload()">
+      ⬇ Render Server Download
+    </button>
+  </div>
+</div>
 </section>
 </div>
 
-<!-- 🌈 PLAYER MODAL -->
-<div id="modal" class="modal">
-  <div class="modal-box">
-    <video id="video" controls playsinline preload="auto"></video>
-    <div class="controls">
-      <select id="quality" onchange="manualQuality()">
-        <option value="auto">AI Auto</option>
-        <option value="1080p">1080p</option>
-        <option value="720p">720p</option>
-        <option value="360p">360p</option>
-      </select>
-      <a id="downloadBtn" class="download-btn">⬇ Download</a>
-    </div>
-  </div>
-</div>
-
-<!-- 🌈 DOWNLOAD MODAL -->
-<div id="dlModal" class="dl-overlay">
-  <div class="dl-box neon-glow">
-    <h3>⬇ Download Video</h3>
-
-    <button class="dl-btn green" onclick="fastDownload()">
-      ▶ Play & Download (Browser)
-    </button>
-
-    <button class="dl-btn blue" onclick="externalDownload()">
-      📲 Use ADM / 1DM / VLC
-    </button>
-
-    <button class="dl-btn gray" onclick="copyLink()">
-      📋 Copy Video Link
-    </button>
-
-    <p class="dl-note">
-      ⚠ Guaranteed MP4 download → use ADM / 1DM
-    </p>
-
-    <div class="adsterra-zone">
-      <div id="adsterra-modal"></div>
-    </div>
-
-    <button class="dl-close" onclick="closeDL()">✕ Close</button>
-  </div>
-</div>
-
 <script>
-let mirrors={}, order=[], current=0;
-let hls=null, bestStream="";
-const video=document.getElementById("video");
+const API = "https://iteraplay.in/api/fetch?url=";
+const RENDER = "https://ztera-downloader.onrender.com";
 
-/* 🧠 SPEED DETECTION */
-async function detectQuality(){
-  const t=Date.now();
-  try{await fetch("https://www.cloudflare.com/cdn-cgi/trace",{mode:"no-cors"});}catch{}
-  const ms=Date.now()-t;
-  if(ms<250) return "1080p";
-  if(ms<600) return "720p";
-  return "360p";
+let mirrors={}, bestStream="", hls=null;
+
+/* 🔁 FETCH WITH RETRY */
+async function fetchWithRetry(url, retries=3){
+  for(let i=0;i<retries;i++){
+    try{
+      const c=new AbortController();
+      setTimeout(()=>c.abort(),10000);
+
+      const r=await fetch(url,{cache:"no-store",signal:c.signal});
+      if(!r.ok) throw 0;
+      return await r.json();
+    }catch(e){
+      if(i===retries-1) throw e;
+    }
+  }
 }
 
-/* 🔥 PLAY SOURCE */
-function playSource(url){
-  if(hls){hls.destroy();hls=null;}
-  if(!url) return;
+/* 🚀 START */
+async function start(){
+  const link=tbxUrl.value.trim();
+  if(link.length<10) return showError("Invalid link");
+
+  error.style.display="none";
+  loading.style.display="block";
+  player.style.display="none";
+
+  try{
+    const data=await fetchWithRetry(API+encodeURIComponent(link));
+    if(data.status!=="success") throw 0;
+
+    const f=data.list[0];
+    mirrors=f.fast_stream_url||{};
+    mirrors.base=f.stream_url;
+
+    bestStream =
+      mirrors["1080p"] ||
+      mirrors["720p"] ||
+      mirrors["360p"] ||
+      mirrors.base;
+
+    playInline(bestStream);
+
+    loading.style.display="none";
+    player.style.display="block";
+
+  }catch{
+    loading.style.display="none";
+    showError("Server busy, try again");
+  }
+}
+
+/* ▶ INLINE PLAY */
+function playInline(url){
+  if(hls){hls.destroy();hls=null}
 
   if(url.includes(".m3u8")){
     if(video.canPlayType("application/vnd.apple.mpegurl")){
@@ -200,121 +188,32 @@ function playSource(url){
   }else{
     video.src=url;
   }
-  video.load();
   video.play().catch(()=>{});
 }
 
-/* 🚀 LOAD VIDEO */
-async function loadVideo(){
-  const u=tbxUrl.value.trim();
-  if(u.length<10) return alert("Invalid Terabox link");
+/* ▶ BROWSER PLAY + DOWNLOAD */
+function browserPlay(){
+  window.open(bestStream,"_blank");
+}
 
+/* ⬇ SERVER DOWNLOAD */
+async function serverDownload(){
   try{
-    const r=await fetch(
-      "https://iteraplay.in/api/fetch?url="+encodeURIComponent(u),
-      {cache:"no-store"}
-    );
-    const d=await r.json();
-    if(d.status!=="success") throw 0;
+    const t=await fetch(
+      RENDER+"/token?url="+encodeURIComponent(bestStream)
+    ).then(r=>r.json());
 
-    const f=d.list[0];
-    mirrors=f.fast_stream_url||{};
-    mirrors.base=f.stream_url;
-
-    const ai=await detectQuality();
-    order=[
-      mirrors[ai],
-      mirrors["1080p"],
-      mirrors["720p"],
-      mirrors["360p"],
-      mirrors.base
-    ].filter(Boolean);
-
-    current=0;
-    playSource(order[current]);
-
-    modal.style.display="flex";
-    setTimeout(()=>video.play().catch(()=>{}),300);
-
+    window.location.href =
+      RENDER+"/download?token="+t.token+"&name=ztera_video.mp4";
   }catch{
-    alert("Server error / link expired");
+    alert("Download server busy");
   }
 }
 
-/* 📡 FAILOVER */
-video.onerror=()=>{
-  current++;
-  if(current<order.length){
-    playSource(order[current]);
-  }else{
-    alert("All streams failed");
-  }
-};
-
-/* 🎚 MANUAL QUALITY */
-function manualQuality(){
-  const q=quality.value;
-  if(q==="auto") return loadVideo();
-  playSource(mirrors[q]||mirrors.base);
+function showError(msg){
+  error.textContent=msg;
+  error.style.display="block";
 }
-
-/* ⬇️ DOWNLOAD UX */
-downloadBtn.onclick=e=>{
-  e.preventDefault();
-  bestStream =
-    mirrors["1080p"] ||
-    mirrors["720p"] ||
-    mirrors["360p"] ||
-    mirrors.base;
-  dlModal.style.display="flex";
-};
-
-/* ✅ FAST DOWNLOAD = PLAY + DOWNLOAD IN SAME TAB */
-function fastDownload(){
-  window.open(bestStream, "_blank");
-  closeDL();
-}
-
-function externalDownload(){
-  navigator.clipboard.writeText(bestStream);
-  alert("Link copied!\nPaste in ADM / 1DM / VLC");
-  closeDL();
-}
-
-function copyLink(){
-  navigator.clipboard.writeText(bestStream);
-  alert("Video link copied");
-}
-
-function closeDL(){
-  dlModal.style.display="none";
-}
-
-/* ❌ CLOSE PLAYER MODAL */
-modal.onclick=e=>{
-  if(e.target.id==="modal"){
-    modal.style.display="none";
-    video.pause();
-    if(hls){hls.destroy();hls=null;}
-  }
-};
-
-/* 🤖 TELEGRAM AUTO PLAY */
-(()=>{
-  const p=new URLSearchParams(location.search);
-  const u=p.get("url");
-  if(u){tbxUrl.value=u;setTimeout(loadVideo,600);}
-})();
-</script>
-
-<!-- 💰 ADSTERRA INSIDE DOWNLOAD MODAL -->
-<script>
-(function(){
-  var s=document.createElement("script");
-  s.src="//pl22568764.highrevenuegate.com/1d/72/aa/1d72aa_social.js";
-  s.async=true;
-  document.getElementById("adsterra-modal")?.appendChild(s);
-})();
 </script>
 
 </body>
