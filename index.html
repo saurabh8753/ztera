@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ZTERA – Ultimate Neon TeraBox Player</title>
+<title>ZTERA – Neon TeraBox Player & Downloader</title>
 
 <meta name="theme-color" content="#3248f5">
 
-<!-- 💰 ADSTERRA SOCIAL BAR -->
+<!-- 💰 ADSTERRA SOCIAL BAR (GLOBAL) -->
 <script>
 (function(){
   var s=document.createElement("script");
@@ -34,20 +34,20 @@ input{width:100%;padding:14px;border-radius:14px;border:1px solid #ccc}
 }
 .note{text-align:center;color:#ff4d4d;font-weight:600}
 
-/* 🌈 NEON MODAL */
+/* 🌈 PLAYER MODAL */
 .modal{
   position:fixed;inset:0;
   background:rgba(0,0,0,.75);
   display:none;align-items:center;justify-content:center;
-  z-index:9999
+  z-index:9000
 }
 .modal-box{
   width:100%;max-width:920px;
   padding:14px;border-radius:22px;
   background:#000;
-  animation:neon 2.2s infinite alternate
+  animation:neonPulse 2.2s infinite alternate
 }
-@keyframes neon{
+@keyframes neonPulse{
   from{box-shadow:0 0 18px #4f46e5}
   to{box-shadow:0 0 55px #22d3ee}
 }
@@ -63,6 +63,49 @@ select,.download-btn{
   background:#16a34a;color:#fff;
   text-align:center;text-decoration:none
 }
+
+/* 🌈 DOWNLOAD MODAL */
+.dl-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.65);
+  display:none;align-items:center;justify-content:center;
+  z-index:10000;
+}
+.dl-box{
+  background:#0b0b12;
+  width:92%;max-width:360px;
+  padding:20px;border-radius:20px;
+  text-align:center;color:#fff;
+  animation:scaleIn .35s ease;
+}
+@keyframes scaleIn{
+  from{transform:scale(.85);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+.neon-glow{
+  box-shadow:
+    0 0 12px #4f46e5,
+    0 0 30px #22d3ee,
+    0 0 60px rgba(79,70,229,.8);
+  animation:neonPulse 2s infinite alternate;
+}
+.dl-btn{
+  width:100%;padding:12px;margin-top:10px;
+  border-radius:14px;border:0;
+  font-weight:700;font-size:15px;cursor:pointer
+}
+.dl-btn.green{background:#16a34a;color:#fff}
+.dl-btn.blue{background:#2563eb;color:#fff}
+.dl-btn.gray{background:#6b7280;color:#fff}
+.dl-note{font-size:13px;color:#cbd5e1;margin-top:10px}
+.dl-close{margin-top:10px;background:none;border:0;color:#9ca3af}
+
+/* 💰 ADSTERRA IN MODAL */
+.adsterra-zone{
+  margin-top:14px;
+  background:#111827;
+  padding:10px;border-radius:12px;
+}
 </style>
 </head>
 
@@ -70,8 +113,8 @@ select,.download-btn{
 
 <div class="wrap">
 <header class="hero">
-<h1>ZTERA – AI Neon Player</h1>
-<p>1080p • HLS Adaptive • Auto Mirror</p>
+<h1>ZTERA – Neon HD Player</h1>
+<p>AI Auto Quality • Browser-Only Download</p>
 </header>
 
 <section class="card">
@@ -81,7 +124,7 @@ select,.download-btn{
 </section>
 </div>
 
-<!-- 🌈 MODAL PLAYER -->
+<!-- 🌈 PLAYER MODAL -->
 <div id="modal" class="modal">
   <div class="modal-box">
     <video id="video" controls playsinline preload="auto"></video>
@@ -97,9 +140,38 @@ select,.download-btn{
   </div>
 </div>
 
+<!-- 🌈 NEON DOWNLOAD MODAL -->
+<div id="dlModal" class="dl-overlay">
+  <div class="dl-box neon-glow">
+    <h3>⬇ Download Video</h3>
+
+    <button class="dl-btn green" onclick="fastDownload()">
+      🚀 Fast Download (Browser)
+    </button>
+
+    <button class="dl-btn blue" onclick="externalDownload()">
+      📲 Use ADM / 1DM / VLC
+    </button>
+
+    <button class="dl-btn gray" onclick="copyLink()">
+      📋 Copy Video Link
+    </button>
+
+    <p class="dl-note">
+      ⚠ Guaranteed MP4 download → use ADM / 1DM
+    </p>
+
+    <div class="adsterra-zone">
+      <div id="adsterra-modal"></div>
+    </div>
+
+    <button class="dl-close" onclick="closeDL()">✕ Close</button>
+  </div>
+</div>
+
 <script>
 let mirrors={}, order=[], current=0;
-let hls=null;
+let hls=null, bestStream="";
 const video=document.getElementById("video");
 
 /* 🧠 SPEED DETECTION */
@@ -112,23 +184,22 @@ async function detectQuality(){
   return "360p";
 }
 
-/* 🔥 PLAY SOURCE (MP4 / HLS) */
+/* 🔥 PLAY SOURCE */
 function playSource(url){
   if(hls){hls.destroy();hls=null;}
   if(!url) return;
 
   if(url.includes(".m3u8")){
     if(video.canPlayType("application/vnd.apple.mpegurl")){
-      video.src=url; // iOS
+      video.src=url;
     }else if(Hls.isSupported()){
-      hls=new Hls({autoStartLoad:true});
+      hls=new Hls();
       hls.loadSource(url);
       hls.attachMedia(video);
     }
   }else{
-    video.src=url; // MP4
+    video.src=url;
   }
-
   video.load();
   video.play().catch(()=>{});
 }
@@ -151,7 +222,6 @@ async function loadVideo(){
     mirrors.base=f.stream_url;
 
     const ai=await detectQuality();
-
     order=[
       mirrors[ai],
       mirrors["1080p"],
@@ -163,30 +233,21 @@ async function loadVideo(){
     current=0;
     playSource(order[current]);
 
-    /* ⬇️ DOWNLOAD FIX (Chrome Safe) */
-    downloadBtn.onclick=e=>{
-      e.preventDefault();
-      window.open(
-        f.fast_download_link || f.download_link || mirrors.base,
-        "_blank"
-      );
-    };
-
     modal.style.display="flex";
     setTimeout(()=>video.play().catch(()=>{}),300);
 
   }catch{
-    alert("Server error or link expired");
+    alert("Server error / link expired");
   }
 }
 
-/* 📡 AUTO MIRROR SWITCH */
+/* 📡 MIRROR FAILOVER */
 video.onerror=()=>{
   current++;
   if(current<order.length){
     playSource(order[current]);
   }else{
-    alert("All mirrors failed");
+    alert("All streams failed");
   }
 };
 
@@ -197,7 +258,35 @@ function manualQuality(){
   playSource(mirrors[q]||mirrors.base);
 }
 
-/* ❌ CLOSE MODAL */
+/* ⬇️ DOWNLOAD UX */
+downloadBtn.onclick=e=>{
+  e.preventDefault();
+  bestStream =
+    mirrors["1080p"] ||
+    mirrors["720p"] ||
+    mirrors["360p"] ||
+    mirrors.base;
+  dlModal.style.display="flex";
+};
+
+function fastDownload(){
+  window.open(bestStream,"_blank");
+  closeDL();
+}
+function externalDownload(){
+  navigator.clipboard.writeText(bestStream);
+  alert("Link copied!\nPaste in ADM / 1DM / VLC");
+  closeDL();
+}
+function copyLink(){
+  navigator.clipboard.writeText(bestStream);
+  alert("Video link copied");
+}
+function closeDL(){
+  dlModal.style.display="none";
+}
+
+/* ❌ CLOSE PLAYER MODAL */
 modal.onclick=e=>{
   if(e.target.id==="modal"){
     modal.style.display="none";
@@ -211,6 +300,16 @@ modal.onclick=e=>{
   const p=new URLSearchParams(location.search);
   const u=p.get("url");
   if(u){tbxUrl.value=u;setTimeout(loadVideo,600);}
+})();
+</script>
+
+<!-- 💰 ADSTERRA LOAD INSIDE DOWNLOAD MODAL -->
+<script>
+(function(){
+  var s=document.createElement("script");
+  s.src="//pl22568764.highrevenuegate.com/1d/72/aa/1d72aa_social.js";
+  s.async=true;
+  document.getElementById("adsterra-modal")?.appendChild(s);
 })();
 </script>
 
