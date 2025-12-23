@@ -1,82 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ZTERA – TeraBox Inline Player</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<meta name="theme-color" content="#3248f5">
+<title>ZTERA – TeraBox Video Player & Downloader (HD Online Player)</title>
 
-<!-- HLS.js -->
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<link rel="icon" type="image/png" href="YOUR-ICON.png">
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#3248f5" />
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E6G38YDKRW"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-E6G38YDKRW');
+</script>
 
 <style>
+:root{--bg1:#eef3ff;--bg2:#f8fbff}
 body{
-  margin:0;
-  font-family:Inter,system-ui;
-  background:#eef3ff
+  margin:0;font-family:Inter,system-ui;
+  background:linear-gradient(180deg,var(--bg1),var(--bg2));
 }
-.wrap{
-  max-width:980px;
-  margin:30px auto;
-  padding:16px
-}
+.wrap{max-width:980px;margin:30px auto;padding:16px}
 .hero{text-align:center}
-h1{color:#3248f5;font-size:38px}
-
+h1{font-size:40px;color:#3248f5;font-weight:800}
+p.lead{color:#6f7280;font-size:17px}
 .card{
-  background:#fff;
-  padding:22px;
-  border-radius:20px
+  background:#fff;padding:22px;border-radius:20px;
+  box-shadow:0 12px 26px rgba(0,0,0,.08)
 }
-
-input{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:1px solid #ccc;
-  font-size:16px
+.row input{
+  width:100%;padding:14px;font-size:16px;
+  border-radius:14px;border:1px solid #d7d9ef
 }
-
 .btn{
-  margin-top:16px;
-  padding:14px;
-  border-radius:16px;
-  background:#4f46e5;
-  color:#fff;
-  font-size:18px;
-  font-weight:700;
-  border:0;
-  width:100%;
-  cursor:pointer
+  padding:14px 26px;border-radius:16px;
+  background:linear-gradient(135deg,#6d28d9,#4f46e5);
+  color:#fff;font-size:18px;font-weight:700;
+  cursor:pointer;border:0
 }
-
-.loading{
-  margin-top:14px;
+.btn:disabled{opacity:.7;cursor:not-allowed}
+.neonNote{
+  margin-top:14px;padding:10px;
+  color:#ff4d4d;font-weight:600;
+  background:rgba(255,0,0,.12);
+  border-radius:14px;text-align:center
+}
+#status{
+  margin-top:12px;
   text-align:center;
   font-weight:700;
   color:#3248f5;
   display:none
 }
-
-.error{
-  margin-top:10px;
-  color:#dc2626;
-  font-weight:700;
-  text-align:center;
-  display:none
+#videoSection{
+  display:none;
+  margin-top:35px
 }
-
-.player{
-  margin-top:22px;
-  display:none
-}
-
-video{
+iframe{
   width:100%;
-  max-height:70vh;
-  background:#000;
-  border-radius:16px
+  height:100%;
+  border:none;
+  border-radius:10px
 }
 </style>
 </head>
@@ -84,116 +73,114 @@ video{
 <body>
 
 <div class="wrap">
+
 <header class="hero">
-<h1>ZTERA – Inline Video Player</h1>
-<p>Auto-retry enabled • No popup • No download</p>
+<h1>ZTERA – TeraBox HD Video Player</h1>
+<p class="lead">Play Terabox Videos Online – Fast & Secure</p>
 </header>
 
 <section class="card">
-<input id="tbxUrl" placeholder="Paste Terabox link here">
-<button class="btn" onclick="start()">▶ Play Video</button>
+<div class="row">
+<input id="tbxUrl" type="url" placeholder="Enter TeraBox link here…">
+</div>
 
-<div id="loading" class="loading">⏳ Fetching video… please wait</div>
-<div id="error" class="error"></div>
+<div style="text-align:center;margin-top:18px;">
+<button id="openVideo" class="btn">▶ Play Video</button>
+</div>
 
-<div id="player" class="player">
-  <video id="video" controls playsinline preload="auto"></video>
+<div id="status">⏳ Fetching video…</div>
+
+<p class="neonNote">
+⚠ Turn on Auto-Rotate for full-screen video
+</p>
+</section>
+
+<section id="videoSection">
+<div style="max-width:1200px;margin:auto;aspect-ratio:16/9">
+<iframe id="videoFrame" allowfullscreen></iframe>
 </div>
 </section>
+
 </div>
 
+<!-- ===============================
+     AUTO RETRY + PLAYER LOGIC
+     =============================== -->
 <script>
-const API = "https://iteraplay.in/api/fetch?url=";
-
-let hls = null;
 let retryTimer = null;
-let stopped = false;
+let isPlaying = false;
+let retryCount = 0;
 
-/* 🚀 START */
-function start(){
-  const link = tbxUrl.value.trim();
-  if(link.length < 10){
-    showError("Invalid TeraBox link");
-    return;
-  }
+const playBtn = document.getElementById("openVideo");
+const statusBox = document.getElementById("status");
 
-  stopped = false;
-  error.style.display = "none";
-  player.style.display = "none";
-  loading.style.display = "block";
+/* 🔁 INFINITE AUTO-RETRY */
+async function tryPlay(url){
+  if(isPlaying) return;
 
-  fetchUntilSuccess(link);
-}
+  playBtn.disabled = true;
+  statusBox.style.display = "block";
+  retryCount++;
 
-/* 🔁 INFINITE AUTO RETRY */
-async function fetchUntilSuccess(link){
-  if(stopped) return;
+  statusBox.innerText =
+    retryCount === 1
+    ? "⏳ Fetching video…"
+    : "⏳ Server busy… retrying ("+retryCount+")";
 
   try{
     const controller = new AbortController();
-    setTimeout(()=>controller.abort(), 10000);
+    setTimeout(()=>controller.abort(), 8000);
 
-    const res = await fetch(
-      API + encodeURIComponent(link),
-      { cache:"no-store", signal: controller.signal }
-    );
+    /* lightweight ping */
+    await fetch("https://iteraplay.com/api/ping",{signal:controller.signal});
 
-    if(!res.ok) throw new Error();
-    const data = await res.json();
-    if(data.status !== "success") throw new Error();
+    /* 🎥 PLAYER CODE — UNCHANGED */
+    videoFrame.src =
+      "https://iteraplay.com/api/play.php?url=" +
+      encodeURIComponent(url) +
+      "&key=iTeraPlay2025";
 
-    // ✅ SUCCESS
-    const file = data.list[0];
-    const stream =
-      file.fast_stream_url?.["720p"] ||
-      file.fast_stream_url?.["360p"] ||
-      file.stream_url;
+    videoSection.style.display = "block";
+    setTimeout(()=>videoSection.scrollIntoView({behavior:"smooth"}),500);
 
-    playInline(stream);
-
-    loading.style.display = "none";
-    player.style.display = "block";
-    stopped = true; // stop retry loop
-    return;
+    isPlaying = true;
+    playBtn.innerText = "▶ Playing";
+    statusBox.style.display = "none";
 
   }catch(e){
-    // ❌ FAILED → retry again
-    error.textContent = "Server busy… retrying automatically";
-    error.style.display = "block";
-
     retryTimer = setTimeout(()=>{
-      fetchUntilSuccess(link);
-    }, 2500); // retry delay
+      tryPlay(url);
+    },2500);
   }
 }
 
-/* ▶ INLINE PLAY */
-function playInline(url){
-  if(hls){
-    hls.destroy();
-    hls = null;
+/* ▶ PLAY BUTTON */
+playBtn.onclick = () => {
+  let url = tbxUrl.value.trim();
+  if(url.length < 10) return alert("Enter valid Terabox link");
+  if(!url.startsWith("http")) url = "https://" + url;
+
+  isPlaying = false;
+  retryCount = 0;
+  playBtn.innerText = "⏳ Loading…";
+
+  tryPlay(url);
+};
+</script>
+
+<!-- ===============================
+     TELEGRAM BOT AUTO PLAY
+     =============================== -->
+<script>
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const botUrl = params.get("url");
+
+  if (botUrl && botUrl.length > 10) {
+    tbxUrl.value = decodeURIComponent(botUrl);
+    setTimeout(()=>openVideo.click(),1200);
   }
-
-  if(url.includes(".m3u8")){
-    if(video.canPlayType("application/vnd.apple.mpegurl")){
-      video.src = url;
-    }else if(Hls.isSupported()){
-      hls = new Hls();
-      hls.loadSource(url);
-      hls.attachMedia(video);
-    }
-  }else{
-    video.src = url;
-  }
-
-  video.load();
-  video.play().catch(()=>{});
-}
-
-function showError(msg){
-  error.textContent = msg;
-  error.style.display = "block";
-}
+})();
 </script>
 
 </body>
