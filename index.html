@@ -3,78 +3,114 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
 <title>ZTERA – TeraBox Inline Player</title>
-<meta name="theme-color" content="#3248f5">
 
-<!-- ⭐ PWA -->
+<meta name="theme-color" content="#3248f5">
 <link rel="manifest" href="manifest.json">
 
-<!-- ⭐ Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E6G38YDKRW"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-E6G38YDKRW');
-</script>
-
-<!-- ⭐ HLS -->
+<!-- HLS.js -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 <style>
-body{margin:0;font-family:Inter,system-ui;background:#eef3ff}
-.wrap{max-width:980px;margin:30px auto;padding:16px}
+body{
+  margin:0;
+  font-family:Inter,system-ui;
+  background:#eef3ff
+}
+.wrap{
+  max-width:980px;
+  margin:30px auto;
+  padding:16px
+}
 .hero{text-align:center}
 h1{color:#3248f5;font-size:38px}
 
-.card{background:#fff;padding:22px;border-radius:20px}
-input{width:100%;padding:14px;border-radius:14px;border:1px solid #ccc;font-size:16px}
-
+.card{
+  background:#fff;
+  padding:22px;
+  border-radius:20px
+}
+input{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:1px solid #ccc;
+  font-size:16px
+}
 .btn{
-  margin-top:16px;padding:14px;border-radius:16px;
-  background:#4f46e5;color:#fff;font-size:18px;
-  font-weight:700;border:0;width:100%;cursor:pointer
+  margin-top:16px;
+  padding:14px;
+  border-radius:16px;
+  background:#4f46e5;
+  color:#fff;
+  font-size:18px;
+  font-weight:700;
+  border:0;
+  width:100%;
+  cursor:pointer
 }
 
-.loading{margin-top:14px;text-align:center;font-weight:700;color:#3248f5;display:none}
-.error{margin-top:10px;color:#dc2626;font-weight:700;text-align:center;display:none}
+.loading{
+  margin-top:14px;
+  text-align:center;
+  font-weight:700;
+  color:#3248f5;
+  display:none
+}
+.error{
+  margin-top:10px;
+  color:#dc2626;
+  font-weight:700;
+  text-align:center;
+  display:none
+}
+.player{
+  margin-top:22px;
+  display:none
+}
+video{
+  width:100%;
+  max-height:70vh;
+  background:#000;
+  border-radius:16px
+}
 
-.player{margin-top:22px;display:none}
-video{width:100%;max-height:70vh;background:#000;border-radius:16px}
-
-/* ⭐ Telegram */
+/* Telegram Button */
 .telegram-btn{
-  display:inline-block;margin-top:14px;
-  padding:12px 22px;border-radius:30px;
+  margin:18px auto 0;
+  display:flex;
+  justify-content:center;
+}
+.telegram-btn a{
+  padding:12px 26px;
   background:linear-gradient(135deg,#229ED9,#0A7CBA);
-  color:#fff;font-weight:700;text-decoration:none;
-  animation:pulse 1.6s infinite
+  color:#fff;
+  border-radius:30px;
+  font-weight:700;
+  text-decoration:none;
+  animation:pulseTG 1.6s infinite;
 }
-@keyframes pulse{
-  0%{box-shadow:0 0 0 rgba(34,158,217,.5)}
-  70%{box-shadow:0 0 20px rgba(34,158,217,.9)}
-  100%{box-shadow:0 0 0 rgba(34,158,217,.5)}
-}
-
-/* ⭐ PWA Badge */
-#installBadge{
-  position:fixed;right:20px;bottom:20px;
-  background:#3248f5;color:#fff;
-  padding:12px 18px;border-radius:50px;
-  font-size:16px;cursor:pointer;
-  display:none;z-index:99999;
-  animation:pulseBadge 1.4s infinite;
-}
-@keyframes pulseBadge{
+@keyframes pulseTG{
   0%{transform:scale(1)}
   50%{transform:scale(1.08)}
   100%{transform:scale(1)}
 }
 
-/* ⭐ Article */
-.article{margin-top:40px;background:#fff;padding:22px;border-radius:20px;line-height:1.7}
-.article h2{color:#3248f5}
+/* PWA Badge */
+#installBadge{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#3248f5;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:50px;
+  font-size:16px;
+  cursor:pointer;
+  display:none;
+  z-index:99999;
+  animation:pulseTG 1.4s infinite;
+}
 </style>
 </head>
 
@@ -83,175 +119,114 @@ video{width:100%;max-height:70vh;background:#000;border-radius:16px}
 <div id="installBadge">📲 Install ZTERA App</div>
 
 <div class="wrap">
-
 <header class="hero">
 <h1>ZTERA – Inline Video Player</h1>
-<p>Auto-retry enabled • No popup • Smooth playback</p>
+<p>Auto-retry • No popup • Inline Play</p>
 </header>
 
 <section class="card">
 <input id="tbxUrl" placeholder="Paste Terabox link here">
-
 <button class="btn" onclick="start()">▶ Play Video</button>
 
-<a class="telegram-btn" href="https://telegram.me/+-Qt0LAeB71E0ZTll" target="_blank">
+<!-- JOIN BUTTON (CENTER) -->
+<div class="telegram-btn">
+<a href="https://telegram.me/+-Qt0LAeB71E0ZTll"
+   target="_blank"
+   rel="noopener">
 📢 Join for Updates
 </a>
+</div>
 
-<div id="loading" class="loading">⏳ Fetching video… please wait</div>
+<div id="loading" class="loading">⏳ Fetching video…</div>
 <div id="error" class="error"></div>
 
 <div id="player" class="player">
   <video id="video" controls playsinline preload="auto"></video>
+
+  <!-- ADS BELOW VIDEO -->
+  <div style="margin-top:18px;text-align:center">
+    <script async data-cfasync="false"
+      src="https://pl28188629.effectivegatecpm.com/9a259b450791fd97609d22be0d2f1525/invoke.js">
+    </script>
+    <div id="container-9a259b450791fd97609d22be0d2f1525"></div>
+  </div>
 </div>
 </section>
-
-<!-- ⭐ SEO ARTICLE (UNCHANGED CONTENT IDEA) -->
-<section class="article">
-<h2>Why ZTERA is Best TeraBox Player?</h2>
-<p>
-ZTERA ek fast, lightweight aur secure TeraBox inline player hai jo bina login,
-bina ads aur bina popup ke videos play karta hai.
-</p>
-
-<p>
-Isme auto-retry logic hai jo server busy hone par khud retry karta hai,
-isi wajah se “Video not available” problem almost khatam ho jaati hai.
-</p>
-
-<p>
-ZTERA mobile-first, SEO optimized aur PWA enabled platform hai
-jo Google ranking ke liye perfect hai.
-</p>
-</section>
-
 </div>
 
 <script>
-/* ===============================
-   INLINE PLAYER + AUTO RETRY
-   (ORIGINAL CODE – UNCHANGED)
-   =============================== */
-
 const API = "https://iteraplay.in/api/fetch?url=";
+let hls=null, stopped=false;
 
-let hls = null;
-let retryTimer = null;
-let stopped = false;
-
+/* START */
 function start(){
-  const link = tbxUrl.value.trim();
-  if(link.length < 10){
-    showError("Invalid TeraBox link");
-    return;
-  }
-
-  stopped = false;
-  error.style.display = "none";
-  player.style.display = "none";
-  loading.style.display = "block";
-
+  const link=tbxUrl.value.trim();
+  if(link.length<10){ showError("Invalid TeraBox link"); return; }
+  stopped=false;
+  error.style.display="none";
+  player.style.display="none";
+  loading.style.display="block";
   fetchUntilSuccess(link);
 }
 
+/* AUTO RETRY */
 async function fetchUntilSuccess(link){
   if(stopped) return;
-
   try{
-    const controller = new AbortController();
-    setTimeout(()=>controller.abort(), 10000);
-
-    const res = await fetch(
-      API + encodeURIComponent(link),
-      { cache:"no-store", signal: controller.signal }
-    );
-
-    if(!res.ok) throw new Error();
-    const data = await res.json();
-    if(data.status !== "success") throw new Error();
-
-    const file = data.list[0];
-    const stream =
-      file.fast_stream_url?.["720p"] ||
-      file.fast_stream_url?.["360p"] ||
-      file.stream_url;
-
+    const controller=new AbortController();
+    setTimeout(()=>controller.abort(),10000);
+    const res=await fetch(API+encodeURIComponent(link),
+      {cache:"no-store",signal:controller.signal});
+    if(!res.ok) throw "";
+    const data=await res.json();
+    if(data.status!=="success") throw "";
+    const f=data.list[0];
+    const stream=f.fast_stream_url?.["720p"]||f.stream_url;
     playInline(stream);
-
-    loading.style.display = "none";
-    player.style.display = "block";
-    stopped = true;
-    return;
-
-  }catch(e){
-    error.textContent = "Server busy… retrying automatically";
-    error.style.display = "block";
-
-    retryTimer = setTimeout(()=>{
-      fetchUntilSuccess(link);
-    }, 2500);
+    loading.style.display="none";
+    player.style.display="block";
+    stopped=true;
+  }catch{
+    error.textContent="Server busy… retrying";
+    error.style.display="block";
+    setTimeout(()=>fetchUntilSuccess(link),2500);
   }
 }
 
+/* INLINE PLAY */
 function playInline(url){
-  if(hls){ hls.destroy(); hls=null; }
-
+  if(hls){hls.destroy();hls=null;}
   if(url.includes(".m3u8")){
     if(video.canPlayType("application/vnd.apple.mpegurl")){
-      video.src = url;
+      video.src=url;
     }else if(Hls.isSupported()){
-      hls = new Hls();
+      hls=new Hls();
       hls.loadSource(url);
       hls.attachMedia(video);
     }
-  }else{
-    video.src = url;
-  }
-
-  video.load();
+  }else video.src=url;
   video.play().catch(()=>{});
 }
+function showError(m){ error.textContent=m; error.style.display="block"; }
 
-function showError(msg){
-  error.textContent = msg;
-  error.style.display = "block";
-}
-
-/* ===============================
-   TELEGRAM BOT AUTO PLAY (?url=)
-   =============================== */
-(function(){
-  const p=new URLSearchParams(location.search);
-  const u=p.get("url");
-  if(u){
-    tbxUrl.value=decodeURIComponent(u);
-    setTimeout(start,1200);
-  }
+/* BOT AUTO PLAY (?url=) */
+(()=>{
+ const p=new URLSearchParams(location.search);
+ const u=p.get("url");
+ if(u){ tbxUrl.value=decodeURIComponent(u); setTimeout(start,800); }
 })();
 
-/* ===============================
-   PWA INSTALL LOGIC
-   =============================== */
+/* PWA */
 let deferredPrompt;
-const badge=document.getElementById("installBadge");
-
 window.addEventListener("beforeinstallprompt",e=>{
-  e.preventDefault();
-  deferredPrompt=e;
-  badge.style.display="block";
+ e.preventDefault(); deferredPrompt=e;
+ installBadge.style.display="block";
 });
-
-badge.onclick=async()=>{
-  badge.style.display="none";
-  if(!deferredPrompt) return;
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
+installBadge.onclick=async()=>{
+ if(!deferredPrompt) return;
+ deferredPrompt.prompt();
+ await deferredPrompt.userChoice;
 };
-
-/* Service Worker */
-if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("service-worker.js");
-}
 </script>
 
 </body>
