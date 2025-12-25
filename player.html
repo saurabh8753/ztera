@@ -1,134 +1,105 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>ZTERA – TeraBox HD Video Player (Play Terabox Videos Online)</title>
-<meta name="description" content="ZTERA Player: Terabox videos ko HD me bina ads ke play karein. Auto-detect links, fast loading, mobile-friendly.">
-<meta name="keywords" content="ZTERA Player, Terabox Player, Play Terabox Video, Terabox Online Player, Terabox Viewer, HD Player, Terabox link extractor">
-<link rel="icon" type="image/png" href="YOUR-ICON.png" />
-<link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#3248f5" />
+<title>ZTERA – TeraBox Inline Player</title>
+<meta name="theme-color" content="#3248f5">
 
-<!-- ⭐ Install Badge (same as homepage) -->
+<!-- GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E6G38YDKRW"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config','G-E6G38YDKRW');
+</script>
+
+<!-- HLS -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
 <style>
-#installBadge {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  background: #3248f5;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 50px;
-  font-family: system-ui;
-  font-size: 16px;
-  display: none;
-  cursor: pointer;
-  box-shadow: 0 6px 22px rgba(0,0,0,0.25);
-  animation: pulseBadge 1.4s infinite ease-in-out;
-  z-index: 99999;
+body{margin:0;font-family:Inter,system-ui;background:#eef3ff}
+.wrap{max-width:980px;margin:30px auto;padding:16px}
+.hero{text-align:center}
+h1{color:#3248f5;font-size:38px}
+
+.card{background:#fff;padding:22px;border-radius:20px}
+input{width:100%;padding:14px;border-radius:14px;border:1px solid #ccc;font-size:16px}
+
+.btn{margin-top:16px;padding:14px;border-radius:16px;background:#4f46e5;color:#fff;
+font-size:18px;font-weight:700;border:0;width:100%;cursor:pointer}
+
+.loading{margin-top:14px;text-align:center;font-weight:700;color:#3248f5;display:none}
+.error{margin-top:10px;color:#dc2626;font-weight:700;text-align:center;display:none}
+
+.player{margin-top:22px;display:none}
+video{width:100%;max-height:70vh;background:#000;border-radius:16px}
+
+/* join button */
+.join{
+  margin:14px auto 0 auto;
+  display:flex;
+  justify-content:center;
 }
-@keyframes pulseBadge {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-  100% { transform: scale(1); }
+.join a{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 22px;border-radius:30px;
+  background:#229ED9;color:#fff;font-weight:700;
+  text-decoration:none;
 }
 
-/* Basic theme (same as homepage) */
-:root{
-  --bg1:#eef3ff; 
-  --bg2:#f8fbff;
-  --text:#0f172a;
+/* install badge */
+#installBadge{
+  position:fixed;right:20px;bottom:20px;
+  background:#3248f5;color:#fff;padding:12px 18px;
+  border-radius:50px;font-size:15px;cursor:pointer;
+  display:none;z-index:9999;
+  animation:pulse 1.4s infinite;
 }
-body{
-  margin:0;
-  font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
-  color:var(--text);
-  background:linear-gradient(180deg,var(--bg1),var(--bg2));
-}
-.wrap{ max-width:980px; margin:30px auto; padding:16px; }
-.hero{text-align:center;}
-h1{ font-size:40px; margin:8px 0; color:#3248f5; font-weight:800; }
-p.lead{ color:#6f7280; margin:0 0 20px; font-size:17px; }
-
-.card{
-  background:#fff; padding:22px; border-radius:20px;
-  border:1px solid #e7e9ff; box-shadow:0 12px 26px rgba(0,0,0,.08);
-}
-.row{ display:flex; flex-wrap:wrap; gap:12px; }
-.row input{
-  flex:1; padding:14px 16px; font-size:16px;
-  border-radius:14px; border:1px solid #d7d9ef; background:#f8f9ff;
-}
-.btn{
-  padding:14px 26px; border:0; border-radius:16px;
-  font-size:18px; font-weight:700; color:white; cursor:pointer;
-  background:linear-gradient(135deg,#6d28d9,#4f46e5,#7c3aed);
-}
-.neonPulse{ animation:neonPulseAnim 1.8s infinite ease-in-out; }
-@keyframes neonPulseAnim { 0%{transform:scale(1);} 50%{transform:scale(1.08);} 100%{transform:scale(1);} }
-
-.neonNote{
-  text-align:center; margin-top:14px; padding:10px 16px;
-  font-size:15px; font-weight:600; color:#ff4d4d;
-  background:rgba(255,0,0,0.15); border:1px solid rgba(255,0,0,0.4);
-  border-radius:14px;
-}
-.section{
-  margin-top:40px; background:white; padding:20px 24px;
-  border-radius:20px; border:1px solid #e5e7ff;
-  line-height:1.7;
-}
-a.internal{ color:#3248f5; font-weight:600; text-decoration:none; }
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
 </style>
 </head>
 
 <body>
 
-<!-- ⭐ Floating Install Badge -->
 <div id="installBadge">📲 Install ZTERA App</div>
 
 <div class="wrap">
 
-  <header class="hero">
-    <h1>ZTERA – TeraBox HD Video Player</h1>
-    <p class="lead">Paste your Terabox video link and watch it instantly in HD — No ads, fast and mobile friendly.</p>
-  </header>
+<header class="hero">
+<h1>ZTERA – Inline Video Player</h1>
+<p>Auto-retry • No popup • Smooth Streaming</p>
+</header>
 
-  <section class="card">
-    <div class="row">
-      <input id="playerUrl" type="url" placeholder="Enter TeraBox video link…" />
-    </div>
+<section class="card">
 
-    <div style="text-align:center; margin-top:18px;">
-      <button id="playBtn" class="btn neonPulse">▶ Play Video</button>
-    </div>
+<input id="tbxUrl" placeholder="Paste Terabox link here">
+<button class="btn" onclick="start()">▶ Play Video</button>
 
-    <p class="neonNote">
-      ⚠ <b>Note:</b> Rotate your phone to landscape for fullscreen playback.
-    </p>
+<div class="join">
+  <a href="https://telegram.me/+-Qt0LAeB71E0ZTll" target="_blank">📢 Join for Updates</a>
+</div>
 
-    <!-- ⭐ Ad under note (same ad script) -->
-    <script async data-cfasync="false" src="//pl28188629.effectivegatecpm.com/9a259b450791fd97609d22be0d2f1525/invoke.js"></script>
-    <div id="container-9a259b450791fd97609d22be0d2f1525"></div>
-  </section>
+<div id="loading" class="loading">⏳ Fetching video… please wait</div>
+<div id="error" class="error"></div>
 
-  <!-- ⭐ IFRAME VIDEO PLAYER -->
-  <section id="videoSection" style="margin-top:35px; display:none;">
-    <div style="max-width:1100px; margin:auto; aspect-ratio:16/9;">
-      <iframe id="videoFrame" allowfullscreen style="width:100%; height:100%; border:none; border-radius:10px;"></iframe>
-    </div>
+<div id="player" class="player">
+  <video id="video" controls playsinline preload="auto"></video>
+</div>
 
-    <!-- ⭐ ADS BELOW VIDEO -->
-    <div style="margin-top:20px; text-align:center;">
-      <script async data-cfasync="false" src="//pl28188629.effectivegatecpm.com/9a259b450791fd97609d22be0d2f1525/invoke.js"></script>
-      <div id="container-9a259b450791fd97609d22be0d2f1525_below"></div>
-    </div>
-  </section>
+<!-- ADS BELOW PLAYER -->
+<div id="adsBox" style="margin-top:16px;display:none;text-align:center">
+  <script async data-cfasync="false"
+  src="https://pl28188629.effectivegatecpm.com/9a259b450791fd97609d22be0d2f1525/invoke.js"></script>
+  <div id="container-9a259b450791fd97609d22be0d2f1525"></div>
+</div>
 
-  <!-- ⭐ LONG SEO CONTENT (in Hindi) -->
-  <section class="section" id="seoContent">
+</section>
+
+<!-- SEO article placeholder -->
+ <section class="section" id="seoContent">
 
     <!-- Intro / Summary -->
     <h2>⭐ ZTERA – Best TeraBox Video Player & Downloader (HD Online Streaming)</h2>
@@ -258,60 +229,120 @@ a.internal{ color:#3248f5; font-weight:600; text-decoration:none; }
     <!-- End of SEO content -->
   </section>
 
+
 </div>
 
-<!-- ⭐ Scripts: PWA Badge + SW + Iframe loader (unchanged behavior) -->
 <script>
-let deferredPrompt;
-let badge = document.getElementById("installBadge");
+const API="https://iteraplay.in/api/fetch?url=";
+let hls=null, retryTimer=null, stopped=false;
 
-// beforeinstallprompt handler
-window.addEventListener("beforeinstallprompt", (e)=>{
-  e.preventDefault();
-  deferredPrompt = e;
-  badge.style.display = "block";
-});
-
-// Badge click -> prompt install
-badge.addEventListener("click", async ()=>{
-  badge.style.display = "none";
-  if(!deferredPrompt){
-    // fallback message
-    alert("Install prompt not available right now.");
-    setTimeout(()=>{ badge.style.display = "block"; },15000);
-    return;
+/******** CHROME-ONLY (BLOCK TELEGRAM WEBVIEW) ********/
+(function(){
+  const ua=navigator.userAgent.toLowerCase();
+  const insideTelegram=ua.includes("telegram");
+  if(insideTelegram){
+    const url=location.href;
+    const intent="intent://"+url.replace(/^https?:\/\//,"")+
+      "#Intent;scheme=https;package=com.android.chrome;end";
+    window.location.href=intent;
   }
-  deferredPrompt.prompt();
-  const choice = await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  setTimeout(()=>{ badge.style.display = "block"; },15000);
-});
+})();
 
-// register service worker if available
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js").catch(()=>{ /* ignore */ });
+/******** START ********/
+function start(){
+  const link=tbxUrl.value.trim();
+  if(link.length<10){ showError("Invalid TeraBox link"); return; }
+
+  stopped=false;
+  error.style.display="none";
+  player.style.display="none";
+  adsBox.style.display="none";
+  loading.style.display="block";
+
+  fetchUntilSuccess(link);
 }
 
-// Iframe loader + autoscroll
-document.getElementById("playBtn").addEventListener("click", ()=>{
-  let url = document.getElementById("playerUrl").value.trim();
-  if(url.length < 10){
-    alert("Please enter a valid TeraBox link");
-    return;
+/******** AUTO-RETRY ********/
+async function fetchUntilSuccess(link){
+  if(stopped) return;
+
+  try{
+    const controller=new AbortController();
+    setTimeout(()=>controller.abort(),10000);
+
+    const res=await fetch(API+encodeURIComponent(link),
+      {cache:"no-store",signal:controller.signal});
+
+    if(!res.ok) throw new Error();
+    const data=await res.json();
+    if(data.status!=="success") throw new Error();
+
+    const file=data.list[0];
+    const stream=file.fast_stream_url?.["720p"]
+      || file.fast_stream_url?.["360p"]
+      || file.stream_url;
+
+    playInline(stream);
+
+    loading.style.display="none";
+    player.style.display="block";
+    adsBox.style.display="block";
+    stopped=true;
+  }catch(e){
+    error.textContent="Server busy… retrying automatically";
+    error.style.display="block";
+    retryTimer=setTimeout(()=>fetchUntilSuccess(link),2500);
   }
-  if(!url.startsWith("http")) url = "https://" + url;
+}
 
-  const final =
-    "https://iteraplay.com/api/play.php?url=" +
-    encodeURIComponent(url) + "&key=iTeraPlay2025";
+/******** PLAYER ********/
+function playInline(url){
+  if(hls){hls.destroy();hls=null;}
 
-  // set iframe src
-  document.getElementById("videoFrame").src = final;
-  document.getElementById("videoSection").style.display = "block";
+  if(url.includes(".m3u8")){
+    if(video.canPlayType("application/vnd.apple.mpegurl")){
+      video.src=url;
+    }else if(Hls.isSupported()){
+      hls=new Hls();
+      hls.loadSource(url);
+      hls.attachMedia(video);
+    }
+  }else{
+    video.src=url;
+  }
+  video.load(); video.play().catch(()=>{});
+}
 
-  // auto-scroll
-  setTimeout(()=>{ document.getElementById("videoSection").scrollIntoView({behavior:"smooth"}); }, 500);
+function showError(msg){
+  error.textContent=msg;
+  error.style.display="block";
+}
+
+/******** BOT AUTO-PLAY (?url=) ********/
+(function(){
+  const p=new URLSearchParams(location.search);
+  const u=p.get("url");
+  if(u){
+    tbxUrl.value=decodeURIComponent(u);
+    setTimeout(start,900);
+  }
+})();
+
+/******** PWA BADGE ********/
+let deferredPrompt;
+const badge=document.getElementById("installBadge");
+
+window.addEventListener("beforeinstallprompt",(e)=>{
+  e.preventDefault();deferredPrompt=e;
+  badge.style.display="block";
 });
+badge.onclick=async()=>{
+  badge.style.display="none";
+  if(!deferredPrompt)return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  setTimeout(()=>badge.style.display="block",15000);
+};
 </script>
 
 </body>
