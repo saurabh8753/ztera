@@ -7,218 +7,215 @@
 <title>ZTERA – TeraBox Inline Player</title>
 <meta name="theme-color" content="#3248f5">
 
-<!-- HLS.js -->
+<!-- GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E6G38YDKRW"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config','G-E6G38YDKRW');
+</script>
+
+<!-- HLS -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 <style>
-body{
-  margin:0;
-  font-family:Inter,system-ui;
-  background:#eef3ff
-}
-.wrap{
-  max-width:980px;
-  margin:30px auto;
-  padding:16px
-}
+body{margin:0;font-family:Inter,system-ui;background:#eef3ff}
+.wrap{max-width:980px;margin:30px auto;padding:16px}
 .hero{text-align:center}
 h1{color:#3248f5;font-size:38px}
 
-.card{
-  background:#fff;
-  padding:22px;
-  border-radius:20px
+.card{background:#fff;padding:22px;border-radius:20px}
+input{width:100%;padding:14px;border-radius:14px;border:1px solid #ccc;font-size:16px}
+
+.btn{margin-top:16px;padding:14px;border-radius:16px;background:#4f46e5;color:#fff;
+font-size:18px;font-weight:700;border:0;width:100%;cursor:pointer}
+
+.loading{margin-top:14px;text-align:center;font-weight:700;color:#3248f5;display:none}
+.error{margin-top:10px;color:#dc2626;font-weight:700;text-align:center;display:none}
+
+.player{margin-top:22px;display:none}
+video{width:100%;max-height:70vh;background:#000;border-radius:16px}
+
+/* join button */
+.join{
+  margin:14px auto 0 auto;
+  display:flex;
+  justify-content:center;
+}
+.join a{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 22px;border-radius:30px;
+  background:#229ED9;color:#fff;font-weight:700;
+  text-decoration:none;
 }
 
-input{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:1px solid #ccc;
-  font-size:16px
+/* install badge */
+#installBadge{
+  position:fixed;right:20px;bottom:20px;
+  background:#3248f5;color:#fff;padding:12px 18px;
+  border-radius:50px;font-size:15px;cursor:pointer;
+  display:none;z-index:9999;
+  animation:pulse 1.4s infinite;
 }
-
-.btn{
-  margin-top:16px;
-  padding:14px;
-  border-radius:16px;
-  background:#4f46e5;
-  color:#fff;
-  font-size:18px;
-  font-weight:700;
-  border:0;
-  width:100%;
-  cursor:pointer
-}
-
-.loading{
-  margin-top:14px;
-  text-align:center;
-  font-weight:700;
-  color:#3248f5;
-  display:none
-}
-
-.error{
-  margin-top:10px;
-  color:#dc2626;
-  font-weight:700;
-  text-align:center;
-  display:none
-}
-
-.player{
-  margin-top:22px;
-  display:none
-}
-
-video{
-  width:100%;
-  max-height:70vh;
-  background:#000;
-  border-radius:16px
-}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
 </style>
 </head>
 
 <body>
 
+<div id="installBadge">📲 Install ZTERA App</div>
+
 <div class="wrap">
 
 <header class="hero">
-  <h1>ZTERA – Inline Video Player</h1>
-  <p>Auto-retry enabled • No popup • No download</p>
+<h1>ZTERA – Inline Video Player</h1>
+<p>Auto-retry • No popup • Smooth Streaming</p>
 </header>
 
 <section class="card">
 
-  <input id="tbxUrl" placeholder="Paste Terabox link here">
+<input id="tbxUrl" placeholder="Paste Terabox link here">
+<button class="btn" onclick="start()">▶ Play Video</button>
 
-  <button class="btn" onclick="start()">▶ Play Video</button>
+<div class="join">
+  <a href="https://telegram.me/+-Qt0LAeB71E0ZTll" target="_blank">📢 Join for Updates</a>
+</div>
 
-  <div id="loading" class="loading">⏳ Fetching video… please wait</div>
-  <div id="error" class="error"></div>
+<div id="loading" class="loading">⏳ Fetching video… please wait</div>
+<div id="error" class="error"></div>
 
-  <div id="player" class="player">
-    <video id="video" controls playsinline preload="auto"></video>
-  </div>
+<div id="player" class="player">
+  <video id="video" controls playsinline preload="auto"></video>
+</div>
 
+<!-- ADS BELOW PLAYER -->
+<div id="adsBox" style="margin-top:16px;display:none;text-align:center">
+  <script async data-cfasync="false"
+  src="https://pl28188629.effectivegatecpm.com/9a259b450791fd97609d22be0d2f1525/invoke.js"></script>
+  <div id="container-9a259b450791fd97609d22be0d2f1525"></div>
+</div>
+
+</section>
+
+<!-- SEO article placeholder -->
+<section class="card" style="margin-top:25px">
+<p><b>SEO Content:</b> (your full article stays here — unchanged)</p>
 </section>
 
 </div>
 
 <script>
-const API = "https://iteraplay.in/api/fetch?url=";
+const API="https://iteraplay.in/api/fetch?url=";
+let hls=null, retryTimer=null, stopped=false;
 
-let hls = null;
-let retryTimer = null;
-let stopped = false;
-
-/* 🚀 START */
-function start(){
-  const link = tbxUrl.value.trim();
-  if(link.length < 10){
-    showError("Invalid TeraBox link");
-    return;
+/******** CHROME-ONLY (BLOCK TELEGRAM WEBVIEW) ********/
+(function(){
+  const ua=navigator.userAgent.toLowerCase();
+  const insideTelegram=ua.includes("telegram");
+  if(insideTelegram){
+    const url=location.href;
+    const intent="intent://"+url.replace(/^https?:\/\//,"")+
+      "#Intent;scheme=https;package=com.android.chrome;end";
+    window.location.href=intent;
   }
+})();
 
-  stopped = false;
-  error.style.display = "none";
-  player.style.display = "none";
-  loading.style.display = "block";
+/******** START ********/
+function start(){
+  const link=tbxUrl.value.trim();
+  if(link.length<10){ showError("Invalid TeraBox link"); return; }
+
+  stopped=false;
+  error.style.display="none";
+  player.style.display="none";
+  adsBox.style.display="none";
+  loading.style.display="block";
 
   fetchUntilSuccess(link);
 }
 
-/* 🔁 INFINITE AUTO RETRY */
+/******** AUTO-RETRY ********/
 async function fetchUntilSuccess(link){
   if(stopped) return;
 
   try{
-    const controller = new AbortController();
-    setTimeout(()=>controller.abort(), 10000);
+    const controller=new AbortController();
+    setTimeout(()=>controller.abort(),10000);
 
-    const res = await fetch(
-      API + encodeURIComponent(link),
-      { cache:"no-store", signal: controller.signal }
-    );
+    const res=await fetch(API+encodeURIComponent(link),
+      {cache:"no-store",signal:controller.signal});
 
     if(!res.ok) throw new Error();
-    const data = await res.json();
-    if(data.status !== "success") throw new Error();
+    const data=await res.json();
+    if(data.status!=="success") throw new Error();
 
-    const file = data.list[0];
-
-    const stream =
-      file.fast_stream_url?.["720p"] ||
-      file.fast_stream_url?.["360p"] ||
-      file.stream_url;
+    const file=data.list[0];
+    const stream=file.fast_stream_url?.["720p"]
+      || file.fast_stream_url?.["360p"]
+      || file.stream_url;
 
     playInline(stream);
 
-    loading.style.display = "none";
-    player.style.display = "block";
-    stopped = true;
-    return;
-
+    loading.style.display="none";
+    player.style.display="block";
+    adsBox.style.display="block";
+    stopped=true;
   }catch(e){
-    error.textContent = "Server busy… retrying automatically";
-    error.style.display = "block";
-
-    retryTimer = setTimeout(()=>{
-      fetchUntilSuccess(link);
-    }, 2500);
+    error.textContent="Server busy… retrying automatically";
+    error.style.display="block";
+    retryTimer=setTimeout(()=>fetchUntilSuccess(link),2500);
   }
 }
 
-/* ▶ INLINE PLAY */
+/******** PLAYER ********/
 function playInline(url){
-  if(hls){
-    hls.destroy();
-    hls = null;
-  }
+  if(hls){hls.destroy();hls=null;}
 
   if(url.includes(".m3u8")){
     if(video.canPlayType("application/vnd.apple.mpegurl")){
-      video.src = url;
+      video.src=url;
     }else if(Hls.isSupported()){
-      hls = new Hls();
+      hls=new Hls();
       hls.loadSource(url);
       hls.attachMedia(video);
     }
   }else{
-    video.src = url;
+    video.src=url;
   }
-
-  video.load();
-  video.play().catch(()=>{});
+  video.load(); video.play().catch(()=>{});
 }
 
 function showError(msg){
-  error.textContent = msg;
-  error.style.display = "block";
+  error.textContent=msg;
+  error.style.display="block";
 }
-</script>
 
-<!-- ⭐ TELEGRAM BOT → AUTO PLAY (URL PARAM: ?url=) -->
-<script>
-(function () {
-  const params = new URLSearchParams(window.location.search);
-  const botUrl = params.get("url");
-
-  if (botUrl && botUrl.length > 10) {
-    const input = document.getElementById("tbxUrl");
-
-    if (input) {
-      input.value = decodeURIComponent(botUrl);
-
-      // Auto play after small delay
-      setTimeout(() => {
-        start();   // 👈 matches this page's play function
-      }, 1200);
-    }
+/******** BOT AUTO-PLAY (?url=) ********/
+(function(){
+  const p=new URLSearchParams(location.search);
+  const u=p.get("url");
+  if(u){
+    tbxUrl.value=decodeURIComponent(u);
+    setTimeout(start,900);
   }
 })();
+
+/******** PWA BADGE ********/
+let deferredPrompt;
+const badge=document.getElementById("installBadge");
+
+window.addEventListener("beforeinstallprompt",(e)=>{
+  e.preventDefault();deferredPrompt=e;
+  badge.style.display="block";
+});
+badge.onclick=async()=>{
+  badge.style.display="none";
+  if(!deferredPrompt)return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  setTimeout(()=>badge.style.display="block",15000);
+};
 </script>
 
 </body>
