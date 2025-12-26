@@ -31,35 +31,31 @@ input{width:100%;padding:14px;border-radius:14px;border:1px solid #ccc;font-size
 .btn{margin-top:16px;padding:14px;border-radius:16px;background:#4f46e5;color:#fff;
 font-size:18px;font-weight:700;border:0;width:100%;cursor:pointer}
 
-/* LOADER */
+/* loader */
 .loading{
   margin-top:16px;
+  display:none;
   text-align:center;
-  font-weight:700;
-  color:#3248f5;
-  display:none
 }
-.loader-spin{
-  width:28px;
-  height:28px;
-  border:3px solid #dbe6ff;
-  border-top-color:#3248f5;
+.loader-ring{
+  width:42px;height:42px;
+  border:4px solid #d1d5ff;
+  border-top:4px solid #4f46e5;
   border-radius:50%;
-  margin:0 auto 8px auto;
-  animation:spin 0.9s linear infinite;
+  margin:0 auto;
+  animation:spin 1s linear infinite;
 }
+.loading p{margin-top:8px;font-weight:700;color:#4f46e5}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+.error{display:none}
 
 /* player */
 .player{margin-top:22px;display:none}
 video{width:100%;max-height:70vh;background:#000;border-radius:16px}
 
 /* join button */
-.join{
-  margin:14px auto 0 auto;
-  display:flex;
-  justify-content:center;
-}
+.join{margin:14px auto 0 auto;display:flex;justify-content:center}
 .join a{
   display:inline-flex;align-items:center;gap:8px;
   padding:12px 22px;border-radius:30px;
@@ -95,30 +91,33 @@ video{width:100%;max-height:70vh;background:#000;border-radius:16px}
 <input id="tbxUrl" placeholder="Paste Terabox link here">
 <button class="btn" onclick="start()">▶ Play Video</button>
 
-<!-- JOIN BUTTON -->
 <div class="join">
   <a href="https://telegram.me/+-Qt0LAeB71E0ZTll" target="_blank">
     📢 Join for Updates
   </a>
 </div>
 
-<!-- ADS UNDER JOIN BUTTON -->
-<div id="adsBoxTop" style="margin-top:14px;text-align:center">
-  <script async data-cfasync="false"
-   src="https://pl28188629.effectivegatecpm.com/9a259b450791fd97609d22be0d2f1525/invoke.js"></script>
-  <div id="container-9a259b450791fd97609d22be0d2f1525"></div>
-</div>
-
-<!-- LOADING -->
 <div id="loading" class="loading">
-  <div class="loader-spin"></div>
-  Fetching video… please wait
+  <div class="loader-ring"></div>
+  <p>Loading video…</p>
 </div>
 
 <div id="player" class="player">
   <video id="video" controls playsinline preload="auto"></video>
+
+  <!-- ADS show only after video -->
+  <div id="adsBox" style="margin-top:16px;text-align:center;display:none">
+    <script async data-cfasync="false"
+    src="https://pl28188629.effectivegatecpm.com/9a259b450791fd97609d22be0d2f1525/invoke.js"></script>
+    <div id="container-9a259b450791fd97609d22be0d2f1525"></div>
+  </div>
 </div>
 
+</section>
+
+<!-- SEO ARTICLE (unchanged — add your article here) -->
+<section class="card" style="margin-top:25px">
+<p><b>SEO Content:</b> (your full article here)</p>
 </section>
 
 </div>
@@ -127,14 +126,14 @@ video{width:100%;max-height:70vh;background:#000;border-radius:16px}
 const API="https://iteraplay.in/api/fetch?url=";
 let hls=null, retryTimer=null, stopped=false;
 
-/******** CHROME-ONLY (BLOCK TELEGRAM WEBVIEW) ********/
+/****** CHROME ONLY — block Telegram WebView ******/
 (function(){
   const ua=navigator.userAgent.toLowerCase();
   if(ua.includes("telegram")){
     const url=location.href;
     const intent="intent://"+url.replace(/^https?:\/\//,"")+
       "#Intent;scheme=https;package=com.android.chrome;end";
-    window.location.href=intent;
+    location.href=intent;
   }
 })();
 
@@ -145,12 +144,13 @@ function start(){
 
   stopped=false;
   player.style.display="none";
+  adsBox.style.display="none";
   loading.style.display="block";
 
   fetchUntilSuccess(link);
 }
 
-/******** AUTO-RETRY ********/
+/******** AUTO-RETRY (silent) ********/
 async function fetchUntilSuccess(link){
   if(stopped) return;
 
@@ -174,8 +174,8 @@ async function fetchUntilSuccess(link){
 
     loading.style.display="none";
     player.style.display="block";
+    adsBox.style.display="block";
     stopped=true;
-
   }catch(e){
     retryTimer=setTimeout(()=>fetchUntilSuccess(link),2500);
   }
@@ -196,7 +196,8 @@ function playInline(url){
   }else{
     video.src=url;
   }
-  video.load(); video.play().catch(()=>{});
+  video.load();
+  video.play().catch(()=>{});
 }
 
 /******** BOT AUTO-PLAY (?url=) ********/
@@ -227,4 +228,4 @@ badge.onclick=async()=>{
 </script>
 
 </body>
-</html>
+     </html>
