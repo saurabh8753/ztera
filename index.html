@@ -1,240 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>ZTERA – TeraBox Video Player</title>
-<meta name="theme-color" content="#3248f5">
-
-<!-- GA -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E6G38YDKRW"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config','G-E6G38YDKRW');
-</script>
-
-<!-- HLS -->
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-<style>
-body{margin:0;font-family:Inter,system-ui;background:#eef3ff}
-.wrap{max-width:980px;margin:30px auto;padding:16px}
-.hero{text-align:center}
-h1{color:#3248f5;font-size:38px}
-
-.card{background:#fff;padding:22px;border-radius:20px}
-input{width:100%;padding:14px;border-radius:14px;border:1px solid #ccc;font-size:16px}
-
-.btn{margin-top:16px;padding:14px;border-radius:16px;background:#4f46e5;color:#fff;
-font-size:18px;font-weight:700;border:0;width:100%;cursor:pointer}
-
-.loading{margin-top:14px;text-align:center;font-weight:700;color:#3248f5;display:none}
-.error{margin-top:10px;color:#dc2626;font-weight:700;text-align:center;display:none}
-
-.player{margin-top:22px;display:none}
-video{width:100%;max-height:70vh;background:#000;border-radius:16px}
-
-/* join button */
-.join{
-  margin:14px auto 0 auto;
-  display:flex;
-  justify-content:center;
-}
-.join a{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:12px 22px;border-radius:30px;
-  background:#229ED9;color:#fff;font-weight:700;
-  text-decoration:none;
-}
-
-/* download button */
-#downloadBtn{
-  display:none;
-  margin:14px auto 0 auto;
-  text-align:center;
-  padding:12px 18px;
-  background:#16a34a;
-  color:#fff;
-  border-radius:12px;
-  font-weight:700;
-  text-decoration:none;
-  width:100%;
-}
-
-/* install badge */
-#installBadge{
-  position:fixed;right:20px;bottom:20px;
-  background:#3248f5;color:#fff;padding:12px 18px;
-  border-radius:50px;font-size:15px;cursor:pointer;
-  display:none;z-index:9999;
-  animation:pulse 1.4s infinite;
-}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeraPlayDown - Professional Video Player & Downloader</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
+        .hero-section { background: linear-gradient(135deg, #2481cc 0%, #0056b3 100%); color: white; padding: 60px 0; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; }
+        .main-card { border: none; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: -50px; }
+        .download-btn { background-color: #2481cc; color: white; padding: 15px 40px; font-size: 1.2rem; border-radius: 50px; font-weight: bold; text-decoration: none; display: none; transition: 0.3s; border: none; }
+        .download-btn:hover { background-color: #1a619d; transform: translateY(-3px); color: white; }
+        .footer { margin-top: 50px; color: #6c757d; font-size: 0.9rem; }
+    </style>
 </head>
-
 <body>
 
-<div id="installBadge">📲 Install ZTERA App</div>
+    <div class="hero-section text-center">
+        <h1>TeraPlayDown</h1>
+        <p>Fastest Terabox Video Player & Downloader</p>
+    </div>
 
-<div class="wrap">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card main-card p-4 p-md-5">
+                    <div class="mb-4 text-center">
+                        <label class="form-label h5 mb-3">Paste your Terabox Link below:</label>
+                        <input type="text" id="userInput" class="form-control form-control-lg mb-3" placeholder="https://terasharefile.com/s/..." style="border-radius: 15px;">
+                        <button onclick="generateLink()" class="btn btn-primary btn-lg w-100" style="border-radius: 15px; background-color: #2481cc;">Generate Player Link</button>
+                    </div>
 
-<header class="hero">
-<h1>ZTERA – Terabox Video Player</h1>
-<p>Auto-retry • No popup • Smooth Streaming</p>
-</header>
+                    <div class="text-center mt-4" id="resultArea">
+                        <a href="#" id="actionBtn" class="download-btn">▶️ Go To Download Page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<section class="card">
+    <footer class="text-center footer">
+        <p>&copy; 2026 TeraPlayDown | Secure & Fast</p>
+    </footer>
 
-<input id="tbxUrl" placeholder="Paste Terabox link here">
-<button class="btn" onclick="start()">▶ Play Video</button>
+    <script>
+        function generateLink() {
+            const userLink = document.getElementById('userInput').value.trim();
+            const actionBtn = document.getElementById('actionBtn');
 
-<div class="join">
-  <a href="https://telegram.me/+-Qt0LAeB71E0ZTll" target="_blank">📢 Join for Updates</a>
-</div>
+            if (userLink.includes('terabox') || userLink.includes('terashare') || userLink.includes('nephobox')) {
+                // Button ko display karein
+                actionBtn.style.display = 'inline-block';
+                
+                // Click Event Listeners ko reset karne ke liye button ko clone karein
+                const newBtn = actionBtn.cloneNode(true);
+                actionBtn.parentNode.replaceChild(newBtn, actionBtn);
 
-<div id="loading" class="loading">⏳ Fetching video… please wait</div>
-<div id="error" class="error"></div>
+                newBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
 
-<div id="player" class="player">
-  <video id="video" controls playsinline preload="auto"></video>
+                    // Logic: videoplay-2ym + User ka link
+                    var externalUrl = "https://videoplay-2ym.pages.dev/?url=" + userLink;
+                    
+                    // Ads Link (Vercel Internal Tab Link)
+                    var telegramInternalUrl = "https://www.effectivegatecpm.com/hamfxc0cre?key=98b8b86d55734c2055e254a6a0e2c5d8";
 
-  <!-- DOWNLOAD BUTTON (shows after video loads) -->
-  <a id="downloadBtn" target="_blank">⬇ Download Video</a>
-</div>
+                    if (navigator.userAgent.match(/Android/i)) {
+                        // Chrome Intent logic
+                        var chromeIntent = "intent://" + externalUrl.replace(/^https?:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
+                        window.location.href = chromeIntent;
 
-<!-- ADS BELOW PLAYER -->
-<div id="adsBox" style="margin-top:16px;display:none;text-align:center">
-  <script async data-cfasync="false"
-  src="https://pl28188629.effectivegatecpm.com/9a259b450791fd97609d22be0d2f1525/invoke.js"></script>
-  <div id="container-9a259b450791fd97609d22be0d2f1525"></div>
-</div>
-
-</section>
-
-<!-- SEO article placeholder -->
-<section class="card" style="margin-top:25px">
-<p><b>SEO Content:</b> (your full article stays here — unchanged)</p>
-</section>
-
-</div>
-
-<script>
-const API="https://ztera.yaartunah.workers.dev/?url=";
-let hls=null, retryTimer=null, stopped=false;
-
-/******** CHROME-ONLY (BLOCK TELEGRAM WEBVIEW) ********/
-(function(){
-  const ua=navigator.userAgent.toLowerCase();
-  const insideTelegram=ua.includes("telegram");
-  if(insideTelegram){
-    const url=location.href;
-    const intent="intent://"+url.replace(/^https?:\/\//,"")+
-      "#Intent;scheme=https;package=com.android.chrome;end";
-    window.location.href=intent;
-  }
-})();
-
-/******** START ********/
-function start(){
-  const link=tbxUrl.value.trim();
-  if(link.length<10){ return; }
-
-  stopped=false;
-  error.style.display="none";
-  player.style.display="none";
-  adsBox.style.display="none";
-  downloadBtn.style.display="none";
-  loading.style.display="block";
-
-  fetchUntilSuccess(link);
-}
-
-/******** AUTO-RETRY ********/
-async function fetchUntilSuccess(link){
-  if(stopped) return;
-
-  try{
-    const controller=new AbortController();
-    setTimeout(()=>controller.abort(),10000);
-
-    const res=await fetch(API+encodeURIComponent(link),
-      {cache:"no-store",signal:controller.signal});
-
-    if(!res.ok) throw new Error();
-    const data=await res.json();
-    if(data.status!=="success") throw new Error();
-
-    const file=data.list[0];
-
-    const stream=file.fast_stream_url?.["720p"]
-      || file.fast_stream_url?.["360p"]
-      || file.stream_url;
-
-    playInline(stream);
-
-    /* set download link + show */
-    downloadBtn.href =
-      file.fast_download_link || file.download_link || "#";
-    downloadBtn.style.display="block";
-
-    loading.style.display="none";
-    player.style.display="block";
-    adsBox.style.display="block";
-    stopped=true;
-
-  }catch(e){
-    retryTimer=setTimeout(()=>fetchUntilSuccess(link),2500);
-  }
-}
-
-/******** PLAYER ********/
-function playInline(url){
-  if(hls){hls.destroy();hls=null;}
-
-  if(url.includes(".m3u8")){
-    if(video.canPlayType("application/vnd.apple.mpegurl")){
-      video.src=url;
-    }else if(Hls.isSupported()){
-      hls=new Hls();
-      hls.loadSource(url);
-      hls.attachMedia(video);
-    }
-  }else{
-    video.src=url;
-  }
-  video.load(); video.play().catch(()=>{});
-}
-
-/******** BOT AUTO-PLAY (?url=) ********/
-(function(){
-  const p=new URLSearchParams(location.search);
-  const u=p.get("url");
-  if(u){
-    tbxUrl.value=decodeURIComponent(u);
-    setTimeout(start,900);
-  }
-})();
-
-/******** PWA BADGE ********/
-let deferredPrompt;
-const badge=document.getElementById("installBadge");
-
-window.addEventListener("beforeinstallprompt",(e)=>{
-  e.preventDefault();deferredPrompt=e;
-  badge.style.display="block";
-});
-badge.onclick=async()=>{
-  badge.style.display="none";
-  if(!deferredPrompt)return;
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  setTimeout(()=>badge.style.display="block",15000);
-};
-</script>
-
+                        setTimeout(function() {
+                            window.location.href = telegramInternalUrl;
+                        }, 800);
+                    } else {
+                        // PC/iOS logic
+                        window.open(externalUrl, '_blank');
+                        window.location.href = telegramInternalUrl;
+                    }
+                });
+            } else {
+                alert("Please enter a valid Terabox link!");
+                actionBtn.style.display = 'none';
+            }
+        }
+    </script>
 </body>
-</html>
+  </html>
+  
