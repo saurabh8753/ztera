@@ -1,352 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>ZTERA – TeraBox HD Video Player (Play Terabox Videos Online)</title>
-<meta name="description" content="ZTERA Player: Terabox videos ko HD me bina ads ke play karein. Auto-detect links, fast loading, mobile-friendly.">
-<meta name="keywords" content="ZTERA Player, Terabox Player, Play Terabox Video, Terabox Online Player, Terabox Viewer, HD Player, Terabox link extractor">
-<link rel="icon" type="image/png" href="YOUR-ICON.png" />
-<link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#3248f5" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- GA -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E6G38YDKRW"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config','G-E6G38YDKRW');
+<!-- SEO Title -->
+<title>Ztera – Terabox Video Player & Downloader (HD Online)</title>
+
+<!-- SEO Meta -->
+<meta name="description" content="Ztera is the fastest Terabox video player and downloader. Watch and download Terabox videos online in HD without login.">
+<meta name="keywords" content="ztera, terabox downloader, terabox video player, terabox video downloader online, watch terabox video online">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.ztera.fun/">
+
+<!-- Theme -->
+<meta name="theme-color" content="#3248f5">
+
+<!-- Manifest -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Ztera – Fastest Terabox Video Downloader">
+<meta property="og:description" content="Watch and download Terabox videos online instantly in HD with Ztera.">
+<meta property="og:image" content="https://www.ztera.fun/icon-512.png">
+<meta property="og:url" content="https://www.ztera.fun">
+<meta property="og:type" content="website">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ztera – Terabox Downloader">
+<meta name="twitter:description" content="Watch and download Terabox videos online instantly in HD.">
+<meta name="twitter:image" content="https://www.ztera.fun/icon-512.png">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"WebApplication",
+ "name":"ZTERA",
+ "url":"https://www.ztera.fun",
+ "applicationCategory":"VideoApplication",
+ "operatingSystem":"Android, Web",
+ "description":"Fast Terabox video player and downloader online."
+}
 </script>
 
-<!-- HLS -->
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
 <style>
-body{margin:0;font-family:Inter,system-ui;background:#eef3ff}
-.wrap{max-width:980px;margin:30px auto;padding:16px}
-.hero{text-align:center}
-h1{color:#3248f5;font-size:38px}
-
-.card{background:#fff;padding:22px;border-radius:20px}
-input{width:100%;padding:14px;border-radius:14px;border:1px solid #ccc;font-size:16px}
-
-.btn{margin-top:16px;padding:14px;border-radius:16px;background:#4f46e5;color:#fff;
-font-size:18px;font-weight:700;border:0;width:100%;cursor:pointer}
-
-.loading{margin-top:14px;text-align:center;font-weight:700;color:#3248f5;display:none}
-.error{margin-top:10px;color:#dc2626;font-weight:700;text-align:center;display:none}
-
-.player{margin-top:22px;display:none}
-video{width:100%;max-height:70vh;background:#000;border-radius:16px}
-
-/* join button */
-.join{
-  margin:14px auto 0 auto;
-  display:flex;
-  justify-content:center;
-}
-.join a{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:12px 22px;border-radius:30px;
-  background:#229ED9;color:#fff;font-weight:700;
-  text-decoration:none;
+body{
+margin:0;
+font-family:Inter,Arial,sans-serif;
+background:linear-gradient(180deg,#eef2ff,#f9fafb);
+min-height:100vh;
 }
 
-/* install badge */
-#installBadge{
-  position:fixed;right:20px;bottom:20px;
-  background:#3248f5;color:#fff;padding:12px 18px;
-  border-radius:50px;font-size:15px;cursor:pointer;
-  display:none;z-index:9999;
-  animation:pulse 1.4s infinite;
+/* popup css same as your previous code */
+.install-overlay{
+position:fixed;
+inset:0;
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+background:linear-gradient(135deg,#1e3a8a,#312e81);
 }
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+
+.install-box{
+width:90%;
+max-width:420px;
+background:linear-gradient(180deg,#ffffff,#eef2ff);
+border-radius:26px;
+padding:28px 22px 32px;
+text-align:center;
+position:relative;
+animation:pop .35s ease;
+box-shadow:0 30px 70px rgba(0,0,0,.35);
+}
+
+@keyframes pop{
+from{transform:scale(.9);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+
+.close-btn{
+position:absolute;
+top:14px;
+right:14px;
+background:none;
+border:none;
+font-size:22px;
+cursor:pointer;
+color:#334155;
+}
+
+.popup-icon{
+width:90px;
+margin-bottom:16px;
+}
+
+.install-box h2{
+margin:8px 0 8px;
+font-size:26px;
+font-weight:900;
+background:linear-gradient(90deg,#4f46e5,#2563eb);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.install-box p{
+font-size:14px;
+color:#475569;
+margin-bottom:22px;
+line-height:1.5;
+}
+
+.popup-install-btn{
+width:100%;
+background:linear-gradient(90deg,#4f46e5,#2563eb);
+color:#fff;
+padding:15px;
+font-size:18px;
+font-weight:800;
+border:none;
+border-radius:16px;
+cursor:pointer;
+box-shadow:0 18px 30px rgba(37,99,235,.45);
+}
+
+.popup-note{
+margin-top:16px;
+font-size:12px;
+color:#64748b;
+}
 </style>
+
 </head>
 
 <body>
 
-<div id="installBadge">📲 Install ZTERA App</div>
+<!-- SEO Heading -->
+<h1 style="display:none">
+Ztera Terabox Video Player and Downloader
+</h1>
 
-<div class="wrap">
+<!-- Install Popup -->
+<div id="installOverlay" class="install-overlay">
+<div class="install-box">
 
-<header class="hero">
-    <h1>ZTERA – TeraBox HD Video Player</h1>
-    <p class="lead">Paste your Terabox video link and watch it instantly in HD — No ads, fast and mobile friendly.</p>
-  </header>
+<button class="close-btn" id="closePopup">✕</button>
 
-<section class="card">
+<img src="https://www.ztera.fun/icon-192.png"
+alt="Ztera App"
+class="popup-icon">
 
-<input id="tbxUrl" placeholder="Paste Terabox link here">
-<button class="btn" onclick="start()">▶ Play Video</button>
+<h2>Install Ztera App</h2>
 
-<div class="join">
-  <a href="https://telegram.me/+-Qt0LAeB71E0ZTll" target="_blank">📢 Join for Updates</a>
+<p>
+Fast • Lightweight • Terabox Video Player & Downloader
+<br>Best experience on Google Chrome (Android)
+</p>
+
+<button id="popupInstallBtn" class="popup-install-btn">
+📲 Install Now
+</button>
+
+<div class="popup-note">
+No Play Store • One-tap install
 </div>
 
-<div id="loading" class="loading">⏳ Fetching video… please wait</div>
-<div id="error" class="error"></div>
-
-<div id="player" class="player">
-  <video id="video" controls playsinline preload="auto"></video>
 </div>
-
-<!-- ADS BELOW PLAYER -->
-<div id="adsBox" style="margin-top:16px;display:none;text-align:center">
-  <script async data-cfasync="false"
-  src="https://pl28188629.effectivegatecpm.com/9a259b450791fd97609d22be0d2f1525/invoke.js"></script>
-  <div id="container-9a259b450791fd97609d22be0d2f1525"></div>
-</div>
-
-</section>
-
-<!-- SEO article placeholder -->
- <section class="section" id="seoContent">
-
-    <!-- Intro / Summary -->
-    <h2>⭐ ZTERA – Best TeraBox Video Player & Downloader (HD Online Streaming)</h2>
-    <p>
-      ZTERA duniya ka sabse fast aur secure <strong>TeraBox online video player</strong> hai jisme aap kisi bhi Terabox video ka link paste karke turant HD quality mein dekh sakte ho. Koi ads nahi, koi login nahi — बस लिंक डालो और play करो. ZTERA ka main focus hai speed, clean UI, HD playback, mobile optimization aur instant load time. Is page par hum ZTERA ke features, kaam karne ka tarika, FAQs, aur step-by-step guide denge jo users aur Google dono ko madad karega.
-    </p>
-
-    <!-- How it works -->
-    <h3>⭐ ZTERA Kaise Kaam Karta Hai?</h3>
-    <p>
-      ZTERA automatically Terabox link ko detect karta hai aur fir API ke through us link ko streaming format mein convert karta hai. Ye process secure servers aur optimized caching layers par chalta hai jisse video 0–2 seconds mein load hone lagta hai. Neeche steps diye gaye hain:
-    </p>
-    <ol>
-      <li><b>Link paste karo:</b> User link paste karta hai — chahe woh plain text ho ya koi mirror link.</li>
-      <li><b>Validation:</b> ZTERA link ko validate karta hai aur agar zaroori ho to mirror normalization lagata hai.</li>
-      <li><b>Stream generation:</b> API direct streaming URL generate karta hai jo iframe ya player me chalaya ja sakta hai.</li>
-      <li><b>Playback:</b> Video bina ads ke play hota hai — quality adaptive hoti hai (360p se 1080p tak).</li>
-      <li><b>Download option:</b> Agar user chahe to <a href="downloader.html" class="internal">ZTERA Downloader</a> se direct link nikal kar video download kar sakta hai.</li>
-    </ol>
-
-    <!-- Features -->
-    <h3>⭐ ZTERA Features (Google Ranking Friendly Section)</h3>
-    <p>ZTERA me aapko ye premium features milte hain jo ranking aur user experience dono improve karte hain:</p>
-    <ul>
-      <li><b>Instant HD Playback (0–2s Load Time):</b> Advanced caching aur adaptive streaming use karke ZTERA fast playback deta hai.</li>
-      <li><b>Ad-Free Viewing:</b> User distraction kam — better retention aur higher time-on-page (SEO benefit).</li>
-      <li><b>Auto-detect Terabox Links:</b> Mixed text se bhi ZTERA link identify karke normalize kar leta hai (mirrors handled).</li>
-      <li><b>Mobile & Desktop Support:</b> Fully responsive UI — mobile users ko PWA install option milta hai.</li>
-      <li><b>Direct Downloader:</b> <a href="downloader.html" class="internal">ZTERA Downloader</a> se 1-click direct links generate karo.</li>
-      <li><b>Privacy:</b> No login, no tracking — privacy-first approach.</li>
-      <li><b>Safe & Secure:</b> URLs sanitize karne ke baad hi streaming start hota hai.</li>
-    </ul>
-
-    <!-- Comparison -->
-    <h3>⭐ ZTERA vs Official TeraBox Player</h3>
-    <p>
-      Bahut users official TeraBox app me ads, slow loading aur login issues face karte hain. Neeche ek short comparison hai:
-    </p>
-    <table style="width:100%; border-collapse:collapse;">
-      <tr>
-        <td style="border:1px solid #eee; padding:10px;"><strong>Feature</strong></td>
-        <td style="border:1px solid #eee; padding:10px;"><strong>TeraBox App</strong></td>
-        <td style="border:1px solid #eee; padding:10px;"><strong>ZTERA</strong></td>
-      </tr>
-      <tr>
-        <td style="border:1px solid #eee; padding:10px;">Ads</td>
-        <td style="border:1px solid #eee; padding:10px;">Yes</td>
-        <td style="border:1px solid #eee; padding:10px;">No</td>
-      </tr>
-      <tr>
-        <td style="border:1px solid #eee; padding:10px;">Login Required</td>
-        <td style="border:1px solid #eee; padding:10px;">Yes</td>
-        <td style="border:1px solid #eee; padding:10px;">No</td>
-      </tr>
-      <tr>
-        <td style="border:1px solid #eee; padding:10px;">Direct Download</td>
-        <td style="border:1px solid #eee; padding:10px;">No</td>
-        <td style="border:1px solid #eee; padding:10px;">Yes — <a href="downloader.html" class="internal">Downloader</a></td>
-      </tr>
-    </table>
-
-    <!-- Mirrors supported -->
-    <h3>⭐ Supported Terabox Mirror Links</h3>
-    <p>ZTERA below mirrors automatically detect aur normalize karta hai:</p>
-    <ul>
-      <li>1024terabox.com</li>
-      <li>1024tera.com</li>
-      <li>teraboxurl.com</li>
-      <li>nephobox.com</li>
-      <li>gibibox.com</li>
-      <li>4funbox.com</li>
-      <li>teraboxcdn.com</li>
-      <li>teraboxlink.com</li>
-      <li>teraboxapp.com</li>
-    </ul>
-
-    <!-- How to use -->
-    <h3>⭐ How to Use ZTERA Player (Step-by-Step)</h3>
-    <p>Bahut simple steps — following best practices se aap fastest experience paoge:</p>
-    <ol>
-      <li>Open this page (ZTERA Player)</li>
-      <li>Copy the public Terabox share link (format: https://terabox.com/s/xxxxx)</li>
-      <li>Paste link in the input field above</li>
-      <li>Click “Play Video” — video iframe me load ho jayegi</li>
-      <li>Rotate phone for fullscreen, or use the full-screen button inside player</li>
-      <li>Agar download chahiye to visit <a href="downloader.html" class="internal">ZTERA Downloader</a></li>
-    </ol>
-
-    <!-- SEO intent / keywords -->
-    <h3>⭐ Keyword Intent & Why ZTERA Answers It</h3>
-    <p>
-      Users search queries like “terabox player online”, “play terabox video without ads”, “terabox downloader” ka intent hota hai — they want quick playback or download without signup. ZTERA in queries ko direct solve karta hai: instant playback, direct download links, mobile optimized UI — isliye Google me ranking accelerate hoti hai agar aap ye page consistently update karte ho aur backlinks build karte ho.
-    </p>
-
-    <!-- Trust & Safety -->
-    <h3>⭐ Trust & Safety</h3>
-    <p>
-      ZTERA koi personal data store nahi karta. Hamare servers sirf requested resource ko streaming format me convert karte hain aur temporary cache me rakhte hain. Agar koi link expired ho to user ko clear message dikhaya jata hai. Agar aapko koi copyright concern ho to contact support (add contact link if you have).
-    </p>
-
-    <!-- FAQs (SEO rich) -->
-    <h3>⭐ FAQs</h3>
-    <p><b>Q: Kya ZTERA free hai?</b><br> A: Haan, ZTERA completely free hai. Aap bina login ke videos play kar sakte hain.</p>
-    <p><b>Q: Kya video HD me chalega?</b><br> A: Haan — player adaptive streaming support karta hai 360p se 1080p tak.</p>
-    <p><b>Q: Kya main video download kar sakta hoon?</b><br> A: Haan — use the <a href="downloader.html" class="internal">Downloader</a> page to generate direct links.</p>
-    <p><b>Q: Kya ye safe hai?</b><br> A: Yes — no login, no tracking. Links sirf user ke request par hi process hoti hain.</p>
-
-    <!-- Closing / CTA -->
-    <h3>⭐ Ready to Watch?</h3>
-    <p>
-      Paste your Terabox link above and click <strong>Play Video</strong>. Agar aap chahte ho ki ZTERA app install kar lo, use the install badge (bottom-right) to add ZTERA to your home screen for one-tap access.
-    </p>
-
-    <p style="margin-top:18px;">
-      Helpful internal links:
-      <br>▶ <a href="index.html" class="internal">ZTERA Homepage</a>
-      <br>⬇ <a href="downloader.html" class="internal">ZTERA Downloader</a>
-      <br>📚 <a href="blog.html" class="internal">ZTERA Blog</a>
-    </p>
-
-    <!-- Long form SEO paragraph to increase word count (additional content for ranking) -->
-    <h3>⭐ Deep Dive: Technical Notes & SEO Signals</h3>
-    <p>
-      (Long-form paragraph that helps with ranking — crawlable, useful and keyword-rich.) ZTERA optimized playback architecture uses server-side link parsing, CDN caching and adaptive bitrate streaming. Hamare caching layer frequently requested resources ko short-term store karte hain taaki repeated requests par load time minimal rahe. Google ke Page Experience signals ko dhyan me rakh kar hamne light DOM, minimal external blocking scripts, and compressed assets implement kiye hain. Is se LCP, FID aur CLS metrics improve hote hain — jo Google ranking me bahut important hai. Regularly publishing blog posts on common user problems like "Terabox player not working", "How to fix Terabox direct link" aur link building se aapka domain authority increase hota hai. Internal linking structure (homepage → player/downloader/blog) se crawler easily site ka structure samajhta hai aur important pages ko priority deta hai. Ye long content search intent ko bhi match karta hai jise Google helpful-content algorithm prefer karta hai.
-    </p>
-
-    <!-- End of SEO content -->
-  </section>
-
-
 </div>
 
 <script>
-const API="https://iteraplay.in/api/fetch?url=";
-let hls=null, retryTimer=null, stopped=false;
 
-/******** CHROME-ONLY (BLOCK TELEGRAM WEBVIEW) ********/
-(function(){
-  const ua=navigator.userAgent.toLowerCase();
-  const insideTelegram=ua.includes("telegram");
-  if(insideTelegram){
-    const url=location.href;
-    const intent="intent://"+url.replace(/^https?:\/\//,"")+
-      "#Intent;scheme=https;package=com.android.chrome;end";
-    window.location.href=intent;
-  }
-})();
+let deferredPrompt=null;
 
-/******** START ********/
-function start(){
-  const link=tbxUrl.value.trim();
-  if(link.length<10){ showError("Invalid TeraBox link"); return; }
+const overlay=document.getElementById("installOverlay");
+const installBtn=document.getElementById("popupInstallBtn");
+const closeBtn=document.getElementById("closePopup");
 
-  stopped=false;
-  error.style.display="none";
-  player.style.display="none";
-  adsBox.style.display="none";
-  loading.style.display="block";
+const TRACK_API="https://admin.yaartunah.workers.dev/?action=track&type=";
 
-  fetchUntilSuccess(link);
+if("serviceWorker" in navigator){
+navigator.serviceWorker.register("/sw.js");
 }
-
-/******** AUTO-RETRY ********/
-async function fetchUntilSuccess(link){
-  if(stopped) return;
-
-  try{
-    const controller=new AbortController();
-    setTimeout(()=>controller.abort(),10000);
-
-    const res=await fetch(API+encodeURIComponent(link),
-      {cache:"no-store",signal:controller.signal});
-
-    if(!res.ok) throw new Error();
-    const data=await res.json();
-    if(data.status!=="success") throw new Error();
-
-    const file=data.list[0];
-    const stream=file.fast_stream_url?.["720p"]
-      || file.fast_stream_url?.["360p"]
-      || file.stream_url;
-
-    playInline(stream);
-
-    loading.style.display="none";
-    player.style.display="block";
-    adsBox.style.display="block";
-    stopped=true;
-  }catch(e){
-    error.textContent="Server busy… retrying automatically";
-    error.style.display="block";
-    retryTimer=setTimeout(()=>fetchUntilSuccess(link),2500);
-  }
-}
-
-/******** PLAYER ********/
-function playInline(url){
-  if(hls){hls.destroy();hls=null;}
-
-  if(url.includes(".m3u8")){
-    if(video.canPlayType("application/vnd.apple.mpegurl")){
-      video.src=url;
-    }else if(Hls.isSupported()){
-      hls=new Hls();
-      hls.loadSource(url);
-      hls.attachMedia(video);
-    }
-  }else{
-    video.src=url;
-  }
-  video.load(); video.play().catch(()=>{});
-}
-
-function showError(msg){
-  error.textContent=msg;
-  error.style.display="block";
-}
-
-/******** BOT AUTO-PLAY (?url=) ********/
-(function(){
-  const p=new URLSearchParams(location.search);
-  const u=p.get("url");
-  if(u){
-    tbxUrl.value=decodeURIComponent(u);
-    setTimeout(start,900);
-  }
-})();
-
-/******** PWA BADGE ********/
-let deferredPrompt;
-const badge=document.getElementById("installBadge");
 
 window.addEventListener("beforeinstallprompt",(e)=>{
-  e.preventDefault();deferredPrompt=e;
-  badge.style.display="block";
+e.preventDefault();
+deferredPrompt=e;
+
+setTimeout(()=>{
+overlay.style.display="flex";
+},1000);
+
 });
-badge.onclick=async()=>{
-  badge.style.display="none";
-  if(!deferredPrompt)return;
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  setTimeout(()=>badge.style.display="block",15000);
-};
+
+installBtn.addEventListener("click",async()=>{
+
+if(!deferredPrompt){
+alert("Open Chrome menu → Add to Home Screen");
+return;
+}
+
+navigator.sendBeacon(TRACK_API+"install");
+
+deferredPrompt.prompt();
+await deferredPrompt.userChoice;
+
+overlay.style.display="none";
+deferredPrompt=null;
+
+});
+
+closeBtn.addEventListener("click",()=>{
+overlay.style.display="none";
+});
+
 </script>
 
 </body>
