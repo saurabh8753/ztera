@@ -1,23 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="description" content="Download videos from Terabox, Instagram, YouTube, Facebook, Twitter, TikTok, Snapchat and Pinterest instantly. Free all-in-one video downloader tool.">
 
-<meta name="keywords" content="video downloader, instagram downloader, terabox downloader, youtube downloader, facebook video downloader, twitter downloader, tiktok downloader">
+<!-- ✅ BASIC SEO -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Ztera – Fast Video Downloader for Instagram, YouTube, Terabox & More</title>
+
+<meta name="description" content="Ztera is a fast and free video downloader for Instagram, YouTube, Terabox, Facebook, Twitter, TikTok, Snapchat and Pinterest. Download HD videos instantly without login.">
+
+<meta name="keywords" content="ztera, video downloader, instagram downloader, terabox downloader, youtube downloader, facebook video downloader, twitter downloader, tiktok downloader, snapchat downloader, pinterest downloader">
 
 <meta name="robots" content="index, follow">
 
+<link rel="canonical" href="https://www.ztera.fun/">
+
+<!-- ✅ OPEN GRAPH -->
 <meta property="og:title" content="Ztera Fast Video Downloader">
-<meta property="og:description" content="Download videos from all social media platforms instantly.">
+<meta property="og:description" content="Download videos from all platforms instantly in HD quality.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.ztera.fun">
-<meta property="og:image" content="https://www.ztera.fun/icon.png">  
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ztera</title>
+<meta property="og:image" content="https://www.ztera.fun/icon.png">
 
+<!-- ✅ TWITTER SEO -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ztera Fast Video Downloader">
+<meta name="twitter:description" content="Download videos from Instagram, YouTube, Terabox and more.">
+<meta name="twitter:image" content="https://www.ztera.fun/icon.png">
+
+<!-- ✅ FAVICON -->
+<link rel="icon" href="/icon.png">
+
+<!-- ✅ PWA -->
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#3248f5">
+
+<!-- ✅ SCHEMA (VERY IMPORTANT FOR GOOGLE) -->
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "WebSite",
+"name": "Ztera",
+"url": "https://www.ztera.fun/",
+"potentialAction": {
+"@type": "SearchAction",
+"target": "https://www.ztera.fun/?q={search_term_string}",
+"query-input": "required name=search_term_string"
+}
+}
+</script>
+
+<!-- ✅ FONT AWESOME -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
@@ -110,6 +144,16 @@ animation:comboGlow 2s infinite;
 50%{transform:scale(1.1)}
 100%{transform:scale(1)}
 }
+
+/* ✅ SEO CONTENT STYLE */
+.seo{
+margin-top:20px;
+font-size:14px;
+color:#444;
+line-height:1.6;
+}
+.seo h2{font-size:18px;margin-bottom:8px}
+.seo h3{font-size:16px;margin-top:10px}
 </style>
 </head>
 
@@ -119,6 +163,8 @@ animation:comboGlow 2s infinite;
 
 <div class="wrapper">
 <div class="card">
+
+<!-- ✅ BUTTONS SAME (NO CHANGE) -->
 
 <a class="btn dailytools" href="https://buttons-dlq.pages.dev/" target="_blank">
 <i class="fa-solid fa-toolbox"></i>
@@ -177,18 +223,27 @@ Telegram Updates Channel
 
 </div>
 
-<div id="bodyAdContainer">
-<script type="text/javascript">
-atOptions = {
-'key' : '36ffe368e4b924f77be468053af7bb35',
-'format' : 'iframe',
-'height' : 250,
-'width' : 300,
-'params' : {}
-};
-</script>
-<script type="text/javascript" src="https://yawncollaremotion.com/36ffe368e4b924f77be468053af7bb35/invoke.js"></script>
+<!-- ✅ SEO CONTENT (RANKING BOOST) -->
+<div class="seo">
+
+<h2>Free All-in-One Video Downloader</h2>
+<p>Ztera is a powerful and fast video downloader that allows you to download videos from multiple platforms including Instagram, YouTube, Terabox, Facebook, Twitter (X), TikTok, Snapchat, and Pinterest.</p>
+
+<h3>Why Ztera is the Best Video Downloader?</h3>
+<ul>
+<li>Download videos in HD quality</li>
+<li>No login required</li>
+<li>Fast and secure downloads</li>
+<li>Supports all major social media platforms</li>
+<li>Mobile friendly and lightweight</li>
+</ul>
+
+<h3>Supported Platforms</h3>
+<p>Instagram Reels Downloader, YouTube Video Downloader, Terabox Downloader, Facebook Video Downloader, Twitter Video Downloader, TikTok Downloader, Snapchat Downloader and Pinterest Video Downloader.</p>
+
 </div>
+
+<div id="bodyAdContainer"></div>
 
 </div>
 
@@ -197,65 +252,9 @@ atOptions = {
 </div>
 
 <script>
-
 if ("serviceWorker" in navigator) {
 navigator.serviceWorker.register("/sw.js");
 }
-
-/* 🔥 TRACKING */
-const TRACK_API="https://admin.yaartunah.workers.dev/?action=track&type=";
-fetch(TRACK_API+"visit").catch(()=>{});
-
-/* Badge */
-const combo=document.getElementById("comboBadge");
-const icon=document.getElementById("comboIcon");
-let deferredPrompt=null;
-
-const isStandalone=
-window.matchMedia("(display-mode: standalone)").matches||
-window.navigator.standalone===true;
-
-icon.className=isStandalone?"fa-solid fa-share-nodes":"fa-solid fa-download";
-
-window.addEventListener("beforeinstallprompt",(e)=>{
-e.preventDefault();
-deferredPrompt=e;
-});
-
-combo.addEventListener("click",async()=>{
-if(isStandalone){
-fetch(TRACK_API+"share").catch(()=>{});
-const text=encodeURIComponent("🚀 Install Desisaver App\nAll-in-one Video Downloader\n\nDownload now:\nhttps://shorturl.at/qfsIm");
-window.open(`https://wa.me/?text=${text}`,"_blank");
-return;
-}
-
-if(!deferredPrompt){
-alert("Install ke liye: Menu (⋮) → Add to Home Screen");
-return;
-}
-
-fetch(TRACK_API+"install").catch(()=>{});
-deferredPrompt.prompt();
-await deferredPrompt.userChoice;
-deferredPrompt=null;
-});
-
-/* 🔥 ADS AFTER 5 SECONDS */
-setTimeout(()=>{
-document.getElementById("bodyAdContainer").style.display="block";
-
-const s1=document.createElement("script");
-s1.async=true;
-s1.src="https://yawncollaremotion.com/546f6bc9178f50dbe958ddc959944152/invoke.js";
-document.body.appendChild(s1);
-
-const div1=document.createElement("div");
-div1.id="container-546f6bc9178f50dbe958ddc959944152";
-document.body.appendChild(div1);
-
-},5000);
-
 </script>
 
 </body>
