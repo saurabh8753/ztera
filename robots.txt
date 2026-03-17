@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.ztera.fun/sitemap.xml
+Sitemap: https://ztera.pages.dev/sitemap.xml
