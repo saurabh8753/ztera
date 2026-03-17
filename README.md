@@ -1,5 +1,5 @@
-## ZTERA – TeraBox Video Player
+## ZTERA – All Video Player & Downloader 
 
-ZTERA is an online tool to play and download TeraBox videos without ads.
+ZTERA is an online tool to play and download Social Media videos without ads.
 
-🔗 Live Website: https://www.ztera.fun
+🔗 Live Website: https://ztera.pages.dev
