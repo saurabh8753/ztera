@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Ztera – Fast Video Downloader for Instagram, YouTube, Terabox & More</title>
+
+<meta name="description" content="Ztera is a fast and free video downloader for Instagram, YouTube, Terabox, Facebook, Twitter, TikTok, Snapchat and Pinterest. Download HD videos instantly without login.">
+
+<meta name="keywords" content="ztera, video downloader, instagram downloader, terabox downloader, youtube downloader, facebook video downloader, twitter downloader, tiktok downloader, snapchat downloader, pinterest downloader">
+
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ztera.pages.dev/">
+
+<meta property="og:title" content="Ztera Fast Video Downloader">
+<meta property="og:description" content="Download videos from all platforms instantly in HD quality.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ztera.pages.dev/">
+<meta property="og:image" content="https://ztera.pages.dev/icon.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ztera Fast Video Downloader">
+<meta name="twitter:description" content="Download videos from Instagram, YouTube, Terabox and more.">
+<meta name="twitter:image" content="https://ztera.pages.dev/icon.png">
+
+<link rel="icon" href="/icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#3248f5">
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "WebSite",
+"name": "Ztera",
+"url": "https://ztera.pages.dev/"
+}
+</script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Inter,Arial,sans-serif;
+background:linear-gradient(180deg,#e8ecff,#f8f9ff);
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+header{
+width:100%;
+padding:18px 0;
+background:#3248f5;
+color:#fff;
+text-align:center;
+font-size:22px;
+font-weight:800;
+}
+.wrapper{
+width:100%;
+max-width:520px;
+padding:20px 14px 80px;
+}
+.card{
+background:#fff;
+border-radius:16px;
+padding:20px;
+box-shadow:0 15px 35px rgba(0,0,0,.08);
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+.btn{
+display:flex;
+align-items:center;
+gap:12px;
+padding:14px;
+border-radius:12px;
+color:#fff;
+text-decoration:none;
+font-weight:700;
+}
+.dailytools{background:#0ea5e9}
+.ai-tools{background:linear-gradient(45deg,#6366f1,#8b5cf6)}
+.terabox{background:#5b6bff}
+.instagram{background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7)}
+.youtube{background:#ff0000}
+.facebook{background:#1877f2}
+.twitter{background:#000}
+.tiktok{background:#111}
+.snapchat{background:#fffc00;color:#000}
+.pinterest{background:#e60023}
+.telegram{background:#229ED9}
+
+#comboBadge{
+position:fixed;
+right:14px;
+bottom:18px;
+width:60px;
+height:60px;
+border-radius:50%;
+background:linear-gradient(45deg,#3248f5,#6d28ff,#22c55e);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+z-index:9999;
+cursor:pointer;
+}
+
+/* 🔥 INSTALL POPUP */
+.install-overlay{
+position:fixed;
+inset:0;
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+background:rgba(0,0,0,.6);
+}
+
+.install-box{
+width:90%;
+max-width:380px;
+background:#fff;
+border-radius:20px;
+padding:25px;
+text-align:center;
+}
+
+.popup-install-btn{
+width:100%;
+padding:14px;
+background:#3248f5;
+color:#fff;
+border:none;
+border-radius:12px;
+font-weight:700;
+cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>Ztera Fast & Smart Video Downloader</header>
+
+<div class="wrapper">
+<div class="card">
+
+<a class="btn terabox" href="https://buttons-dlq.pages.dev/desitera" target="_blank">Terabox Downloader</a>
+<a class="btn instagram" href="https://buttons-dlq.pages.dev/instadown" target="_blank">Instagram Downloader</a>
+<a class="btn youtube" href="#">YouTube Downloader</a>
+
+</div>
+</div>
+
+<!-- 🔥 INSTALL POPUP -->
+<div id="installPopup" class="install-overlay">
+<div class="install-box">
+<h2>Install Ztera 🚀</h2>
+<p>Fast • No Ads • One Tap</p>
+<button id="installNow" class="popup-install-btn">Install Now</button>
+</div>
+</div>
+
+<!-- 🔥 COMBO -->
+<div id="comboBadge"><i id="comboIcon" class="fa-solid fa-download"></i></div>
+
+<script>
+
+const TRACK_API="https://admin.yaartunah.workers.dev/?action=track&type=";
+fetch(TRACK_API+"visit");
+
+let deferredPrompt=null;
+
+window.addEventListener("beforeinstallprompt",(e)=>{
+e.preventDefault();
+deferredPrompt=e;
+
+/* SHOW POPUP */
+setTimeout(()=>{
+document.getElementById("installPopup").style.display="flex";
+},2000);
+
+});
+
+/* INSTALL BTN */
+document.getElementById("installNow").onclick=async()=>{
+if(!deferredPrompt){
+alert("Add to Home Screen");
+return;
+}
+fetch(TRACK_API+"install");
+deferredPrompt.prompt();
+await deferredPrompt.userChoice;
+};
+
+/* COMBO BTN */
+const combo=document.getElementById("comboBadge");
+combo.onclick=()=>{
+fetch(TRACK_API+"share");
+window.open("https://wa.me/?text=Download Ztera https://ztera.pages.dev");
+};
+
+</script>
+
+</body>
+</html>
