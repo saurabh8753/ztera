@@ -115,6 +115,7 @@ display:none;
 margin:20px 0;
 text-align:center;
 width:100%;
+overflow:hidden;
 }
 
 #comboBadge{
@@ -131,7 +132,7 @@ align-items:center;
 justify-content:center;
 font-size:22px;
 cursor:pointer;
-z-index:9999;
+z-index:999999;
 box-shadow:0 0 25px rgba(109,40,255,.6);
 animation:comboGlow 2s infinite;
 }
@@ -159,6 +160,7 @@ line-height:1.6;
 <div class="wrapper">
 <div class="card">
 
+<!-- BUTTONS SAME -->
 <a class="btn dailytools" href="https://buttons-dlq.pages.dev/" target="_blank">
 <i class="fa-solid fa-toolbox"></i>Daily Uses All Tools 🥳</a>
 
@@ -194,6 +196,7 @@ line-height:1.6;
 
 </div>
 
+<!-- SEO CONTENT -->
 <div class="seo">
 <h2>Free All-in-One Video Downloader</h2>
 <p>Ztera is a powerful and fast video downloader that allows you to download videos from Instagram, YouTube, Terabox, Facebook, Twitter, TikTok, Snapchat, and Pinterest.</p>
@@ -209,13 +212,15 @@ line-height:1.6;
 
 <h3>Supported Platforms</h3>
 <p>Instagram Reels Downloader, YouTube Video Downloader, Terabox Downloader, Facebook Video Downloader, Twitter Video Downloader, TikTok Downloader, Snapchat Downloader and Pinterest Video Downloader.</p>
+
 </div>
 
-<!-- ✅ NEW AD -->
+<!-- ✅ FIXED NON-RESPONSIVE AD -->
 <div id="bodyAdContainer">
-<script async="async" data-cfasync="false" src="https://pl29064745.profitablecpmratenetwork.com/4f0bfeaabac995fec9ba44ec0ea68118/invoke.js"></script>
-<div id="container-4f0bfeaabac995fec9ba44ec0ea68118"></div>
-</div>
+  <div style="width:300px;height:250px;margin:auto;overflow:hidden;">
+    <script async="async" data-cfasync="false" src="https://pl29064745.profitablecpmratenetwork.com/4f0bfeaabac995fec9ba44ec0ea68118/invoke.js"></script>
+    <div id="container-4f0bfeaabac995fec9ba44ec0ea68118"></div>
+  </div>
 <script>
   atOptions = {
     'key' : '8f5f46a705a3a0fd802b46ff46cf40a4',
@@ -323,10 +328,12 @@ line-height:1.6;
     'params' : {}
   };
 </script>
-<script src="https://www.highperformanceformat.com/23a6441e04026ad222d145f13ca7fbff/invoke.js"></script>
+<script src="https://www.highperformanceformat.com/23a6441e04026ad222d145f13ca7fbff/invoke.js"></script>  
+</div>
 
 </div>
 
+<!-- 🔥 COMBO BUTTON -->
 <div id="comboBadge">
 <i id="comboIcon" class="fa-solid fa-download"></i>
 </div>
@@ -336,6 +343,7 @@ if ("serviceWorker" in navigator) {
 navigator.serviceWorker.register("/sw.js");
 }
 
+/* TRACK */
 const TRACK_API="https://admin.yaartunah.workers.dev/?action=track&type=";
 fetch(TRACK_API+"visit").catch(()=>{});
 
@@ -383,7 +391,7 @@ deferredPrompt=null;
 
 });
 
-/* SHOW AD AFTER 5 SEC */
+/* ✅ SAME 5 SEC DELAY */
 setTimeout(()=>{
 document.getElementById("bodyAdContainer").style.display="block";
 },5000);
