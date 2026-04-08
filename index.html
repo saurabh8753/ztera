@@ -150,6 +150,53 @@ line-height:1.6;
 }
 .seo h2{font-size:18px;margin-bottom:8px}
 .seo h3{font-size:16px;margin-top:10px}
+
+/* 🔥 INSTALL POPUP CSS */
+#installPopup{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(6px);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:999999;
+opacity:0;
+pointer-events:none;
+transition:.3s;
+}
+#installPopup.active{
+opacity:1;
+pointer-events:auto;
+}
+.installBox{
+background:#fff;
+width:90%;
+max-width:340px;
+border-radius:18px;
+padding:20px;
+text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,0.3);
+animation:popupScale .3s ease;
+}
+@keyframes popupScale{
+from{transform:scale(.8);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+.installBox h3{margin-bottom:10px;font-size:20px}
+.installBox p{font-size:14px;color:#555;margin-bottom:18px}
+.installActions{display:flex;gap:10px}
+.installBtn,.laterBtn{
+flex:1;
+padding:12px;
+border-radius:10px;
+border:none;
+font-weight:700;
+cursor:pointer;
+}
+.installBtn{background:#3248f5;color:#fff}
+.laterBtn{background:#eee}
 </style>
 </head>
 
@@ -160,7 +207,6 @@ line-height:1.6;
 <div class="wrapper">
 <div class="card">
 
-<!-- BUTTONS SAME -->
 <a class="btn dailytools" href="https://buttons-dlq.pages.dev/" target="_blank">
 <i class="fa-solid fa-toolbox"></i>Daily Uses All Tools 🥳</a>
 
@@ -196,31 +242,12 @@ line-height:1.6;
 
 </div>
 
-<!-- SEO CONTENT -->
 <div class="seo">
 <h2>Free All-in-One Video Downloader</h2>
-<p>Ztera is a powerful and fast video downloader that allows you to download videos from Instagram, YouTube, Terabox, Facebook, Twitter, TikTok, Snapchat, and Pinterest.</p>
-
-<h3>Why Ztera is the Best Video Downloader?</h3>
-<ul>
-<li>Download videos in HD quality</li>
-<li>No login required</li>
-<li>Fast and secure downloads</li>
-<li>Supports all major social media platforms</li>
-<li>Mobile friendly and lightweight</li>
-</ul>
-
-<h3>Supported Platforms</h3>
-<p>Instagram Reels Downloader, YouTube Video Downloader, Terabox Downloader, Facebook Video Downloader, Twitter Video Downloader, TikTok Downloader, Snapchat Downloader and Pinterest Video Downloader.</p>
-
+<p>Ztera is a powerful and fast video downloader...</p>
 </div>
 
-<!-- ✅ FIXED NON-RESPONSIVE AD -->
 <div id="bodyAdContainer">
-  <div style="width:300px;height:250px;margin:auto;overflow:hidden;">
-    <script async="async" data-cfasync="false" src="https://pl29064745.profitablecpmratenetwork.com/4f0bfeaabac995fec9ba44ec0ea68118/invoke.js"></script>
-    <div id="container-4f0bfeaabac995fec9ba44ec0ea68118"></div>
-  </div>
 <script>
   atOptions = {
     'key' : '8f5f46a705a3a0fd802b46ff46cf40a4',
@@ -338,74 +365,84 @@ line-height:1.6;
     'params' : {}
   };
 </script>
-<script src="https://www.highperformanceformat.com/23a6441e04026ad222d145f13ca7fbff/invoke.js"></script>  
+<script src="https://www.highperformanceformat.com/23a6441e04026ad222d145f13ca7fbff/invoke.js"></script>   -->
 </div>
 
 </div>
 
-<!-- 🔥 COMBO BUTTON -->
 <div id="comboBadge">
 <i id="comboIcon" class="fa-solid fa-download"></i>
 </div>
 
-<script>
-if ("serviceWorker" in navigator) {
-navigator.serviceWorker.register("/sw.js");
-}
+<!-- 🔥 INSTALL POPUP HTML -->
+<div id="installPopup">
+  <div class="installBox">
+    <h3>Install Ztera App 🚀</h3>
+    <p>Fast video downloader ko app ki tarah use karo.</p>
+    <div class="installActions">
+      <button class="laterBtn" onclick="closeInstall()">Later</button>
+      <button class="installBtn" onclick="triggerInstall()">Install</button>
+    </div>
+  </div>
+</div>
 
-/* TRACK */
+<script>
 const TRACK_API="https://admin.yaartunah.workers.dev/?action=track&type=";
-fetch(TRACK_API+"visit").catch(()=>{});
 
 let deferredPrompt=null;
 
 window.addEventListener("beforeinstallprompt",(e)=>{
-e.preventDefault();
-deferredPrompt=e;
+  e.preventDefault();
+  deferredPrompt=e;
 });
 
-const combo=document.getElementById("comboBadge");
-const icon=document.getElementById("comboIcon");
-
-const isStandalone=
-window.matchMedia("(display-mode: standalone)").matches||
-window.navigator.standalone===true;
-
-icon.className=isStandalone
-? "fa-solid fa-share-nodes"
-: "fa-solid fa-download";
-
-combo.addEventListener("click",async()=>{
-
-if(isStandalone){
-fetch(TRACK_API+"share").catch(()=>{});
-
-const text=encodeURIComponent(
-"🚀 Install Ztera App\nAll Video Downloader\nhttps://ztera.pages.dev"
-);
-
-window.open(`https://wa.me/?text=${text}`,"_blank");
-return;
+function openInstall(){
+  document.getElementById("installPopup").classList.add("active");
+}
+function closeInstall(){
+  document.getElementById("installPopup").classList.remove("active");
 }
 
-if(!deferredPrompt){
-alert("Menu (⋮) → Add to Home Screen");
-return;
+function canShowPopup(){
+  const last=localStorage.getItem("installPopupDate");
+  const today=new Date().toDateString();
+  if(last===today) return false;
+  localStorage.setItem("installPopupDate",today);
+  return true;
 }
 
-fetch(TRACK_API+"install").catch(()=>{});
+async function triggerInstall(){
+  closeInstall();
 
-deferredPrompt.prompt();
-await deferredPrompt.userChoice;
-deferredPrompt=null;
+  if(!deferredPrompt){
+    alert("Menu (⋮) → Add to Home Screen");
+    return;
+  }
 
-});
+  deferredPrompt.prompt();
+  const choice=await deferredPrompt.userChoice;
 
-/* ✅ SAME 5 SEC DELAY */
+  if(choice.outcome==="accepted"){
+    fetch(TRACK_API+"install_success").catch(()=>{});
+    setTimeout(()=>{
+      window.location.href="https://ztera.pages.dev/?installed=true";
+    },1500);
+  }else{
+    fetch(TRACK_API+"install_cancel").catch(()=>{});
+  }
+
+  deferredPrompt=null;
+}
+
 setTimeout(()=>{
-document.getElementById("bodyAdContainer").style.display="block";
-},5000);
+  const isStandalone=
+  window.matchMedia("(display-mode: standalone)").matches||
+  window.navigator.standalone===true;
 
+  if(!isStandalone && canShowPopup()){
+    openInstall();
+  }
+},3000);
 </script>
 
 </body>
