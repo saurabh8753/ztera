@@ -187,6 +187,35 @@ line-height:1.6;
 .show .pwa-popup-card {
   transform: translateY(0);
 }
+
+/* ✅ NEW: CORNER CLOSE BUTTON */
+.popup-close-corner {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #64748b;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+.popup-close-corner:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+  transform: scale(1.05);
+}
+.popup-close-corner i {
+  font-size: 14px;
+}
+
 .popup-icon {
   background: linear-gradient(145deg, #3248f5, #8b5cf6);
   width: 64px;
@@ -288,6 +317,10 @@ line-height:1.6;
 @media (max-width: 480px) {
   .pwa-popup-card {
     padding: 20px 16px 18px;
+  }
+  .popup-close-corner {
+    top: 12px;
+    right: 12px;
   }
 }
 </style>
@@ -487,9 +520,15 @@ line-height:1.6;
 <i id="comboIcon" class="fa-solid fa-download"></i>
 </div>
 
-<!-- ********** CUSTOM PWA INSTALL POPUP (tracking fixed) ********** -->
+<!-- ********** CUSTOM PWA INSTALL POPUP (with corner close button) ********** -->
 <div class="pwa-popup-overlay" id="pwaInstallOverlay">
   <div class="pwa-popup-card">
+    
+    <!-- ✅ NEW: CORNER CLOSE BUTTON -->
+    <button class="popup-close-corner" id="popupCornerCloseBtn" aria-label="Close">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    
     <div class="popup-icon">
       <i class="fa-solid fa-cloud-arrow-down"></i>
     </div>
@@ -582,11 +621,12 @@ setTimeout(() => {
   document.getElementById("bodyAdContainer").style.display = "block";
 }, 5000);
 
-// ========== CUSTOM PWA INSTALL POPUP (with fixed tracking) ==========
+// ========== CUSTOM PWA INSTALL POPUP (with corner close button) ==========
 (function() {
   const overlay = document.getElementById('pwaInstallOverlay');
   const installBtn = document.getElementById('popupInstallBtn');
   const closeBtn = document.getElementById('popupCloseBtn');
+  const cornerCloseBtn = document.getElementById('popupCornerCloseBtn');
   const iosHint = document.getElementById('iosHintBlock');
   
   const SESSION_KEY = 'ztera_pwa_popup_dismissed';
@@ -679,10 +719,11 @@ setTimeout(() => {
   
   if (installBtn) installBtn.addEventListener('click', onInstallClick);
   if (closeBtn) closeBtn.addEventListener('click', onCloseClick);
+  if (cornerCloseBtn) cornerCloseBtn.addEventListener('click', onCloseClick);
   
   // Update when beforeinstallprompt fires later
   window.addEventListener('beforeinstallprompt', function lateUpdate() {
-    deferredPrompt = deferredPrompt || window.deferredPrompt; // ensure sync
+    deferredPrompt = deferredPrompt || window.deferredPrompt;
     updatePopupForEnvironment();
   });
   
