@@ -2,6 +2,16 @@
 <html lang="en">
 <head>
 
+<!-- ✅ GOOGLE ANALYTICS (ADDED - no existing changes) -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E6G38YDKRW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-E6G38YDKRW');
+</script>
+
 <!-- ✅ BASIC SEO (preserved exactly) -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -188,7 +198,7 @@ line-height:1.6;
   transform: translateY(0);
 }
 
-/* ✅ NEW: CORNER CLOSE BUTTON */
+/* ✅ CORNER CLOSE BUTTON */
 .popup-close-corner {
   position: absolute;
   top: 16px;
@@ -524,7 +534,7 @@ line-height:1.6;
 <div class="pwa-popup-overlay" id="pwaInstallOverlay">
   <div class="pwa-popup-card">
     
-    <!-- ✅ NEW: CORNER CLOSE BUTTON -->
+    <!-- ✅ CORNER CLOSE BUTTON -->
     <button class="popup-close-corner" id="popupCornerCloseBtn" aria-label="Close">
       <i class="fa-solid fa-xmark"></i>
     </button>
