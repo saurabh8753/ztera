@@ -161,12 +161,58 @@ line-height:1.6;
 }
 .seo h2{font-size:18px;margin-bottom:8px}
 .seo h3{font-size:16px;margin-top:10px}
+
+/* ✅ TOP INSTALL BUTTON (animation added) */
+#topInstallBtn {
+  position: fixed;
+  top: 80px; /* just below header */
+  right: 14px;
+  z-index: 999998; /* below combo badge */
+  background: linear-gradient(135deg, #3248f5, #6366f1);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 18px;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 8px 22px rgba(50,72,245,0.35);
+  cursor: pointer;
+  display: none; /* hidden by default, shown if not standalone */
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+#topInstallBtn i {
+  font-size: 16px;
+}
+#topInstallBtn.visible {
+  display: flex;
+  /* pulse animation */
+  animation: installPulse 2s ease-in-out infinite;
+}
+/* Hover: pause animation and apply static hover effect */
+#topInstallBtn.visible:hover {
+  animation: none;
+  transform: scale(1.08);
+  box-shadow: 0 12px 28px rgba(50,72,245,0.6);
+}
+@keyframes installPulse {
+  0%   { transform: scale(1);   box-shadow: 0 8px 22px rgba(50,72,245,0.35); }
+  50%  { transform: scale(1.06); box-shadow: 0 12px 28px rgba(50,72,245,0.7); }
+  100% { transform: scale(1);   box-shadow: 0 8px 22px rgba(50,72,245,0.35); }
+}
 </style>
 </head>
 
 <body>
 
 <header>Ztera Fast & Smart Video Downloader</header>
+
+<!-- ✅ TOP INSTALL BUTTON (added) -->
+<button id="topInstallBtn">
+  <i class="fa-solid fa-download"></i> Install ZTERA App
+</button>
 
 <div class="wrapper">
 <div class="card">
@@ -427,6 +473,50 @@ setTimeout(() => {
 window.addEventListener('appinstalled', () => {
   trackEvent('pwa_app_installed');
 });
+
+// ========== TOP INSTALL BUTTON LOGIC (unchanged) ==========
+(function() {
+  const topBtn = document.getElementById('topInstallBtn');
+
+  // Show button only if NOT in standalone mode (i.e., website view)
+  function updateButtonVisibility() {
+    if (isStandalone) {
+      topBtn.classList.remove('visible');
+    } else {
+      topBtn.classList.add('visible');
+    }
+  }
+
+  // Handle click
+  topBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      // Native prompt available
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        trackEvent('top_install_accepted');
+      }
+      deferredPrompt = null;
+    } else {
+      // Fallback for iOS or unsupported browsers
+      if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+        alert('📱 Tap the share button (⬆️) and select "Add to Home Screen" to install Ztera.');
+      } else {
+        alert('💡 Use browser menu → "Install app" or "Add to Home Screen".');
+      }
+      trackEvent('top_install_fallback');
+    }
+  });
+
+  // Update button visibility on load and when PWA state changes
+  updateButtonVisibility();
+  window.addEventListener('appinstalled', () => {
+    updateButtonVisibility(); // will hide after install
+  });
+
+  // Also re‑check if display mode changes (e.g., through manual install)
+  window.matchMedia("(display-mode: standalone)").addEventListener('change', updateButtonVisibility);
+})();
 </script>
 
 <!-- No changes to existing elements, all preserved. -->
