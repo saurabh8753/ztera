@@ -162,20 +162,20 @@ line-height:1.6;
 .seo h2{font-size:18px;margin-bottom:8px}
 .seo h3{font-size:16px;margin-top:10px}
 
-/* ✅ TOP INSTALL BUTTON (animation added) */
+/* ✅ TOP INSTALL BUTTON – NEW COLOUR (teal gradient) */
 #topInstallBtn {
   position: fixed;
   top: 80px; /* just below header */
   right: 14px;
   z-index: 999998; /* below combo badge */
-  background: linear-gradient(135deg, #3248f5, #6366f1);
+  background: linear-gradient(135deg, #00b4db, #0083b0);  /* teal gradient */
   color: #fff;
   border: none;
   border-radius: 30px;
   padding: 10px 18px;
   font-weight: 700;
   font-size: 14px;
-  box-shadow: 0 8px 22px rgba(50,72,245,0.35);
+  box-shadow: 0 8px 22px rgba(0,180,219,0.45);  /* matching shadow */
   cursor: pointer;
   display: none; /* hidden by default, shown if not standalone */
   align-items: center;
@@ -195,12 +195,12 @@ line-height:1.6;
 #topInstallBtn.visible:hover {
   animation: none;
   transform: scale(1.08);
-  box-shadow: 0 12px 28px rgba(50,72,245,0.6);
+  box-shadow: 0 12px 28px rgba(0,180,219,0.7);
 }
 @keyframes installPulse {
-  0%   { transform: scale(1);   box-shadow: 0 8px 22px rgba(50,72,245,0.35); }
-  50%  { transform: scale(1.06); box-shadow: 0 12px 28px rgba(50,72,245,0.7); }
-  100% { transform: scale(1);   box-shadow: 0 8px 22px rgba(50,72,245,0.35); }
+  0%   { transform: scale(1);   box-shadow: 0 8px 22px rgba(0,180,219,0.45); }
+  50%  { transform: scale(1.06); box-shadow: 0 12px 28px rgba(0,180,219,0.75); }
+  100% { transform: scale(1);   box-shadow: 0 8px 22px rgba(0,180,219,0.45); }
 }
 </style>
 </head>
@@ -209,7 +209,7 @@ line-height:1.6;
 
 <header>Ztera Fast & Smart Video Downloader</header>
 
-<!-- ✅ TOP INSTALL BUTTON (added) -->
+<!-- ✅ TOP INSTALL BUTTON (colour updated to teal) -->
 <button id="topInstallBtn">
   <i class="fa-solid fa-download"></i> Install ZTERA App
 </button>
