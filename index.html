@@ -138,7 +138,7 @@ line-height:1.6;
 .seo h2{font-size:18px;margin-bottom:8px}
 .seo h3{font-size:16px;margin-top:10px}
 
-/* ── PROFESSIONAL APP INSTALL POPUP (added) ── */
+/* ── PROFESSIONAL APP INSTALL POPUP (added, now with custom image) ── */
 .app-popup-overlay {
   position: fixed;
   top: 0;
@@ -175,20 +175,14 @@ line-height:1.6;
   0% { transform: translateY(30px) scale(0.95); opacity: 0; }
   100% { transform: translateY(0) scale(1); opacity: 1; }
 }
-.app-popup-icon {
-  background: linear-gradient(135deg, #3248f5, #6d28ff);
-  width: 64px;
-  height: 64px;
-  border-radius: 20px;
-  margin: 0 auto 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 25px rgba(50,72,245,0.3);
-}
-.app-popup-icon i {
-  font-size: 36px;
-  color: #fff;
+.app-popup-image {
+  width: 140px;
+  height: auto;
+  border-radius: 18px;
+  margin: 0 auto 18px;
+  display: block;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  object-fit: cover;
 }
 .app-popup-title {
   font-size: 1.4rem;
@@ -432,18 +426,21 @@ line-height:1.6;
 
 </div><!-- end wrapper -->
 
-<!-- ✅ CUSTOM APP INSTALL POPUP (added, 7 second delay) -->
+<!-- ✅ CUSTOM APP INSTALL POPUP (image added) -->
 <div class="app-popup-overlay" id="appPopup">
   <div class="app-popup-card">
     <button class="app-popup-close" id="closePopupBtn">
       <i class="fa-solid fa-xmark"></i>
     </button>
-    <div class="app-popup-icon">
-      <i class="fa-solid fa-download"></i>
-    </div>
+    <!-- App preview image from Blogger -->
+    <img 
+      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgamtIzfzgNelZIoqLZV6d6YzvU-V9IuQXhQH916taC4b0yUDG3crNKppXalYXvIiHai7y7aXOma2AeqYcfP6hfjzFooL4i7s3yW6xxol-HZGMUMxbu8U1kwuuz7Xg7tudti3hizAdZw5uovXZsNp_q6DBhKbnml5Vgi4386sQoUixiz9kZT9pr3pSoLd4/s1600/IMG_20260509_124731_080.jpg" 
+      alt="Ztera App Preview" 
+      class="app-popup-image"
+    />
     <h2 class="app-popup-title">Download Ztera App</h2>
-    <p class="app-popup-desc">Get the full experience — faster downloads, no ads, and exclusive tools. It's free!</p>
-    <a href="https://apk.e-droid.net/apk/app3989254-nhdbj6.apk?v=1" target="_blank" class="app-popup-btn" id="installAppLink">
+    <p class="app-popup-desc">Get the full experience — faster downloads, and exclusive tools. It's free!</p>
+    <a href="https://www.appcreator24.com/app3989254-nhdbj6" target="_blank" class="app-popup-btn" id="installAppLink">
       <i class="fa-solid fa-arrow-down"></i> &nbsp; Download Now
     </a>
   </div>
@@ -475,13 +472,12 @@ setTimeout(() => {
   document.getElementById("bodyAdContainer").style.display = "block";
 }, 5000);
 
-// ─────────────── CUSTOM APP INSTALL POPUP LOGIC ───────────────
+// ─────────────── APP INSTALL POPUP LOGIC ───────────────
 (function() {
   const popupOverlay = document.getElementById('appPopup');
   const closeBtn = document.getElementById('closePopupBtn');
   const installLink = document.getElementById('installAppLink');
 
-  // Show popup after 7 seconds (only if not already shown/closed)
   let popupShown = false;
   setTimeout(() => {
     if (!popupShown) {
@@ -491,13 +487,11 @@ setTimeout(() => {
     }
   }, 7000);
 
-  // Close button
   closeBtn.addEventListener('click', () => {
     popupOverlay.classList.remove('show');
     trackEvent('app_popup_closed');
   });
 
-  // Click outside card to close
   popupOverlay.addEventListener('click', (e) => {
     if (e.target === popupOverlay) {
       popupOverlay.classList.remove('show');
@@ -505,10 +499,8 @@ setTimeout(() => {
     }
   });
 
-  // Track install click
   installLink.addEventListener('click', () => {
     trackEvent('app_popup_install_click');
-    // popup stays open until user closes or navigates
   });
 })();
 </script>
