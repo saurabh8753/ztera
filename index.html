@@ -61,7 +61,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-/* existing styles — untouched (PWA install button and combo badge styles removed) */
+/* existing styles — untouched */
 *{box-sizing:border-box}
 body{
 margin:0;
@@ -137,6 +137,109 @@ line-height:1.6;
 }
 .seo h2{font-size:18px;margin-bottom:8px}
 .seo h3{font-size:16px;margin-top:10px}
+
+/* ── PROFESSIONAL APP INSTALL POPUP (added) ── */
+.app-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  padding: 20px;
+}
+.app-popup-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+.app-popup-card {
+  background: #fff;
+  border-radius: 24px;
+  max-width: 360px;
+  width: 100%;
+  padding: 32px 24px 28px;
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  position: relative;
+  animation: popFloat 0.4s ease;
+}
+@keyframes popFloat {
+  0% { transform: translateY(30px) scale(0.95); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.app-popup-icon {
+  background: linear-gradient(135deg, #3248f5, #6d28ff);
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(50,72,245,0.3);
+}
+.app-popup-icon i {
+  font-size: 36px;
+  color: #fff;
+}
+.app-popup-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 6px;
+}
+.app-popup-desc {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 22px;
+  line-height: 1.5;
+}
+.app-popup-btn {
+  display: inline-block;
+  background: #3248f5;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 32px;
+  border-radius: 40px;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(50,72,245,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.app-popup-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(50,72,245,0.55);
+}
+.app-popup-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #f5f5f5;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #666;
+  transition: background 0.2s;
+}
+.app-popup-close:hover {
+  background: #eaeaea;
+}
 </style>
 </head>
 
@@ -329,6 +432,23 @@ line-height:1.6;
 
 </div><!-- end wrapper -->
 
+<!-- ✅ CUSTOM APP INSTALL POPUP (added, 7 second delay) -->
+<div class="app-popup-overlay" id="appPopup">
+  <div class="app-popup-card">
+    <button class="app-popup-close" id="closePopupBtn">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="app-popup-icon">
+      <i class="fa-solid fa-download"></i>
+    </div>
+    <h2 class="app-popup-title">Download Ztera App</h2>
+    <p class="app-popup-desc">Get the full experience — faster downloads, no ads, and exclusive tools. It's free!</p>
+    <a href="https://apk.e-droid.net/apk/app3989254-nhdbj6.apk?v=1" target="_blank" class="app-popup-btn" id="installAppLink">
+      <i class="fa-solid fa-arrow-down"></i> &nbsp; Download Now
+    </a>
+  </div>
+</div>
+
 <script>
 // ========== TRACKING FUNCTION (FIXED) ==========
 const TRACK_BASE = "https://admin.yaartunah.workers.dev/";
@@ -342,7 +462,7 @@ function trackEvent(eventType) {
   }).catch(err => console.debug('track:', eventType));
 }
 
-// ========== PRESERVE EXISTING SCRIPT (service worker + visit tracking + ad delay) ==========
+// ========== PRESERVE EXISTING SCRIPT ==========
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/sw.js");
 }
@@ -355,9 +475,44 @@ setTimeout(() => {
   document.getElementById("bodyAdContainer").style.display = "block";
 }, 5000);
 
-// Removed all PWA install button and combo badge code (no other modifications)
+// ─────────────── CUSTOM APP INSTALL POPUP LOGIC ───────────────
+(function() {
+  const popupOverlay = document.getElementById('appPopup');
+  const closeBtn = document.getElementById('closePopupBtn');
+  const installLink = document.getElementById('installAppLink');
+
+  // Show popup after 7 seconds (only if not already shown/closed)
+  let popupShown = false;
+  setTimeout(() => {
+    if (!popupShown) {
+      popupOverlay.classList.add('show');
+      popupShown = true;
+      trackEvent('app_popup_shown');
+    }
+  }, 7000);
+
+  // Close button
+  closeBtn.addEventListener('click', () => {
+    popupOverlay.classList.remove('show');
+    trackEvent('app_popup_closed');
+  });
+
+  // Click outside card to close
+  popupOverlay.addEventListener('click', (e) => {
+    if (e.target === popupOverlay) {
+      popupOverlay.classList.remove('show');
+      trackEvent('app_popup_closed_outside');
+    }
+  });
+
+  // Track install click
+  installLink.addEventListener('click', () => {
+    trackEvent('app_popup_install_click');
+    // popup stays open until user closes or navigates
+  });
+})();
 </script>
 
-<!-- No changes to existing elements beyond the removed PWA UI components. -->
+<!-- No changes to existing elements, all preserved. -->
 </body>
 </html>
