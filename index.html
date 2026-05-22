@@ -121,168 +121,86 @@ transition:.25s;
 .pinterest{background:#e60023}
 .telegram{background:#229ED9}
 
-/* ── PROFESSIONAL APP INSTALL POPUP (unchanged) ── */
-.app-popup-overlay {
+#bodyAdContainer{
+display:none;
+margin:20px 0;
+text-align:center;
+width:100%;
+overflow:hidden;
+}
+
+#comboBadge{
+position:fixed;
+right:14px;
+bottom:18px;
+width:60px;
+height:60px;
+border-radius:50%;
+background:linear-gradient(45deg,#3248f5,#6d28ff,#22c55e);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+cursor:pointer;
+z-index:999999;
+box-shadow:0 0 25px rgba(109,40,255,.6);
+animation:comboGlow 2s infinite;
+}
+@keyframes comboGlow{
+0%{transform:scale(1)}
+50%{transform:scale(1.1)}
+100%{transform:scale(1)}
+}
+
+.seo{
+margin-top:20px;
+font-size:14px;
+color:#444;
+line-height:1.6;
+}
+.seo h2{font-size:18px;margin-bottom:8px}
+.seo h3{font-size:16px;margin-top:10px}
+
+/* ✅ TOP INSTALL BUTTON – NEW COLOUR (vibrant coral gradient) */
+#topInstallBtn {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999999;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
-  padding: 20px;
-}
-.app-popup-overlay.show {
-  opacity: 1;
-  visibility: visible;
-}
-.app-popup-card {
-  background: #fff;
-  border-radius: 24px;
-  max-width: 360px;
-  width: 100%;
-  padding: 32px 24px 28px;
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.25);
-  text-align: center;
-  position: relative;
-  animation: popFloat 0.4s ease;
-}
-@keyframes popFloat {
-  0% { transform: translateY(30px) scale(0.95); opacity: 0; }
-  100% { transform: translateY(0) scale(1); opacity: 1; }
-}
-.app-popup-image {
-  width: 140px;
-  height: auto;
-  border-radius: 18px;
-  margin: 0 auto 18px;
-  display: block;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
-  object-fit: cover;
-}
-.app-popup-title {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #111;
-  margin-bottom: 6px;
-}
-.app-popup-desc {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 22px;
-  line-height: 1.5;
-}
-.app-popup-btn {
-  display: inline-block;
-  background: #3248f5;
-  color: #fff;
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 14px 32px;
-  border-radius: 40px;
-  text-decoration: none;
-  box-shadow: 0 8px 20px rgba(50,72,245,0.4);
-  transition: transform 0.2s, box-shadow 0.2s;
-  border: none;
-  cursor: pointer;
-}
-.app-popup-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(50,72,245,0.55);
-}
-.app-popup-close {
-  position: absolute;
-  top: 14px;
+  top: 80px; /* just below header */
   right: 14px;
-  background: #f5f5f5;
+  z-index: 999998; /* below combo badge */
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);  /* coral gradient */
+  color: #fff;
   border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: #666;
-  transition: background 0.2s;
-}
-.app-popup-close:hover {
-  background: #eaeaea;
-}
-
-/* ── DEVELOPER CREDIT – futuristic hacker card ── */
-.developer-credit {
-  background: #0d1117;
-  border: 1px solid rgba(0, 255, 150, 0.25);
-  border-radius: 12px;
-  padding: 14px 16px;
-  margin-top: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-family: 'Courier New', 'JetBrains Mono', monospace;
+  border-radius: 30px;
+  padding: 10px 18px;
+  font-weight: 700;
   font-size: 14px;
-  font-weight: 500;
-  color: #00ff9d;
-  box-shadow: 0 0 20px rgba(0, 255, 157, 0.25);
-  opacity: 0;
-  animation: fadeInUp 0.8s ease forwards;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  width: 100%;
-  box-sizing: border-box;
-  cursor: default;
+  box-shadow: 0 8px 22px rgba(255,126,95,0.45);  /* matching shadow */
+  cursor: pointer;
+  display: none; /* hidden by default, shown if not standalone */
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
 }
-
-.developer-credit:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 30px rgba(0, 255, 157, 0.5);
-  border-color: rgba(0, 255, 150, 0.6);
+#topInstallBtn i {
+  font-size: 16px;
 }
-
-.developer-credit i {
-  font-size: 15px;
-  color: #00ff9d;
-  text-shadow: 0 0 5px rgba(0, 255, 157, 0.5);
+#topInstallBtn.visible {
+  display: flex;
+  /* pulse animation */
+  animation: installPulse 2s ease-in-out infinite;
 }
-
-.cursor-blink {
-  display: inline-block;
-  animation: blink 1s step-end infinite;
-  font-weight: 300;
-  margin-left: 2px;
+/* Hover: pause animation and apply static hover effect */
+#topInstallBtn.visible:hover {
+  animation: none;
+  transform: scale(1.08);
+  box-shadow: 0 12px 28px rgba(255,126,95,0.7);
 }
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Mobile responsiveness */
-@media (max-width: 500px) {
-  .developer-credit {
-    font-size: 13px;
-    padding: 12px 14px;
-  }
+@keyframes installPulse {
+  0%   { transform: scale(1);   box-shadow: 0 8px 22px rgba(255,126,95,0.45); }
+  50%  { transform: scale(1.06); box-shadow: 0 12px 28px rgba(255,126,95,0.75); }
+  100% { transform: scale(1);   box-shadow: 0 8px 22px rgba(255,126,95,0.45); }
 }
 </style>
 </head>
@@ -291,11 +209,16 @@ transition:.25s;
 
 <header>Ztera Fast & Smart Video Downloader</header>
 
+<!-- ✅ TOP INSTALL BUTTON (colour updated) -->
+<button id="topInstallBtn">
+  <i class="fa-solid fa-download"></i> Install ZTERA App
+</button>
+
 <div class="wrapper">
 <div class="card">
 
 <!-- BUTTONS SAME (exactly as provided) -->
-<a class="btn dailytools" href="https://zteratool.pages.dev/" target="_blank">
+<a class="btn dailytools" href="https://buttons-dlq.pages.dev/" target="_blank">
 <i class="fa-solid fa-toolbox"></i>Daily Uses All Tools 🥳</a>
 
 <a class="btn terabox" href="https://downtool.pages.dev/terabox" target="_blank">
@@ -325,13 +248,8 @@ transition:.25s;
 <a class="btn ai-tools" href="https://buttons-dlq.pages.dev/aitools" target="_blank">
 <i class="fa-solid fa-robot"></i>50+ AI Tools – Daily Use 🤖</a>
 
-<a class="btn telegram" href="https://t.me/+5YNJd0m68TJkZWY1" target="_blank">
+<a class="btn telegram" href="https://t.me/+dehm0CdylV5hMDc1" target="_blank">
 <i class="fa-brands fa-telegram"></i>Telegram Updates Channel</a>
-
-<!-- ✅ DEVELOPER CREDIT -->
-<div class="developer-credit">
-  <i class="fa-solid fa-terminal"></i> Developed by Saurabh B<span class="cursor-blink">💓</span>
-</div>
 
 </div>
 
@@ -353,26 +271,136 @@ transition:.25s;
 <p>Instagram Reels Downloader, YouTube Video Downloader, Terabox Downloader, Facebook Video Downloader, Twitter Video Downloader, TikTok Downloader, Snapchat Downloader and Pinterest Video Downloader.</p>
 </div>
 
+<!-- ✅ AD CONTAINER (unchanged) -->
+<div id="bodyAdContainer">
+  <script async="async" data-cfasync="false" src="https://yawncollaremotion.com/3d1e683177ac1b4df926fc45e5b493dc/invoke.js"></script>
+<div id="container-3d1e683177ac1b4df926fc45e5b493dc"></div>
+  </div>
+<script>
+  atOptions = {
+    'key' : '69f3ae3afcce2435fc4cc79aec5b1a24',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://yawncollaremotion.com/69f3ae3afcce2435fc4cc79aec5b1a24/invoke.js"></script>
+<script>
+  atOptions = {
+    'key' : '8f5f46a705a3a0fd802b46ff46cf40a4',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/8f5f46a705a3a0fd802b46ff46cf40a4/invoke.js"></script>  
+<script>
+  atOptions = {
+    'key' : 'cdea4001113cfef53809fb9318c6f284',
+    'format' : 'iframe',
+    'height' : 300,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/cdea4001113cfef53809fb9318c6f284/invoke.js"></script><script>
+  atOptions = {
+    'key' : 'cdea4001113cfef53809fb9318c6f284',
+    'format' : 'iframe',
+    'height' : 300,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/cdea4001113cfef53809fb9318c6f284/invoke.js"></script>
+<script>
+  atOptions = {
+    'key' : 'ff175b32137fdb0579f827b4e6817b88',
+    'format' : 'iframe',
+    'height' : 600,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/ff175b32137fdb0579f827b4e6817b88/invoke.js"></script><script>
+  atOptions = {
+    'key' : 'ff175b32137fdb0579f827b4e6817b88',
+    'format' : 'iframe',
+    'height' : 600,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/ff175b32137fdb0579f827b4e6817b88/invoke.js"></script>
+<script>
+  atOptions = {
+    'key' : '9f474c029a85119a09faea260206521f',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/9f474c029a85119a09faea260206521f/invoke.js"></script>
+<script>
+  atOptions = {
+    'key' : '9f474c029a85119a09faea260206521f',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/9f474c029a85119a09faea260206521f/invoke.js"></script>
+<script>
+  atOptions = {
+    'key' : 'a654014720467f34679e05e1ab1473c8',
+    'format' : 'iframe',
+    'height' : 60,
+    'width' : 468,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/a654014720467f34679e05e1ab1473c8/invoke.js"></script>
+<script>
+  atOptions = {
+    'key' : 'a654014720467f34679e05e1ab1473c8',
+    'format' : 'iframe',
+    'height' : 60,
+    'width' : 468,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/a654014720467f34679e05e1ab1473c8/invoke.js"></script>
+<script>
+  atOptions = {
+    'key' : '23a6441e04026ad222d145f13ca7fbff',
+    'format' : 'iframe',
+    'height' : 90,
+    'width' : 728,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/23a6441e04026ad222d145f13ca7fbff/invoke.js"></script>
+<script>
+  atOptions = {
+    'key' : '23a6441e04026ad222d145f13ca7fbff',
+    'format' : 'iframe',
+    'height' : 90,
+    'width' : 728,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/23a6441e04026ad222d145f13ca7fbff/invoke.js"></script>  
+</div>
+
 </div><!-- end wrapper -->
 
-<!-- ✅ CUSTOM APP INSTALL POPUP (PWA install trigger) -->
-<div class="app-popup-overlay" id="appPopup">
-  <div class="app-popup-card">
-    <button class="app-popup-close" id="closePopupBtn">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-    <!-- App preview image from Blogger -->
-    <img 
-      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgamtIzfzgNelZIoqLZV6d6YzvU-V9IuQXhQH916taC4b0yUDG3crNKppXalYXvIiHai7y7aXOma2AeqYcfP6hfjzFooL4i7s3yW6xxol-HZGMUMxbu8U1kwuuz7Xg7tudti3hizAdZw5uovXZsNp_q6DBhKbnml5Vgi4386sQoUixiz9kZT9pr3pSoLd4/s1600/IMG_20260509_124731_080.jpg" 
-      alt="Ztera App Preview" 
-      class="app-popup-image"
-    />
-    <h2 class="app-popup-title">Install Ztera App</h2>
-    <p class="app-popup-desc">Get the full experience — faster downloads, no ads, and exclusive tools. It's free!</p>
-    <button class="app-popup-btn" id="installAppLink">
-      <i class="fa-solid fa-arrow-down"></i> &nbsp;Install Now
-    </button>
-  </div>
+<!-- 🔥 COMBO BUTTON (unchanged) -->
+<div id="comboBadge">
+<i id="comboIcon" class="fa-solid fa-download"></i>
 </div>
 
 <script>
@@ -396,73 +424,97 @@ if ("serviceWorker" in navigator) {
 /* TRACK visit */
 trackEvent('visit');
 
-// ─────────────── PWA INSTALL HANDLER ───────────────
 let deferredPrompt = null;
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent Chrome 67 and earlier from automatically showing the prompt
+window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
-  // Stash the event so it can be triggered later
   deferredPrompt = e;
   console.log('✅ beforeinstallprompt captured');
 });
 
-// ─────────────── APP INSTALL POPUP LOGIC ───────────────
+const combo = document.getElementById("comboBadge");
+const icon = document.getElementById("comboIcon");
+
+const isStandalone = 
+  window.matchMedia("(display-mode: standalone)").matches || 
+  window.navigator.standalone === true;
+
+icon.className = isStandalone 
+  ? "fa-solid fa-share-nodes" 
+  : "fa-solid fa-download";
+
+combo.addEventListener("click", async () => {
+  if (isStandalone) {
+    trackEvent('share');
+    const text = encodeURIComponent(
+      "🚀 Install Ztera App\nAll Video Downloader\nhttps://ztera.pages.dev"
+    );
+    window.open(`https://wa.me/?text=${text}`, "_blank");
+    return;
+  }
+
+  if (!deferredPrompt) {
+    alert("Menu (⋮) → Add to Home Screen");
+    return;
+  }
+
+  trackEvent('install');
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+});
+
+/* ✅ SAME 5 SEC DELAY (existing) */
+setTimeout(() => {
+  document.getElementById("bodyAdContainer").style.display = "block";
+}, 5000);
+
+window.addEventListener('appinstalled', () => {
+  trackEvent('pwa_app_installed');
+});
+
+// ========== TOP INSTALL BUTTON LOGIC (unchanged) ==========
 (function() {
-  const popupOverlay = document.getElementById('appPopup');
-  const closeBtn = document.getElementById('closePopupBtn');
-  const installBtn = document.getElementById('installAppLink');
+  const topBtn = document.getElementById('topInstallBtn');
 
-  let popupShown = false;
-
-  // Show popup after 7 seconds (only if not already shown/closed)
-  setTimeout(() => {
-    if (!popupShown) {
-      popupOverlay.classList.add('show');
-      popupShown = true;
-      trackEvent('app_popup_shown');
+  // Show button only if NOT in standalone mode (i.e., website view)
+  function updateButtonVisibility() {
+    if (isStandalone) {
+      topBtn.classList.remove('visible');
+    } else {
+      topBtn.classList.add('visible');
     }
-  }, 7000);
+  }
 
-  // Close button
-  closeBtn.addEventListener('click', () => {
-    popupOverlay.classList.remove('show');
-    trackEvent('app_popup_closed');
-  });
-
-  // Click outside card to close
-  popupOverlay.addEventListener('click', (e) => {
-    if (e.target === popupOverlay) {
-      popupOverlay.classList.remove('show');
-      trackEvent('app_popup_closed_outside');
-    }
-  });
-
-  // Install button – trigger PWA install
-  installBtn.addEventListener('click', async () => {
-    trackEvent('app_popup_install_click');
+  // Handle click
+  topBtn.addEventListener('click', async () => {
     if (deferredPrompt) {
-      // Show the native install prompt
+      // Native prompt available
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      console.log(`User response to the install prompt: ${outcome}`);
       if (outcome === 'accepted') {
-        trackEvent('pwa_install_accepted');
+        trackEvent('top_install_accepted');
       }
       deferredPrompt = null;
     } else {
-      // Fallback for browsers that don't support the prompt or already installed
-      if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
-        alert('✅ App is already installed! You can find it on your home screen.');
-      } else {
+      // Fallback for iOS or unsupported browsers
+      if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
         alert('📱 Tap the share button (⬆️) and select "Add to Home Screen" to install Ztera.');
-        trackEvent('pwa_install_fallback');
+      } else {
+        alert('💡 Use browser menu → "Install app" or "Add to Home Screen".');
       }
+      trackEvent('top_install_fallback');
     }
-    // Optionally close the popup after install action
-    popupOverlay.classList.remove('show');
   });
 
+  // Update button visibility on load and when PWA state changes
+  updateButtonVisibility();
+  window.addEventListener('appinstalled', () => {
+    updateButtonVisibility(); // will hide after install
+  });
+
+  // Also re‑check if display mode changes (e.g., through manual install)
+  window.matchMedia("(display-mode: standalone)").addEventListener('change', updateButtonVisibility);
 })();
 </script>
 
