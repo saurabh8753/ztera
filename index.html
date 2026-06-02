@@ -1,408 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<!-- ✅ GOOGLE ANALYTICS (ADDED - no existing changes) -->
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E6G38YDKRW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-E6G38YDKRW');
-</script>
-
-<!-- ✅ BASIC SEO (preserved exactly) -->
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-
-<title>Ztera – Fast Video Downloader for Instagram, YouTube, Terabox & More</title>
-
-<meta name="description" content="Ztera is a fast and free video downloader for Instagram, YouTube, Terabox, Facebook, Twitter, TikTok, Snapchat and Pinterest. Download HD videos instantly without login.">
-
-<meta name="keywords" content="ztera, video downloader, instagram downloader, terabox downloader, youtube downloader, facebook video downloader, twitter downloader, tiktok downloader, snapchat downloader, pinterest downloader">
-
-<meta name="robots" content="index, follow">
-
-<link rel="canonical" href="https://ztera.pages.dev/">
-
-<!-- OG -->
-<meta property="og:title" content="Ztera Fast Video Downloader">
-<meta property="og:description" content="Download videos from all platforms instantly in HD quality.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ztera.pages.dev/">
-<meta property="og:image" content="https://ztera.pages.dev/icon.png">
-
-<!-- TWITTER -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Ztera Fast Video Downloader">
-<meta name="twitter:description" content="Download videos from Instagram, YouTube, Terabox and more.">
-<meta name="twitter:image" content="https://ztera.pages.dev/icon.png">
-
-<link rel="icon" href="/icon.png">
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#3248f5">
-
-<!-- SCHEMA (preserved) -->
-<script type="application/ld+json">
-{
-"@context": "https://schema.org",
-"@type": "WebSite",
-"name": "Ztera",
-"url": "https://ztera.pages.dev/",
-"potentialAction": {
-"@type": "SearchAction",
-"target": "https://ztera.pages.dev/?q={search_term_string}",
-"query-input": "required name=search_term_string"
-}
-}
-</script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<style>
-/* existing styles — untouched */
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:Inter,Arial,sans-serif;
-background:linear-gradient(180deg,#e8ecff,#f8f9ff);
-display:flex;
-flex-direction:column;
-align-items:center;
-}
-header{
-width:100%;
-padding:18px 0;
-background:#3248f5;
-color:#fff;
-text-align:center;
-font-size:22px;
-font-weight:800;
-box-shadow:0 5px 20px rgba(0,0,0,.12);
-}
-.wrapper{
-width:100%;
-max-width:520px;
-padding:20px 14px 80px;
-}
-.card{
-background:#fff;
-border-radius:16px;
-padding:20px;
-box-shadow:0 15px 35px rgba(0,0,0,.08);
-display:flex;
-flex-direction:column;
-gap:14px;
-}
-.btn{
-display:flex;
-align-items:center;
-gap:12px;
-padding:14px 16px;
-border-radius:12px;
-color:#fff;
-text-decoration:none;
-font-weight:700;
-font-size:15px;
-transition:.25s;
-}
-.btn:hover{transform:translateY(-2px) scale(1.01)}
-
-.dailytools{background:#0ea5e9}
-.ai-tools{background:linear-gradient(45deg,#6366f1,#8b5cf6)}
-.terabox{background:#5b6bff}
-.instagram{background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7)}
-.youtube{background:#ff0000}
-.facebook{background:#1877f2}
-.twitter{background:#000}
-.tiktok{background:#111}
-.snapchat{background:#fffc00;color:#000}
-.pinterest{background:#e60023}
-.telegram{background:#229ED9}
-
-/* ── PROFESSIONAL APP INSTALL POPUP (unchanged) ── */
-.app-popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999999;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
-  padding: 20px;
-}
-.app-popup-overlay.show {
-  opacity: 1;
-  visibility: visible;
-}
-.app-popup-card {
-  background: #fff;
-  border-radius: 24px;
-  max-width: 360px;
-  width: 100%;
-  padding: 32px 24px 28px;
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.25);
-  text-align: center;
-  position: relative;
-  animation: popFloat 0.4s ease;
-}
-@keyframes popFloat {
-  0% { transform: translateY(30px) scale(0.95); opacity: 0; }
-  100% { transform: translateY(0) scale(1); opacity: 1; }
-}
-.app-popup-image {
-  width: 140px;
-  height: auto;
-  border-radius: 18px;
-  margin: 0 auto 18px;
-  display: block;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
-  object-fit: cover;
-}
-.app-popup-title {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #111;
-  margin-bottom: 6px;
-}
-.app-popup-desc {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 22px;
-  line-height: 1.5;
-}
-.app-popup-btn {
-  display: inline-block;
-  background: #3248f5;
-  color: #fff;
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 14px 32px;
-  border-radius: 40px;
-  text-decoration: none;
-  box-shadow: 0 8px 20px rgba(50,72,245,0.4);
-  transition: transform 0.2s, box-shadow 0.2s;
-  border: none;
-  cursor: pointer;
-}
-.app-popup-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(50,72,245,0.55);
-}
-.app-popup-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  background: #f5f5f5;
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: #666;
-  transition: background 0.2s;
-}
-.app-popup-close:hover {
-  background: #eaeaea;
-}
-
-/* ── DEVELOPER CREDIT – futuristic hacker card ── */
-.developer-credit {
-  background: #0d1117;
-  border: 1px solid rgba(0, 255, 150, 0.25);
-  border-radius: 12px;
-  padding: 14px 16px;
-  margin-top: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-family: 'Courier New', 'JetBrains Mono', monospace;
-  font-size: 14px;
-  font-weight: 500;
-  color: #00ff9d;
-  box-shadow: 0 0 20px rgba(0, 255, 157, 0.25);
-  opacity: 0;
-  animation: fadeInUp 0.8s ease forwards;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  width: 100%;
-  box-sizing: border-box;
-  cursor: default;
-}
-
-.developer-credit:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 30px rgba(0, 255, 157, 0.5);
-  border-color: rgba(0, 255, 150, 0.6);
-}
-
-.developer-credit i {
-  font-size: 15px;
-  color: #00ff9d;
-  text-shadow: 0 0 5px rgba(0, 255, 157, 0.5);
-}
-
-.cursor-blink {
-  display: inline-block;
-  animation: blink 1s step-end infinite;
-  font-weight: 300;
-  margin-left: 2px;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Mobile responsiveness */
-@media (max-width: 500px) {
-  .developer-credit {
-    font-size: 13px;
-    padding: 12px 14px;
-  }
-}
-
-/* ── Ads container (initially hidden) ── */
-.ads-credit {
-  display: none; /* hidden by default, shown after 5 seconds */
-  margin-top: 10px;
-  width: 100%;
-  text-align: center;
-  overflow: hidden;
-}
-</style>
-</head>
-
-<body>
-
-<header>Ztera Fast & Smart Video Downloader</header>
-
-<div class="wrapper">
-<div class="card">
-
-<!-- BUTTONS SAME (exactly as provided) -->
-<a class="btn dailytools" href="https://buttons-dlq.pages.dev/" target="_blank">
-<i class="fa-solid fa-toolbox"></i>Daily Uses All Tools 🥳</a>
-
-<a class="btn terabox" href="https://downtool.pages.dev/terabox" target="_blank">
-<i class="fa-solid fa-cloud-arrow-down"></i>Terabox Video Downloader</a>
-
-<a class="btn instagram" href="https://downtool.pages.dev" target="_blank">
-<i class="fa-brands fa-instagram"></i>Instagram Video Downloader</a>
-
-<a class="btn youtube" href="https://www.ytvideodownloader.online/" target="_blank">
-<i class="fa-brands fa-youtube"></i>YouTube Video Downloader</a>
-
-<a class="btn facebook" href="https://downtool.pages.dev/facebook" target="_blank">
-<i class="fa-brands fa-facebook-f"></i>Facebook Video Downloader</a>
-
-<a class="btn twitter" href="https://downtool.pages.dev/x" target="_blank">
-<i class="fa-brands fa-x-twitter"></i>Twitter (X) Downloader</a>
-
-<a class="btn tiktok" href="https://ssstik.io/in" target="_blank">
-<i class="fa-brands fa-tiktok"></i>TikTok Video Downloader</a>
-
-<a class="btn snapchat" href="https://downtool.pages.dev/snapchat" target="_blank">
-<i class="fa-brands fa-snapchat"></i>Snapchat Video Downloader</a>
-
-<a class="btn pinterest" href="https://downtool.pages.dev/pintrest" target="_blank">
-<i class="fa-brands fa-pinterest"></i>Pinterest Video Downloader</a>
-
-<a class="btn ai-tools" href="https://buttons-dlq.pages.dev/aitools" target="_blank">
-<i class="fa-solid fa-robot"></i>50+ AI Tools – Daily Use 🤖</a>
-
-<a class="btn telegram" href="https://t.me/+dehm0CdylV5hMDc1" target="_blank">
-<i class="fa-brands fa-telegram"></i>Telegram Updates Channel</a>
-
-<!-- ✅ DEVELOPER CREDIT -->
-<div class="developer-credit">
-  <i class="fa-solid fa-terminal"></i> Developed by Saurabh B<span class="cursor-blink">_</span>
-</div>
-
-<!-- ✅ Ads credit section (hidden by default, shown after 5s) -->
-<div class="ads-credit" id="adsCreditContainer">
-  <!-- First ad unit -->
-  <script async="async" data-cfasync="false" src="https://yawncollaremotion.com/3d1e683177ac1b4df926fc45e5b493dc/invoke.js"></script>
-  <div id="container-3d1e683177ac1b4df926fc45e5b493dc"></div>
-
-  <!-- Second ad unit -->
-  <script>
-    atOptions = {
-      'key' : '69f3ae3afcce2435fc4cc79aec5b1a24',
-      'format' : 'iframe',
-      'height' : 250,
-      'width' : 300,
-      'params' : {}
-    };
-  </script>
-  <script src="https://yawncollaremotion.com/69f3ae3afcce2435fc4cc79aec5b1a24/invoke.js"></script>
-</div>
-
-</div>
-
-<!-- SEO CONTENT (preserved) -->
-<div class="seo">
-<h2>Free All-in-One Video Downloader</h2>
-<p>Ztera is a powerful and fast video downloader that allows you to download videos from Instagram, YouTube, Terabox, Facebook, Twitter, TikTok, Snapchat, and Pinterest.</p>
-
-<h3>Why Ztera is the Best Video Downloader?</h3>
-<ul>
-<li>Download videos in HD quality</li>
-<li>No login required</li>
-<li>Fast and secure downloads</li>
-<li>Supports all major social media platforms</li>
-<li>Mobile friendly and lightweight</li>
-</ul>
-
-<h3>Supported Platforms</h3>
-<p>Instagram Reels Downloader, YouTube Video Downloader, Terabox Downloader, Facebook Video Downloader, Twitter Video Downloader, TikTok Downloader, Snapchat Downloader and Pinterest Video Downloader.</p>
-</div>
-
-</div><!-- end wrapper -->
-
-<!-- ✅ CUSTOM APP INSTALL POPUP (PWA install trigger) -->
-<div class="app-popup-overlay" id="appPopup">
-  <div class="app-popup-card">
-    <button class="app-popup-close" id="closePopupBtn">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-    <!-- App preview image from Blogger -->
-    <img 
-      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgamtIzfzgNelZIoqLZV6d6YzvU-V9IuQXhQH916taC4b0yUDG3crNKppXalYXvIiHai7y7aXOma2AeqYcfP6hfjzFooL4i7s3yW6xxol-HZGMUMxbu8U1kwuuz7Xg7tudti3hizAdZw5uovXZsNp_q6DBhKbnml5Vgi4386sQoUixiz9kZT9pr3pSoLd4/s1600/IMG_20260509_124731_080.jpg" 
-      alt="Ztera App Preview" 
-      class="app-popup-image"
-    />
-    <h2 class="app-popup-title">Install Ztera App</h2>
-    <p class="app-popup-desc">Get the full experience — faster downloads, no ads, and exclusive tools. It's free!</p>
-    <button class="app-popup-btn" id="installAppLink">
-      <i class="fa-solid fa-arrow-down"></i> &nbsp;Install Now
-    </button>
-  </div>
-</div>
-
 <script>
 // ========== TRACKING FUNCTION (FIXED) ==========
 const TRACK_BASE = "https://admin.yaartunah.workers.dev/";
@@ -438,13 +33,10 @@ let deferredPrompt = null;
 let pendingInstallRequest = false;   // flag to trigger prompt when ready
 
 window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent the default mini-infobar or automatic prompt
   e.preventDefault();
-  // Stash the event for later use
   deferredPrompt = e;
   console.log('✅ beforeinstallprompt captured');
 
-  // If a click already requested the install before the prompt was ready, trigger it now
   if (pendingInstallRequest) {
     pendingInstallRequest = false;
     deferredPrompt.prompt();
@@ -458,8 +50,13 @@ window.addEventListener('beforeinstallprompt', (e) => {
   }
 });
 
-// ─────────────── APP INSTALL POPUP LOGIC ───────────────
+// ─────────────── APP INSTALL POPUP LOGIC (FIXED) ───────────────
 (function() {
+  // ✅ FIX: Do not show the install popup if already in PWA standalone mode
+  if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+    return; // PWA is already installed → exit, no popup
+  }
+
   const popupOverlay = document.getElementById('appPopup');
   const closeBtn = document.getElementById('closePopupBtn');
   const installBtn = document.getElementById('installAppLink');
@@ -494,7 +91,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
     trackEvent('app_popup_install_click');
 
     if (deferredPrompt) {
-      // Prompt is already available, show it immediately
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       console.log(`Install prompt outcome: ${outcome}`);
@@ -503,20 +99,13 @@ window.addEventListener('beforeinstallprompt', (e) => {
       }
       deferredPrompt = null;
     } else {
-      // Prompt not yet fired – mark a pending request and wait
       pendingInstallRequest = true;
       console.log('⏳ Install prompt not yet available, waiting for beforeinstallprompt...');
-      // Optionally give user feedback that it's coming
       alert('📲 Tap "Install" in the upcoming browser prompt to add Ztera to your home screen.');
     }
 
-    // Close popup after interaction
     popupOverlay.classList.remove('show');
   });
 
 })();
 </script>
-
-<!-- No changes to existing elements, all preserved. -->
-</body>
-</html>
