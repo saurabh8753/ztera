@@ -452,11 +452,11 @@ const REDIRECT_URLS = {
   'dw': 'https://downtool.pages.dev/diskwala?url='
 };
 
-// 🔵 2. ADVANCED URL PATTERNS (UPDATED WITH ALL TERABOX ALTERNATIVE DOMAINS)
+// 🔵 2. ADVANCED URL PATTERNS 
 const PLATFORM_PATTERNS = {
   'ig': ['instagram.com', 'instagr.am'],
   'fb': ['facebook.com', 'fb.watch', 'fb.com'],
-  'x': ['x.com', 'twitter.com'],
+  'x': ['x.com', 'twitter.com'], 
   'tt': ['tiktok.com', 'vm.tiktok.com'],
   'pin': ['pinterest.com', 'pin.it'],
   'tb': [
@@ -478,7 +478,7 @@ const PLATFORM_PATTERNS = {
   'dw': ['diskwala.com']
 };
 
-// 🟠 3. ULTRA-ADVANCED AUTO-DETECT LOGIC
+// 🟠 3. ULTRA-ADVANCED & STRICT AUTO-DETECT LOGIC (FIXED TERABOX vs X/TWITTER CONFLICT)
 function processAutoDetectDownload() {
   const inputField = document.getElementById('videoUrlInput');
   let videoUrl = inputField.value.trim();
@@ -488,19 +488,31 @@ function processAutoDetectDownload() {
     return;
   }
 
-  // 1. Extreme URL Cleaning (Hatao http, https, www, m, mobile, aur query strings)
+  // 1. Extreme URL Cleaning (Hatao http, https, www, m, mobile)
   let cleanUrl = videoUrl.toLowerCase();
   cleanUrl = cleanUrl.replace(/^(https?:\/\/)?(www\.|m\.|mobile\.)?/i, '');
   
-  // 2. Sirf Domain Extract karo (taaki video path ya query params detect mein dikkat na karein)
+  // 2. Sirf Domain Extract karo
   let domainCheck = cleanUrl.split('/')[0].split('?')[0].split('#')[0];
   
   let detectedPlatform = null;
 
-  // 3. Loop with strict matching (EndsWith ensures exact domain match)
+  // 3. Loop with STRICT BOUNDARY MATCHING (Prevents terabox.com from matching x.com)
   for (const [key, patterns] of Object.entries(PLATFORM_PATTERNS)) {
     for (const pattern of patterns) {
-      if (domainCheck.endsWith(pattern) || domainCheck.includes('.' + pattern)) {
+      
+      let isMatch = false;
+      
+      // Exact match (e.g., x.com or twitter.com)
+      if (domainCheck === pattern) isMatch = true;
+      
+      // Subdomain match (e.g., www.x.com or m.x.com)
+      if (domainCheck.endsWith('.' + pattern)) isMatch = true;
+      
+      // Path match (e.g., x.com/something)
+      if (domainCheck.startsWith(pattern + '/')) isMatch = true;
+
+      if (isMatch) {
         detectedPlatform = key;
         break;
       }
@@ -511,10 +523,8 @@ function processAutoDetectDownload() {
   let finalRedirectUrl = "";
 
   if (detectedPlatform && REDIRECT_URLS[detectedPlatform]) {
-    // Exact platform found
     finalRedirectUrl = `${REDIRECT_URLS[detectedPlatform]}${encodeURIComponent(videoUrl)}&auto_detect=1`;
   } else {
-    // Fallback URL if platform is unknown
     finalRedirectUrl = `https://ztera.pages.dev/download?url=${encodeURIComponent(videoUrl)}&auto_detect=1`;
   }
 
