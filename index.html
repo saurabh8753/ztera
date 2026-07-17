@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(s){s.dataset.zone='11283211',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <!-- ✅ GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E6G38YDKRW"></script>
 <script>
@@ -215,6 +214,7 @@ body{
 .bg-tags { background: #9b59b6; }        
 .bg-remove { background: #1abc9c; }      
 .bg-repeat { background: #27AE60; }      
+.bg-qr { background: #E74C3C; } /* ⬅️ NEW QR TOOL COLOR */
 
 /* ⬇️ PROFESSIONAL TELEGRAM BUTTON (OUTSIDE TOOLS GRID) ⬇️ */
 .telegram-professional {
@@ -341,7 +341,7 @@ body{
       </div>
     </div>
     
-    <button class="download-main-btn" onclick="processAutoDetectDownload()">
+    <button class="download-main-btn" id="downloadBtn">
       <i class="fa-solid fa-download"></i> Download
     </button>
   </div>
@@ -371,17 +371,17 @@ body{
     </div>
   </div>
 
-  <!-- ⬇️ TOOLS SECTION (13 TOOLS) ⬇️ -->
+  <!-- ⬇️ TOOLS SECTION (14 TOOLS) ⬇️ -->
   <div>
     <div class="section-title">Tools</div>
     <div class="grid-items">
-      <a href="https://buttons-dlq.pages.dev/calculator" target="_blank" class="item-link"><div class="icon-circle bg-calc"><i class="fa-solid fa-calculator"></i></div>All Calculator</a>
+      <a href="https://zteratool.pages.dev/calculator" target="_blank" class="item-link"><div class="icon-circle bg-calc"><i class="fa-solid fa-calculator"></i></div>All Calculator</a>
       <a href="https://www.iloveimg.com/" target="_blank" class="item-link"><div class="icon-circle bg-img"><i class="fa-solid fa-image"></i></div>Images Tools</a>
       <a href="https://www.ilovepdf.com/" target="_blank" class="item-link"><div class="icon-circle bg-pdf"><i class="fa-solid fa-file-pdf"></i></div>PDF Tools</a>
       <a href="https://buttons-dlq.pages.dev/aconvert/" target="_blank" class="item-link"><div class="icon-circle bg-audio"><i class="fa-solid fa-headphones"></i></div>Video To Audio</a>
       
       <a href="https://www.iloveimg.com/upscale-image" target="_blank" class="item-link"><div class="icon-circle bg-remini"><i class="fa-solid fa-wand-magic-sparkles"></i></div>Photo Remini</a>
-      <a href="#" target="_blank" class="item-link"><div class="icon-circle bg-font"><i class="fa-solid fa-font"></i></div>Font Generator</a>
+      <a href="https://coolors.co/font-generator" target="_blank" class="item-link"><div class="icon-circle bg-font"><i class="fa-solid fa-font"></i></div>Font Generator</a>
       <a href="https://buttons-dlq.pages.dev/aitools" target="_blank" class="item-link"><div class="icon-circle bg-ai"><i class="fa-solid fa-robot"></i></div>AI Tools</a>
       
       <a href="https://zteratool.pages.dev/trepeater" target="_blank" class="item-link"><div class="icon-circle bg-repeat"><i class="fa-solid fa-repeat"></i></div>Text Repeater</a>
@@ -390,7 +390,11 @@ body{
       <a href="https://translate.google.co.in/?sl=auto&tl=hi&op=translate" target="_blank" class="item-link"><div class="icon-circle bg-translate"><i class="fa-solid fa-language"></i></div>Translator</a>
       <a href="https://www.grammarcheck.net/editor/" target="_blank" class="item-link"><div class="icon-circle bg-grammar"><i class="fa-solid fa-spell-check"></i></div>Grammar Checker</a>
       <a href="https://www.ozosoft.in/tools/youtube-tag-extractor" target="_blank" class="item-link"><div class="icon-circle bg-tags"><i class="fa-solid fa-tags"></i></div>YT Tags Extractor</a>
+      
       <a href="https://www.remove.bg/upload" target="_blank" class="item-link"><div class="icon-circle bg-remove"><i class="fa-solid fa-wand-magic-sparkles"></i></div>Bg Remover</a>
+
+      <!-- ⬇️ NEW TOOL ADDED: QR CODE SCANNER / GENERATOR ⬇️ -->
+      <a href="https://qr-scanner-generator-roan.vercel.app/" target="_blank" class="item-link"><div class="icon-circle bg-qr"><i class="fa-solid fa-qrcode"></i></div>QR Scanner/Gen</a>
     </div>
   </div>
 
@@ -616,6 +620,80 @@ window.addEventListener('beforeinstallprompt', (e) => {
     popupOverlay.classList.remove('show');
   });
 })();
+
+// ============================
+// Smart Link Ad Integration (Fixes Popup Block)
+// ============================
+
+const AD_URL = "https://omg10.com/4/11282250";
+
+// --- Download Button Logic (2 click sequence) ---
+let downloadClickCount = 0;
+
+function handleDownloadClick() {
+  if (downloadClickCount === 0) {
+    // 1st click: open ad
+    window.open(AD_URL, '_blank');
+    downloadClickCount = 1;
+  } else if (downloadClickCount === 1) {
+    // 2nd click: download, reset counter
+    processAutoDetectDownload();
+    downloadClickCount = 0;
+  }
+}
+
+// --- Tools Section Logic (with 1-minute cooldown) ---
+let toolClickState = 0;          // 0 = ready for ad, 1 = ready for tool
+let lastToolAdTimestamp = null;  // time of last ad shown
+
+function handleToolClick(e, toolUrl) {
+  e.preventDefault();
+  const now = Date.now();
+
+  // 1. Cooldown check: if last ad > 1 min OR first time
+  const isCooldownOver = (lastToolAdTimestamp === null || (now - lastToolAdTimestamp) >= 60000);
+
+  if (isCooldownOver) {
+    // Cooldown is over → Follow 2-click sequence
+    if (toolClickState === 0) {
+      // First click: open ad
+      window.open(AD_URL, '_blank');
+      lastToolAdTimestamp = now;
+      toolClickState = 1;
+    } else if (toolClickState === 1) {
+      // Second click: open tool
+      window.open(toolUrl, '_blank');
+      toolClickState = 0; // reset
+    }
+  } else {
+    // Cooldown is active (< 1 min) → open tool directly, reset state
+    window.open(toolUrl, '_blank');
+    toolClickState = 0; // ensure it resets
+  }
+}
+
+// --- Attach Event Listeners ---
+document.addEventListener('DOMContentLoaded', function() {
+  // 1) Download Button
+  const downloadBtn = document.getElementById('downloadBtn');
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', handleDownloadClick);
+  }
+
+  // 2) Tools Grid (only the second .grid-items)
+  const gridContainers = document.querySelectorAll('.grid-items');
+  if (gridContainers.length >= 2) {
+    const toolsGrid = gridContainers[1]; // second grid
+    const toolLinks = toolsGrid.querySelectorAll('.item-link');
+    toolLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        const toolUrl = this.href;
+        handleToolClick(e, toolUrl);
+      });
+    });
+  }
+});
+
 </script>
 </body>
 </html>
