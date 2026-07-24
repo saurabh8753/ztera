@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- ✅ GOOGLE ANALYTICS -->
+<!-- ✅ Google Preconnect for Fast DNS -->
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="preconnect" href="https://blogger.googleusercontent.com">
+
+<!-- ✅ GOOGLE ANALYTICS (Async) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E6G38YDKRW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-E6G38YDKRW');
-</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-E6G38YDKRW');</script>
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -20,333 +20,34 @@
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#7c6dfc">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- ✅ FontAwesome (Deferred for Ultra Fast Render) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'" />
 
+<!-- ✅ Minified CSS (Removed all extra spaces & line breaks) -->
 <style>
-/* General Reset & Dark Theme */
-*{box-sizing:border-box; margin:0; padding:0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;}
-body{
-  background: #121212;
-  color: #fff;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding: 20px 16px 100px;
-  min-height: 100vh;
-}
-.wrapper{
-  width:100%;
-  max-width:420px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-/* Headline */
-.app-headline { margin-bottom: 5px; }
-.app-headline h1 {
-  font-size: 32px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  margin: 0 0 4px 0;
-}
-.app-headline p {
-  color: #b0b0b0;
-  font-size: 15px;
-  font-weight: 400;
-}
-
-/* Paste Link Card */
-.paste-card {
-  background: #1e1e1e;
-  border-radius: 20px;
-  padding: 16px 20px 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-/* Full Size URL Box with Inside Paste Button */
-.input-wrapper {
-  background: #2a2a2a;
-  border-radius: 14px;
-  padding: 0px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  border: 1px solid #3a3a3a;
-  width: 100%;
-  height: 52px;
-}
-.input-wrapper i.link-icon { color: #b0b0b0; font-size: 18px; flex-shrink: 0; }
-.input-wrapper input {
-  flex: 1;
-  width: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 500;
-  padding: 12px 0;
-  min-width: 0;
-}
-.input-wrapper input::placeholder { color: #666; font-weight: 400; }
-
-/* Inside Buttons Wrapper */
-.input-actions {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-}
-
-/* Paste & Clear Buttons Inside the Box */
-.input-actions .action-btn {
-  background: transparent;
-  border: none;
-  color: #b0b0b0;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 10px;
-  border-radius: 8px;
-  transition: 0.2s;
-  white-space: nowrap;
-}
-.input-actions .action-btn:hover { background: #333; color: #fff; }
-
-/* Paste Button - Visible when empty */
-.input-actions .paste-btn { display: flex; }
-/* Clear Button - Visible when text exists */
-.input-actions .clear-btn { color: #888; display: none; }
-.input-actions .clear-btn:hover { color: #ff6b6b; background: #3a2020; }
-
-.download-main-btn {
-  background: #8c7bfc;
-  color: #fff;
-  border: none;
-  padding: 16px;
-  border-radius: 50px;
-  font-size: 17px;
-  font-weight: 700;
-  width: 100%;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  transition: 0.2s;
-}
-.download-main-btn:hover { background: #7a69ea; transform: scale(1.02); }
-
-/* Sections */
-.section-title {
-  font-size: 17px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  color: #e0e0e0;
-}
-
-/* ⬇️ GRID FORMAT FOR BOTH PLATFORMS AND TOOLS ⬇️ */
-.grid-items {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px 8px;
-  text-align: center;
-}
-.item-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  color: #e0e0e0;
-  font-size: 12px;
-  font-weight: 500;
-  transition: 0.2s;
-}
-.item-link:hover { transform: translateY(-2px); color: #fff; }
-.icon-circle {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  color: #fff;
-  margin-bottom: 4px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-/* Platform Colors */
-.bg-ig { background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7); }
-.bg-fb { background: #1877f2; }
-.bg-x { background: #1a1a1a; border: 1px solid #333; }
-.bg-reddit { background: #ff4500; }
-.bg-threads { background: #000; border: 1px solid #333; }
-.bg-tt { background: #111; border: 1px solid #333; }
-.bg-pin { background: #e60023; }
-.bg-ln { background: #0a66c2; }
-.bg-tb { background: #3248f5; } 
-.bg-dw { background: #1e1e1e; border: 1px solid #00e676; color: #00e676; }
-.bg-yt { background: #ff0000; }
-.bg-sc { background: #fffc00; color: #000; }
-
-/* ⬇️ TOOL COLORS ⬇️ */
-.bg-calc { background: #2C3E50; }
-.bg-img { background: #16A085; }
-.bg-pdf { background: #C0392B; }
-.bg-audio { background: #D35400; }
-.bg-remini { background: #8E44AD; }
-.bg-font { background: #2980B9; }
-.bg-ai { background: linear-gradient(45deg,#6366f1,#8b5cf6); }
-.bg-resume { background: #2C3E50; }      
-.bg-translate { background: #3498db; }   
-.bg-grammar { background: #e67e22; }     
-.bg-tags { background: #9b59b6; }        
-.bg-remove { background: #1abc9c; }      
-.bg-repeat { background: #27AE60; }      
-.bg-qr { background: #E74C3C; } /* ⬅️ NEW QR TOOL COLOR */
-
-/* ⬇️ PROFESSIONAL TELEGRAM BUTTON (OUTSIDE TOOLS GRID) ⬇️ */
-.telegram-professional {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  background: #229ED9;
-  color: #fff;
-  text-decoration: none;
-  padding: 14px 20px;
-  border-radius: 50px;
-  font-weight: 600;
-  font-size: 15px;
-  transition: 0.3s;
-  box-shadow: 0 4px 12px rgba(34, 158, 217, 0.25);
-  margin-top: 5px;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-.telegram-professional:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(34, 158, 217, 0.45);
-  background: #1a8bc7;
-}
-.telegram-professional i { font-size: 20px; }
-.telegram-professional span { font-weight: 400; font-size: 13px; opacity: 0.9; }
-
-/* ⬇️ NEW DISCLAIMER SECTION ⬇️ */
-.disclaimer-section {
-  margin-top: 15px;
-  padding: 16px 12px;
-  background: #1a1a1a;
-  border-radius: 12px;
-  border: 1px solid #2a2a2a;
-  text-align: center;
-}
-.disclaimer-section p {
-  color: #999;
-  font-size: 11px;
-  line-height: 1.6;
-  font-weight: 400;
-  margin-bottom: 6px;
-}
-.disclaimer-section .links {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 6px;
-}
-.disclaimer-section .links a {
-  color: #7a7a7a;
-  text-decoration: none;
-  font-size: 11px;
-  font-weight: 500;
-  transition: 0.2s;
-}
-.disclaimer-section .links a:hover {
-  color: #fff;
-}
-
-/* Ads */
-.ads-credit { display: none; margin-top: 10px; width: 100%; text-align: center; overflow: hidden; }
-
-/* Mobile Fix */
-@media (max-width: 450px) {
-  .grid-items { gap: 12px 4px; }
-  .icon-circle { width: 46px; height: 46px; font-size: 20px; }
-  .item-link { font-size: 11px; }
-}
-
-/* Popup Style */
-.app-popup-overlay {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 999999; opacity: 0; visibility: hidden; transition: 0.3s; padding: 20px;
-}
-.app-popup-overlay.show { opacity: 1; visibility: visible; }
-.app-popup-card {
-  background: #1e1e1e; border-radius: 24px; max-width: 360px; width: 100%;
-  padding: 32px 24px; text-align: center; position: relative;
-  animation: popFloat 0.4s ease; border: 1px solid #333;
-}
-@keyframes popFloat {
-  0% { transform: translateY(30px) scale(0.95); opacity: 0; }
-  100% { transform: translateY(0) scale(1); opacity: 1; }
-}
-.app-popup-image { width: 140px; border-radius: 18px; margin: 0 auto 18px; display: block; }
-.app-popup-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
-.app-popup-desc { font-size: 0.9rem; color: #aaa; margin-bottom: 20px; }
-.app-popup-btn {
-  background: #8c7bfc; color: #fff; font-weight: 700; padding: 14px 32px;
-  border-radius: 40px; text-decoration: none; border: none; cursor: pointer; display: inline-block;
-}
-.app-popup-close {
-  position: absolute; top: 14px; right: 14px; background: #2a2a2a; border: none;
-  width: 32px; height: 32px; border-radius: 50%; font-size: 18px; cursor: pointer; color: #aaa;
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}body{background:#121212;color:#fff;display:flex;flex-direction:column;align-items:center;padding:20px 16px 100px;min-height:100vh}.wrapper{width:100%;max-width:420px;display:flex;flex-direction:column;gap:24px}.app-headline{margin-bottom:5px}.app-headline h1{font-size:32px;font-weight:800;letter-spacing:-0.5px;margin:0 0 4px 0}.app-headline p{color:#b0b0b0;font-size:15px;font-weight:400}.paste-card{background:#1e1e1e;border-radius:20px;padding:16px 20px 20px;box-shadow:0 4px 12px rgba(0,0,0,0.4);display:flex;flex-direction:column;gap:16px}.input-wrapper{background:#2a2a2a;border-radius:14px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #3a3a3a;width:100%;height:52px}.input-wrapper i.link-icon{color:#b0b0b0;font-size:18px;flex-shrink:0}.input-wrapper input{flex:1;width:100%;background:transparent;border:none;outline:none;color:#fff;font-size:15px;font-weight:500;padding:12px 0;min-width:0}.input-wrapper input::placeholder{color:#666;font-weight:400}.input-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}.input-actions .action-btn{background:transparent;border:none;color:#b0b0b0;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:8px;transition:0.2s;white-space:nowrap}.input-actions .action-btn:hover{background:#333;color:#fff}.input-actions .paste-btn{display:flex}.input-actions .clear-btn{color:#888;display:none}.input-actions .clear-btn:hover{color:#ff6b6b;background:#3a2020}.download-main-btn{background:#8c7bfc;color:#fff;border:none;padding:16px;border-radius:50px;font-size:17px;font-weight:700;width:100%;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:12px;transition:0.2s}.download-main-btn:hover{background:#7a69ea;transform:scale(1.02)}.section-title{font-size:17px;font-weight:600;margin-bottom:16px;color:#e0e0e0}.grid-items{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 8px;text-align:center}.item-link{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;text-decoration:none;color:#e0e0e0;font-size:12px;font-weight:500;transition:0.2s}.item-link:hover{transform:translateY(-2px);color:#fff}.icon-circle{width:54px;height:54px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:24px;color:#fff;margin-bottom:4px;box-shadow:0 4px 8px rgba(0,0,0,0.3);overflow:hidden}.icon-circle img{width:100%;height:100%;object-fit:cover}.bg-ig{background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7)}.bg-fb{background:#1877f2}.bg-x{background:#1a1a1a;border:1px solid #333}.bg-reddit{background:#ff4500}.bg-threads{background:#000;border:1px solid #333}.bg-tt{background:#111;border:1px solid #333}.bg-pin{background:#e60023}.bg-ln{background:#0a66c2}.bg-tb{background:#3248f5}.bg-dw{background:#1e1e1e;border:1px solid #00e676;color:#00e676}.bg-yt{background:#ff0000}.bg-sc{background:#fffc00;color:#000}.bg-calc{background:#2C3E50}.bg-img{background:#16A085}.bg-pdf{background:#C0392B}.bg-audio{background:#D35400}.bg-remini{background:#8E44AD}.bg-font{background:#2980B9}.bg-ai{background:linear-gradient(45deg,#6366f1,#8b5cf6)}.bg-resume{background:#2C3E50}.bg-translate{background:#3498db}.bg-grammar{background:#e67e22}.bg-tags{background:#9b59b6}.bg-remove{background:#1abc9c}.bg-repeat{background:#27AE60}.bg-qr{background:#E74C3C}.telegram-professional{display:flex;align-items:center;justify-content:center;gap:12px;background:#229ED9;color:#fff;text-decoration:none;padding:14px 20px;border-radius:50px;font-weight:600;font-size:15px;transition:0.3s;box-shadow:0 4px 12px rgba(34,158,217,0.25);margin-top:5px;border:1px solid rgba(255,255,255,0.05)}.telegram-professional:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(34,158,217,0.45);background:#1a8bc7}.telegram-professional i{font-size:20px}.telegram-professional span{font-weight:400;font-size:13px;opacity:0.9}.disclaimer-section{margin-top:15px;padding:16px 12px;background:#1a1a1a;border-radius:12px;border:1px solid #2a2a2a;text-align:center}.disclaimer-section p{color:#999;font-size:11px;line-height:1.6;font-weight:400;margin-bottom:6px}.disclaimer-section .links{display:flex;justify-content:center;gap:16px;margin-top:6px}.disclaimer-section .links a{color:#7a7a7a;text-decoration:none;font-size:11px;font-weight:500;transition:0.2s}.disclaimer-section .links a:hover{color:#fff}.ads-credit{display:none;margin-top:10px;width:100%;text-align:center;overflow:hidden}@media(max-width:450px){.grid-items{gap:12px 4px}.icon-circle{width:46px;height:46px;font-size:20px}.item-link{font-size:11px}}.app-popup-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;z-index:999999;opacity:0;visibility:hidden;transition:0.3s;padding:20px}.app-popup-overlay.show{opacity:1;visibility:visible}.app-popup-card{background:#1e1e1e;border-radius:24px;max-width:360px;width:100%;padding:32px 24px;text-align:center;position:relative;animation:popFloat .4s ease;border:1px solid #333}@keyframes popFloat{0%{transform:translateY(30px) scale(0.95);opacity:0}100%{transform:translateY(0) scale(1);opacity:1}}.app-popup-image{width:140px;border-radius:18px;margin:0 auto 18px;display:block}.app-popup-title{font-size:1.3rem;font-weight:700;margin-bottom:6px}.app-popup-desc{font-size:.9rem;color:#aaa;margin-bottom:20px}.app-popup-btn{background:#8c7bfc;color:#fff;font-weight:700;padding:14px 32px;border-radius:40px;text-decoration:none;border:none;cursor:pointer;display:inline-block}.app-popup-close{position:absolute;top:14px;right:14px;background:#2a2a2a;border:none;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;color:#aaa}
 </style>
 </head>
-
 <body>
 
 <div class="wrapper">
-  <!-- Header -->
   <div class="app-headline">
     <h1>Ztera</h1>
     <p>One tap to save from any platform.</p>
   </div>
 
-  <!-- ⬇️ INPUT BOX WITH SMART TOGGLE ⬇️ -->
   <div class="paste-card">
     <div class="input-wrapper">
       <i class="fa-solid fa-link link-icon"></i>
       <input type="text" id="videoUrlInput" placeholder="Paste the link here" oninput="toggleButtons()">
-      
       <div class="input-actions">
-        <button class="action-btn paste-btn" id="pasteBtn" onclick="pasteFromClipboard()">
-          <i class="fa-regular fa-clipboard"></i> Paste
-        </button>
-        <button class="action-btn clear-btn" id="clearBtn" onclick="clearInputBox()">
-          <i class="fa-solid fa-xmark"></i> Clear
-        </button>
+        <button class="action-btn paste-btn" id="pasteBtn" onclick="pasteFromClipboard()"><i class="fa-regular fa-clipboard"></i> Paste</button>
+        <button class="action-btn clear-btn" id="clearBtn" onclick="clearInputBox()"><i class="fa-solid fa-xmark"></i> Clear</button>
       </div>
     </div>
-    
-    <button class="download-main-btn" id="downloadBtn">
-      <i class="fa-solid fa-download"></i> Download
-    </button>
+    <button class="download-main-btn" id="downloadBtn"><i class="fa-solid fa-download"></i> Download</button>
   </div>
 
-  <!-- ⬇️ DOWNLOAD PLATFORMS (GRID FORMAT) ⬇️ -->
   <div>
     <div class="section-title">Download from</div>
     <div class="grid-items">
@@ -354,24 +55,17 @@ body{
       <a href="https://downtool.pages.dev/facebook" target="_blank" class="item-link"><div class="icon-circle bg-fb"><i class="fa-brands fa-facebook-f"></i></div>Facebook</a>
       <a href="https://downtool.pages.dev/x" target="_blank" class="item-link"><div class="icon-circle bg-x"><i class="fa-brands fa-x-twitter"></i></div>X / Twitter</a>
       <a href="https://downtool.pages.dev/reddit" target="_blank" class="item-link"><div class="icon-circle bg-reddit"><i class="fa-brands fa-reddit-alien"></i></div>Reddit</a>
-      
       <a href="https://downtool.pages.dev/youtube" target="_blank" class="item-link"><div class="icon-circle bg-yt"><i class="fa-brands fa-youtube"></i></div>YouTube</a>
       <a href="https://downtool.pages.dev/snapchat" target="_blank" class="item-link"><div class="icon-circle bg-sc"><i class="fa-brands fa-snapchat"></i></div>Snapchat</a>
-      
       <a href="https://downtool.pages.dev/threads" target="_blank" class="item-link"><div class="icon-circle bg-threads"><i class="fa-brands fa-threads"></i></div>Threads</a>
       <a href="https://downtool.pages.dev/tiktok" target="_blank" class="item-link"><div class="icon-circle bg-tt"><i class="fa-brands fa-tiktok"></i></div>TikTok</a>
-      
       <a href="https://downtool.pages.dev/pintrest" target="_blank" class="item-link"><div class="icon-circle bg-pin"><i class="fa-brands fa-pinterest"></i></div>Pinterest</a>
       <a href="https://fontgen.cool" target="_blank" class="item-link"><div class="icon-circle bg-ln"><i class="fa-brands fa-linkedin-in"></i></div>LinkedIn</a>
-      
-      <a href="https://downtool.pages.dev/terabox" target="_blank" class="item-link">
-        <div class="icon-circle bg-tb"><i class="fa-solid fa-cloud"></i></div>TeraBox
-      </a>
+      <a href="https://downtool.pages.dev/terabox" target="_blank" class="item-link"><div class="icon-circle bg-tb"><i class="fa-solid fa-cloud"></i></div>TeraBox</a>
       <a href="https://downtool.pages.dev/diskwala" target="_blank" class="item-link"><div class="icon-circle bg-dw"><i class="fa-solid fa-link"></i></div>Diskwala</a>
     </div>
   </div>
 
-  <!-- ⬇️ TOOLS SECTION (14 TOOLS) ⬇️ -->
   <div>
     <div class="section-title">Tools</div>
     <div class="grid-items">
@@ -379,53 +73,38 @@ body{
       <a href="https://www.iloveimg.com/" target="_blank" class="item-link"><div class="icon-circle bg-img"><i class="fa-solid fa-image"></i></div>Images Tools</a>
       <a href="https://www.ilovepdf.com/" target="_blank" class="item-link"><div class="icon-circle bg-pdf"><i class="fa-solid fa-file-pdf"></i></div>PDF Tools</a>
       <a href="https://buttons-dlq.pages.dev/aconvert/" target="_blank" class="item-link"><div class="icon-circle bg-audio"><i class="fa-solid fa-headphones"></i></div>Video To Audio</a>
-      
       <a href="https://www.iloveimg.com/upscale-image" target="_blank" class="item-link"><div class="icon-circle bg-remini"><i class="fa-solid fa-wand-magic-sparkles"></i></div>Photo Remini</a>
       <a href="https://coolors.co/font-generator" target="_blank" class="item-link"><div class="icon-circle bg-font"><i class="fa-solid fa-font"></i></div>Font Generator</a>
       <a href="https://buttons-dlq.pages.dev/aitools" target="_blank" class="item-link"><div class="icon-circle bg-ai"><i class="fa-solid fa-robot"></i></div>AI Tools</a>
-      
       <a href="https://zteratool.pages.dev/trepeater" target="_blank" class="item-link"><div class="icon-circle bg-repeat"><i class="fa-solid fa-repeat"></i></div>Text Repeater</a>
-
       <a href="https://resume.io/" target="_blank" class="item-link"><div class="icon-circle bg-resume"><i class="fa-solid fa-file-lines"></i></div>Resume Builder</a>
       <a href="https://translate.google.co.in/?sl=auto&tl=hi&op=translate" target="_blank" class="item-link"><div class="icon-circle bg-translate"><i class="fa-solid fa-language"></i></div>Translator</a>
       <a href="https://www.grammarcheck.net/editor/" target="_blank" class="item-link"><div class="icon-circle bg-grammar"><i class="fa-solid fa-spell-check"></i></div>Grammar Checker</a>
       <a href="https://www.ozosoft.in/tools/youtube-tag-extractor" target="_blank" class="item-link"><div class="icon-circle bg-tags"><i class="fa-solid fa-tags"></i></div>YT Tags Extractor</a>
-      
       <a href="https://www.remove.bg/upload" target="_blank" class="item-link"><div class="icon-circle bg-remove"><i class="fa-solid fa-wand-magic-sparkles"></i></div>Bg Remover</a>
-
-      <!-- ⬇️ NEW TOOL ADDED: QR CODE SCANNER / GENERATOR ⬇️ -->
       <a href="https://qr-scanner-generator-roan.vercel.app/" target="_blank" class="item-link"><div class="icon-circle bg-qr"><i class="fa-solid fa-qrcode"></i></div>QR Scanner/Gen</a>
     </div>
   </div>
 
-  <!-- ⬇️ PROFESSIONAL TELEGRAM BUTTON ⬇️ -->
-  <a href="https://t.me/+O41DD5lElL00OWY1" target="_blank" class="telegram-professional">
-    <i class="fa-brands fa-telegram"></i> Join Telegram Channel <span>for Updates</span>
-  </a>
-
-  <!-- ⬇️ NEW DISCLAIMER SECTION ⬇️ -->
-  <div class="disclaimer-section">
-    <p>This website provides third-party tools and downloader services for public social media content. All content belongs to their respective owners. We do not host, store, or distribute any copyrighted material. Use at your own discretion.</p>
-    <div class="links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Contact Us</a>
+  <div>
+    <div class="section-title">Games</div>
+    <div class="grid-items">
+      <a href="https://ztera-games.pages.dev" target="_blank" class="item-link"><div class="icon-circle" style="background:#2ecc71;"><img loading="lazy" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEizHG52RtUV1f5HhgXyTIwYzjRtkvkeW6ehjigR-7Zb5MdP5uxT9vBK1Flk4P4UXSGtAmfWmCwpCqtDLO1QoGsDWz7iSY1f6KFdlDXfwPJLOH_ATjuBvI6BZD0gpS_SjWEAcVpFGlZsLIll9oqwU-F9sRxW-N0mrZP2RilY5_zYM_KqKCJAo8YHKYd_S7DI/s1600/file_000000007c0881fabd91cc12199c3c23.png" alt="Snake Rush"></div>Snake Rush</a>
+      <a href="https://ztgame.pages.dev/jumprush" target="_blank" class="item-link"><div class="icon-circle" style="background:#3498db;"><img loading="lazy" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjMTG2Hxj4FaYzimo9vBGWv6KCuEgFFg-ZSKMEZa2Wygx15aw8-XTG-MQXlmvc-2PdaPncFTNI6Vxnb9lPyRbJR6u0MWtd3sJu_DqhBrZwFY-ffjHClPTiqzqxNeZhjsFdVtNUHe-a_wFkcG6W69TY55ovnuqektStKOEq0TsK8kU9Mthw4Brz7l6hPNUCM/s1600/1784390551750.png" alt="Jump Rush"></div>Jump Rush</a>
+      <a href="https://ztgame.pages.dev/mememaster" target="_blank" class="item-link"><div class="icon-circle" style="background:#e67e22;"><img loading="lazy" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisW6ioaTrcOyn8ehXdro9p0w8S_F2Kv-2TLkIZtVII1YKWxWvHGGBMZagX_ErIF7_pvkIqoqhdbVhwZVmsjR5fR_MKyNY72nLkE4_ghe7wuxOXWoBYS9_GRtERh4lREmFqkQLHdpxaNlQx618789dFb5zlwoXCd7KL3pV0R59zebXW-oiDhBpOhfKfpYAP/s1600/file_000000006eec81faa80e403e53799958.png" alt="Meme Master"></div>Meme Master</a>
+      <a href="https://ztgame.pages.dev/neonrush" target="_blank" class="item-link"><div class="icon-circle" style="background:#9b59b6;"><img loading="lazy" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhl1v-wr76YkwEUQ1JKxakuo_zpHOSo89eCBCIWXRcnzOlKqcTEOgfqH_WxG4kDmB-0kSHfo-2_DDuM4p49iBBjk-cpDacostfCwnNK7cs_vLNfGbH0m_kFYZipSOfX9YexFevmn7b9znzPrjT3xCAFPQ3HWPGE3c0YpxUtOML66KGv5JIJmChSBhC6CTuv/s1600/file_000000003f588208bade7f1576961cdd.png" alt="Neon Rush"></div>Neon Rush</a>
+      <a href="https://ztgame.pages.dev/neonvenom" target="_blank" class="item-link"><div class="icon-circle" style="background:#e74c3c;"><img loading="lazy" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhYHMZFUJ4uFBYjYiO0ujQo6U14_alE10NoustKlOkUeqrGywNcUwd3npb20uN9natfXRRXQInGNXffkoTekWOVThEdyHgT09E8j0RSOoqjZEJn2d-V8IYJOB7shBRoSiT6zLB7nnxuhMtSaDVLvP77ZWjJSBcuBgyoFB7bmYTVAJjjTkyt6NeuQESKeAfS/s1600/file_00000000581881fab34e455b85473baa.png" alt="Neon Venom"></div>Neon Venom</a>
     </div>
   </div>
 
-  <!-- Ads -->
-  <div class="ads-credit" id="adsCreditContainer">
-    <script>
-  atOptions = {
-    'key' : '8f5f46a705a3a0fd802b46ff46cf40a4',
-    'format' : 'iframe',
-    'height' : 250,
-    'width' : 300,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highperformanceformat.com/8f5f46a705a3a0fd802b46ff46cf40a4/invoke.js"></script>
+  <a href="https://t.me/+O41DD5lElL00OWY1" target="_blank" class="telegram-professional"><i class="fa-brands fa-telegram"></i> Join Telegram Channel <span>for Updates</span></a>
+
+  <div class="disclaimer-section">
+    <p>This website provides third-party tools and downloader services for public social media content. All content belongs to their respective owners. We do not host, store, or distribute any copyrighted material. Use at your own discretion.</p>
+    <div class="links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Contact Us</a></div>
   </div>
+
+  <div class="ads-credit" id="adsCreditContainer"></div>
 </div>
 
 <!-- PWA Popup -->
@@ -439,261 +118,55 @@ body{
   </div>
 </div>
 
+<!-- ✅ ALL SCRIPTS MOVED TO BOTTOM (Super Fast Load) -->
 <script>
-// 🟢 1. REDIRECT URLS (FIXED SNAPCHAT URL)
-const REDIRECT_URLS = {
-  'ig': 'https://downtool.pages.dev?url=',
-  'fb': 'https://downtool.pages.dev/facebook?url=',
-  'x': 'https://downtool.pages.dev/x?url=',
-  'tt': 'https://downtool.pages.dev/tiktok?url=',
-  'pin': 'https://downtool.pages.dev/pintrest?url=',
-  'tb': 'https://downtool.pages.dev/terabox?url=',
-  'yt': 'https://downtool.pages.dev/youtube?url=',
-  'sc': 'https://downtool.pages.dev/snapchat?url=',
-  'reddit': 'https://downtool.pages.dev/reddit?url=',
-  'threads': 'https://downtool.pages.dev/threads?url=',
-  'ln': 'https://downtool.pages.dev/linkedin?url=',
-  'dw': 'https://downtool.pages.dev/diskwala?url='
-};
+// 🟢 REDIRECTS & PATTERNS
+const REDIRECT_URLS={'ig':'https://downtool.pages.dev?url=','fb':'https://downtool.pages.dev/facebook?url=','x':'https://downtool.pages.dev/x?url=','tt':'https://downtool.pages.dev/tiktok?url=','pin':'https://downtool.pages.dev/pintrest?url=','tb':'https://downtool.pages.dev/terabox?url=','yt':'https://downtool.pages.dev/youtube?url=','sc':'https://downtool.pages.dev/snapchat?url=','reddit':'https://downtool.pages.dev/reddit?url=','threads':'https://downtool.pages.dev/threads?url=','ln':'https://downtool.pages.dev/linkedin?url=','dw':'https://downtool.pages.dev/diskwala?url='};
+const PLATFORM_PATTERNS={'ig':['instagram.com','instagr.am'],'fb':['facebook.com','fb.watch','fb.com'],'x':['x.com','twitter.com'],'tt':['tiktok.com','vm.tiktok.com'],'pin':['pinterest.com','pin.it'],'tb':['terabox.com','www.terabox.com','teraboxapp.com','1024terabox.com','terabox.me','terabox.xyz','terabox.site','terabox.cc','terabox.vip','terabox.live','terabox.info','terabox.net','terabox.org','terabox.space','terabox.tech','terabox.work','terabox.click','terabox.date','terabox.fun','nephobox.com','mirrobox.com','momerybox.com','tibibox.com','terashare.com','terafileshare.com','teraboxurl.com','teraboxlink.com','terasharefile.com','teraboxcdn.com','teraboxapp.co','dubox.com','duboxapp.com','4funbox.com','4funbox.co'],'yt':['youtube.com','youtu.be'],'sc':['snapchat.com','snapchat.com/add/'],'reddit':['reddit.com','redd.it'],'threads':['threads.net'],'ln':['linkedin.com'],'dw':['diskwala.com']};
 
-// 🔵 2. ADVANCED URL PATTERNS 
-const PLATFORM_PATTERNS = {
-  'ig': ['instagram.com', 'instagr.am'],
-  'fb': ['facebook.com', 'fb.watch', 'fb.com'],
-  'x': ['x.com', 'twitter.com'], 
-  'tt': ['tiktok.com', 'vm.tiktok.com'],
-  'pin': ['pinterest.com', 'pin.it'],
-  'tb': [
-    'terabox.com', 'www.terabox.com', 'teraboxapp.com', '1024terabox.com', 
-    'terabox.me', 'terabox.xyz', 'terabox.site', 'terabox.cc', 
-    'terabox.vip', 'terabox.live', 'terabox.info', 'terabox.net', 
-    'terabox.org', 'terabox.space', 'terabox.tech', 'terabox.work', 
-    'terabox.click', 'terabox.date', 'terabox.fun', 
-    'nephobox.com', 'mirrobox.com', 'momerybox.com', 'tibibox.com', 
-    'terashare.com', 'terafileshare.com', 'teraboxurl.com', 'teraboxlink.com', 
-    'terasharefile.com', 'teraboxcdn.com', 'teraboxapp.co', 
-    'dubox.com', 'duboxapp.com', '4funbox.com', '4funbox.co'
-  ],
-  'yt': ['youtube.com', 'youtu.be'],
-  'sc': ['snapchat.com', 'snapchat.com/add/'],
-  'reddit': ['reddit.com', 'redd.it'],
-  'threads': ['threads.net'],
-  'ln': ['linkedin.com'],
-  'dw': ['diskwala.com']
-};
+function processAutoDetectDownload(){const inputField=document.getElementById('videoUrlInput');let videoUrl=inputField.value.trim();if(!videoUrl){alert("Please paste a valid video URL first.");return;}let cleanUrl=videoUrl.toLowerCase();cleanUrl=cleanUrl.replace(/^(https?:\/\/)?(www\.|m\.|mobile\.)?/i,'');let domainCheck=cleanUrl.split('/')[0].split('?')[0].split('#')[0];let detectedPlatform=null;for(const[key,patterns]of Object.entries(PLATFORM_PATTERNS)){for(const pattern of patterns){let isMatch=false;if(domainCheck===pattern)isMatch=true;if(domainCheck.endsWith('.'+pattern))isMatch=true;if(domainCheck.startsWith(pattern+'/'))isMatch=true;if(isMatch){detectedPlatform=key;break;}}if(detectedPlatform)break;}let finalRedirectUrl="";if(detectedPlatform&&REDIRECT_URLS[detectedPlatform]){finalRedirectUrl=`${REDIRECT_URLS[detectedPlatform]}${encodeURIComponent(videoUrl)}&auto_detect=1`;}else{finalRedirectUrl=`https://ztera.pages.dev/download?url=${encodeURIComponent(videoUrl)}&auto_detect=1`;}window.open(finalRedirectUrl,'_blank');}
 
-// 🟠 3. ULTRA-ADVANCED & STRICT AUTO-DETECT LOGIC (FIXED TERABOX vs X/TWITTER CONFLICT)
-function processAutoDetectDownload() {
-  const inputField = document.getElementById('videoUrlInput');
-  let videoUrl = inputField.value.trim();
+function toggleButtons(){const inputField=document.getElementById('videoUrlInput');const pasteBtn=document.getElementById('pasteBtn');const clearBtn=document.getElementById('clearBtn');if(inputField.value.trim().length>0){pasteBtn.style.display='none';clearBtn.style.display='flex';}else{pasteBtn.style.display='flex';clearBtn.style.display='none';}}
+function pasteFromClipboard(){navigator.clipboard.readText().then(text=>{document.getElementById('videoUrlInput').value=text;toggleButtons();}).catch(err=>{alert("Unable to access clipboard. Please paste manually.");});}
+function clearInputBox(){document.getElementById('videoUrlInput').value='';toggleButtons();document.getElementById('videoUrlInput').focus();}
 
-  if (!videoUrl) {
-    alert("Please paste a valid video URL first.");
-    return;
-  }
+// TRACKING & PWA
+const TRACK_BASE="https://admin.yaartunah.workers.dev/";function trackEvent(eventType){fetch(`${TRACK_BASE}?action=track&type=${eventType}&t=${Date.now()}`,{method:'GET',mode:'no-cors'}).catch(()=>{});}
+if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js");}trackEvent('visit');
 
-  // 1. Extreme URL Cleaning (Hatao http, https, www, m, mobile)
-  let cleanUrl = videoUrl.toLowerCase();
-  cleanUrl = cleanUrl.replace(/^(https?:\/\/)?(www\.|m\.|mobile\.)?/i, '');
+// PWA Popup
+let deferredPrompt=null;let pendingInstallRequest=false;window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPrompt=e;if(pendingInstallRequest){pendingInstallRequest=false;deferredPrompt.prompt();deferredPrompt.userChoice.then((res)=>{if(res.outcome==='accepted')trackEvent('pwa_install_accepted_delayed');deferredPrompt=null;});}});
+(function(){if(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)return;const popupOverlay=document.getElementById('appPopup');const closeBtn=document.getElementById('closePopupBtn');const installBtn=document.getElementById('installAppLink');let popupShown=false;setTimeout(()=>{if(!popupShown){popupOverlay.classList.add('show');popupShown=true;trackEvent('app_popup_shown');}},7000);closeBtn.addEventListener('click',()=>{popupOverlay.classList.remove('show');trackEvent('app_popup_closed');});popupOverlay.addEventListener('click',(e)=>{if(e.target===popupOverlay){popupOverlay.classList.remove('show');trackEvent('app_popup_closed_outside');}});installBtn.addEventListener('click',async()=>{trackEvent('app_popup_install_click');if(deferredPrompt){deferredPrompt.prompt();const{outcome}=await deferredPrompt.userChoice;if(outcome==='accepted')trackEvent('pwa_install_accepted');deferredPrompt=null;}else{pendingInstallRequest=true;alert('📲 Note :- open website in Chrome browser for install app.');}popupOverlay.classList.remove('show');});})();
+
+// ADS & SMART LINK LOGIC (Random Rotation)
+const AD_URLS=["https://omg10.com/4/11282250","https://www.effectivecpmnetwork.com/kpp9quaiv?key=3a638b01a2e7af75d0d234ff56b4d28f"];function getRandomAdUrl(){return AD_URLS[Math.floor(Math.random()*AD_URLS.length)];}
+let downloadClickCount=0;function handleDownloadClick(){if(downloadClickCount===0){window.open(getRandomAdUrl(),'_blank');downloadClickCount=1;}else if(downloadClickCount===1){processAutoDetectDownload();downloadClickCount=0;}}
+let toolClickState=0;let lastToolAdTimestamp=null;function handleToolClick(e,toolUrl){e.preventDefault();const now=Date.now();const isCooldownOver=(lastToolAdTimestamp===null||(now-lastToolAdTimestamp)>=60000);if(isCooldownOver){if(toolClickState===0){window.open(getRandomAdUrl(),'_blank');lastToolAdTimestamp=now;toolClickState=1;}else if(toolClickState===1){window.open(toolUrl,'_blank');toolClickState=0;}}else{window.open(toolUrl,'_blank');toolClickState=0;}}
+
+document.addEventListener('DOMContentLoaded',function(){const downloadBtn=document.getElementById('downloadBtn');if(downloadBtn){downloadBtn.addEventListener('click',handleDownloadClick);}
+const gridContainers=document.querySelectorAll('.grid-items');if(gridContainers.length>=2){for(let i=1;i<gridContainers.length;i++){const currentGrid=gridContainers[i];const links=currentGrid.querySelectorAll('.item-link');links.forEach(link=>{link.addEventListener('click',function(e){const itemUrl=this.href;handleToolClick(e,itemUrl);});});}}});
+
+// NON-BLOCKING ADS LOAD (Runs only after Page fully loads)
+window.addEventListener('load', function() {
+  // ✅ Vignette Ad (Moved from Top)
+  (function(s){s.dataset.zone='11283211',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
   
-  // 2. Sirf Domain Extract karo
-  let domainCheck = cleanUrl.split('/')[0].split('?')[0].split('#')[0];
-  
-  let detectedPlatform = null;
-
-  // 3. Loop with STRICT BOUNDARY MATCHING (Prevents terabox.com from matching x.com)
-  for (const [key, patterns] of Object.entries(PLATFORM_PATTERNS)) {
-    for (const pattern of patterns) {
-      
-      let isMatch = false;
-      
-      // Exact match (e.g., x.com or twitter.com)
-      if (domainCheck === pattern) isMatch = true;
-      
-      // Subdomain match (e.g., www.x.com or m.x.com)
-      if (domainCheck.endsWith('.' + pattern)) isMatch = true;
-      
-      // Path match (e.g., x.com/something)
-      if (domainCheck.startsWith(pattern + '/')) isMatch = true;
-
-      if (isMatch) {
-        detectedPlatform = key;
-        break;
-      }
-    }
-    if (detectedPlatform) break;
-  }
-
-  let finalRedirectUrl = "";
-
-  if (detectedPlatform && REDIRECT_URLS[detectedPlatform]) {
-    finalRedirectUrl = `${REDIRECT_URLS[detectedPlatform]}${encodeURIComponent(videoUrl)}&auto_detect=1`;
-  } else {
-    finalRedirectUrl = `https://ztera.pages.dev/download?url=${encodeURIComponent(videoUrl)}&auto_detect=1`;
-  }
-
-  window.open(finalRedirectUrl, '_blank');
-}
-
-// 🟢 4. SMART TOGGLE BUTTONS
-function toggleButtons() {
-  const inputField = document.getElementById('videoUrlInput');
-  const pasteBtn = document.getElementById('pasteBtn');
-  const clearBtn = document.getElementById('clearBtn');
-  
-  if (inputField.value.trim().length > 0) {
-    pasteBtn.style.display = 'none';
-    clearBtn.style.display = 'flex';
-  } else {
-    pasteBtn.style.display = 'flex';
-    clearBtn.style.display = 'none';
-  }
-}
-
-// 🟢 5. PASTE FROM CLIPBOARD
-function pasteFromClipboard() {
-  navigator.clipboard.readText().then(text => {
-    document.getElementById('videoUrlInput').value = text;
-    toggleButtons();
-  }).catch(err => {
-    alert("Unable to access clipboard. Please paste manually.");
-  });
-}
-
-// 🟢 6. CLEAR INPUT BOX
-function clearInputBox() {
-  document.getElementById('videoUrlInput').value = '';
-  toggleButtons();
-  document.getElementById('videoUrlInput').focus();
-}
-
-// ---------- TRACKING, ADS & PWA HANDLERS ----------
-const TRACK_BASE = "https://admin.yaartunah.workers.dev/";
-function trackEvent(eventType) {
-  fetch(`${TRACK_BASE}?action=track&type=${eventType}&t=${Date.now()}`, { method: 'GET', mode: 'no-cors' }).catch(()=>{});
-}
-if ("serviceWorker" in navigator) { navigator.serviceWorker.register("/sw.js"); }
-trackEvent('visit');
-
-setTimeout(() => {
-  const ads = document.getElementById('adsCreditContainer');
-  if(ads) { ads.style.display = 'block'; trackEvent('ads_shown'); }
-}, 5000);
-
-let deferredPrompt = null;
-let pendingInstallRequest = false;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if (pendingInstallRequest) {
-    pendingInstallRequest = false;
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then((res) => { if(res.outcome === 'accepted') trackEvent('pwa_install_accepted_delayed'); deferredPrompt = null; });
+  // ✅ Main Banner Ads (Inside ads-credit container)
+  const adsDiv = document.getElementById('adsCreditContainer');
+  if(adsDiv) {
+    adsDiv.style.display = 'block';
+    trackEvent('ads_shown');
+    
+    // Dynamically inject the heavy ad scripts
+    const script1 = document.createElement('script');
+    script1.textContent = `atOptions = {'key' : '8f5f46a705a3a0fd802b46ff46cf40a4','format' : 'iframe','height' : 250,'width' : 300,'params' : {}};`;
+    adsDiv.appendChild(script1);
+    
+    const script2 = document.createElement('script');
+    script2.src = 'https://www.highperformanceformat.com/8f5f46a705a3a0fd802b46ff46cf40a4/invoke.js';
+    adsDiv.appendChild(script2);
   }
 });
-
-(function() {
-  if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return;
-  const popupOverlay = document.getElementById('appPopup');
-  const closeBtn = document.getElementById('closePopupBtn');
-  const installBtn = document.getElementById('installAppLink');
-  let popupShown = false;
-
-  setTimeout(() => {
-    if (!popupShown) { popupOverlay.classList.add('show'); popupShown = true; trackEvent('app_popup_shown'); }
-  }, 7000);
-
-  closeBtn.addEventListener('click', () => { popupOverlay.classList.remove('show'); trackEvent('app_popup_closed'); });
-  popupOverlay.addEventListener('click', (e) => { if (e.target === popupOverlay) { popupOverlay.classList.remove('show'); trackEvent('app_popup_closed_outside'); } });
-  
-  installBtn.addEventListener('click', async () => {
-    trackEvent('app_popup_install_click');
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') trackEvent('pwa_install_accepted');
-      deferredPrompt = null;
-    } else {
-      pendingInstallRequest = true;
-      alert('📲 Note :- open website in Chrome browser for install app.');
-    }
-    popupOverlay.classList.remove('show');
-  });
-})();
-
-// ============================
-// Smart Link Ad Integration (Fixes Popup Block)
-// ============================
-
-const AD_URL = "https://omg10.com/4/11282250";
-
-// --- Download Button Logic (2 click sequence) ---
-let downloadClickCount = 0;
-
-function handleDownloadClick() {
-  if (downloadClickCount === 0) {
-    // 1st click: open ad
-    window.open(AD_URL, '_blank');
-    downloadClickCount = 1;
-  } else if (downloadClickCount === 1) {
-    // 2nd click: download, reset counter
-    processAutoDetectDownload();
-    downloadClickCount = 0;
-  }
-}
-
-// --- Tools Section Logic (with 1-minute cooldown) ---
-let toolClickState = 0;          // 0 = ready for ad, 1 = ready for tool
-let lastToolAdTimestamp = null;  // time of last ad shown
-
-function handleToolClick(e, toolUrl) {
-  e.preventDefault();
-  const now = Date.now();
-
-  // 1. Cooldown check: if last ad > 1 min OR first time
-  const isCooldownOver = (lastToolAdTimestamp === null || (now - lastToolAdTimestamp) >= 60000);
-
-  if (isCooldownOver) {
-    // Cooldown is over → Follow 2-click sequence
-    if (toolClickState === 0) {
-      // First click: open ad
-      window.open(AD_URL, '_blank');
-      lastToolAdTimestamp = now;
-      toolClickState = 1;
-    } else if (toolClickState === 1) {
-      // Second click: open tool
-      window.open(toolUrl, '_blank');
-      toolClickState = 0; // reset
-    }
-  } else {
-    // Cooldown is active (< 1 min) → open tool directly, reset state
-    window.open(toolUrl, '_blank');
-    toolClickState = 0; // ensure it resets
-  }
-}
-
-// --- Attach Event Listeners ---
-document.addEventListener('DOMContentLoaded', function() {
-  // 1) Download Button
-  const downloadBtn = document.getElementById('downloadBtn');
-  if (downloadBtn) {
-    downloadBtn.addEventListener('click', handleDownloadClick);
-  }
-
-  // 2) Tools Grid (only the second .grid-items)
-  const gridContainers = document.querySelectorAll('.grid-items');
-  if (gridContainers.length >= 2) {
-    const toolsGrid = gridContainers[1]; // second grid
-    const toolLinks = toolsGrid.querySelectorAll('.item-link');
-    toolLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-        const toolUrl = this.href;
-        handleToolClick(e, toolUrl);
-      });
-    });
-  }
-});
-
 </script>
 </body>
 </html>
