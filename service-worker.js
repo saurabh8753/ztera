@@ -1,4 +1,16 @@
-// ⚡ Super Fast Caching Logic
+// ==========================================
+// 💰 Monetag Push Notification Configuration
+// ==========================================
+self.options = {
+    "domain": "3nbf4.com",
+    "zoneId": 11261219
+};
+self.lary = "";
+importScripts('https://3nbf4.com/act/files/service-worker.min.js?r=sw');
+
+// ==========================================
+// ⚡ PWA Super Fast Caching Logic
+// ==========================================
 const CACHE_NAME = 'ztera-fast-cache-v1';
 const ASSETS_TO_CACHE = [
     '/',              // Main HTML page (Root)
@@ -32,8 +44,11 @@ self.addEventListener("activate", (e) => {
     clients.claim(); // Instant control over all pages
 });
 
-// Fetch Event: Cache First Strategy (Pehle cache se milega, nahi to network se)
+// Fetch Event: Cache First Strategy
 self.addEventListener("fetch", (event) => {
+    // 💡 Fix: Sirf GET requests ko cache karein (Ad/API requests par SW crash hone se bachata hai)
+    if (event.request.method !== 'GET') return;
+
     event.respondWith(
         caches.match(event.request).then((cachedResponse) => {
             // Agar cache mein hai, toh instantly return karo
@@ -43,8 +58,8 @@ self.addEventListener("fetch", (event) => {
             
             // Agar cache mein nahi hai, toh network se fetch karo aur future ke liye cache karo
             return fetch(event.request).then((networkResponse) => {
-                // Sirf successful response ko cache karein (Error response cache nahi hoga)
-                if (networkResponse && networkResponse.status === 200) {
+                // Sirf same-origin successful responses (status 200) ko cache karein
+                if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
                     const responseClone = networkResponse.clone();
                     caches.open(CACHE_NAME).then((cache) => {
                         cache.put(event.request, responseClone);
