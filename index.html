@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <script src="https://5gvci.com/act/files/tag.min.js?z=11261219" data-cfasync="false" async></script>
+  <script>(function(s){s.dataset.zone='11283211',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <!-- ✅ Google Preconnect for Fast DNS -->
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -122,7 +123,7 @@
   </div>
 </div>
 
-<!-- ✅ ALL SCRIPTS MOVED TO BOTTOM -->
+<!-- ✅ ALL SCRIPTS MOVED TO BOTTOM (AD-FREE) -->
 <script>
 // 🟢 REDIRECTS & PATTERNS
 const REDIRECT_URLS={'ig':'https://zteradown.pages.dev?url=','fb':'https://zteradown.pages.dev/facebook?url=','x':'https://zteradown.pages.dev/x?url=','tt':'https://zteradown.pages.dev/tiktok?url=','pin':'https://zteradown.pages.dev/pintrest?url=','tb':'https://zteradown.pages.dev/terabox?url=','yt':'https://zteradown.pages.dev/youtube?url=','sc':'https://zteradown.pages.dev/snapchat?url=','reddit':'https://zteradown.pages.dev/reddit?url=','threads':'https://zteradown.pages.dev/threads?url=','ln':'https://zteradown.pages.dev/linkedin?url=','dw':'https://zteradown.pages.dev/diskwala?url='};
@@ -145,64 +146,16 @@ let deferredPrompt=null;let pendingInstallRequest=false;window.addEventListener(
 setTimeout(()=>{if(!popupShown){popupOverlay.classList.add('show');popupShown=true;trackEvent('app_popup_shown');}},30000); 
 closeBtn.addEventListener('click',()=>{popupOverlay.classList.remove('show');trackEvent('app_popup_closed');});popupOverlay.addEventListener('click',(e)=>{if(e.target===popupOverlay){popupOverlay.classList.remove('show');trackEvent('app_popup_closed_outside');}});installBtn.addEventListener('click',async()=>{trackEvent('app_popup_install_click');if(deferredPrompt){deferredPrompt.prompt();const{outcome}=await deferredPrompt.userChoice;if(outcome==='accepted')trackEvent('pwa_install_accepted');deferredPrompt=null;}else{pendingInstallRequest=true;alert('📲 Note :- open website in Chrome browser for install app.');}popupOverlay.classList.remove('show');});})();
 
-// ============================
-// ✅ VIGNETTE AD LOGIC (ON 1st CLICK)
-// ============================
-
-// Vignette Script Loader
-function loadVignetteAd() {
-  (function(s){s.dataset.zone='11283211',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
-}
-
-let adClickState = 0; // 0 = ready, 1 = waiting for 2nd click
-let pendingUrl = null;
-let isDownloadAction = false;
-
-function handleClickRedirect(e, url, isDownload = false) {
-  e.preventDefault();
-  
-  if (adClickState === 0) {
-    // 1st Click -> Open Vignette Ad
-    loadVignetteAd();
-    adClickState = 1;
-    pendingUrl = url;
-    isDownloadAction = isDownload;
-  } else if (adClickState === 1) {
-    // 2nd Click -> Action Execute
-    if (isDownloadAction) {
-      processAutoDetectDownload();
-    } else {
-      window.open(url, '_blank');
-    }
-    adClickState = 0;
-    pendingUrl = null;
-    isDownloadAction = false;
-  }
-}
-
+// ✅ AD-FREE LOGIC (DIRECT EXECUTION)
 document.addEventListener('DOMContentLoaded', function() {
-  // 1) Download Button
+  // 1) Download Button (Directly triggers the download logic)
   const downloadBtn = document.getElementById('downloadBtn');
   if (downloadBtn) {
-    downloadBtn.addEventListener('click', function(e) {
-      handleClickRedirect(e, null, true);
-    });
+    downloadBtn.addEventListener('click', processAutoDetectDownload);
   }
-
-  // 2) Tools & Games Grids
-  const gridContainers = document.querySelectorAll('.grid-items');
-  if (gridContainers.length >= 2) {
-    for (let i = 1; i < gridContainers.length; i++) {
-      const currentGrid = gridContainers[i];
-      const links = currentGrid.querySelectorAll('.item-link');
-      links.forEach(link => {
-        link.addEventListener('click', function(e) {
-          const url = this.href;
-          handleClickRedirect(e, url, false);
-        });
-      });
-    }
-  }
+  
+  // 2) Tools & Games Grids (No Ad, No Custom Intercept needed, they just open in new tab via target="_blank")
+  // We don't need to add any event listeners here. They work natively.
 });
 
 // ============================
