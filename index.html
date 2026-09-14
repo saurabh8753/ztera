@@ -154,66 +154,14 @@ setTimeout(()=>{if(!popupShown){popupOverlay.classList.add('show');popupShown=tr
 closeBtn.addEventListener('click',()=>{popupOverlay.classList.remove('show');trackEvent('app_popup_closed');});popupOverlay.addEventListener('click',(e)=>{if(e.target===popupOverlay){popupOverlay.classList.remove('show');trackEvent('app_popup_closed_outside');}});installBtn.addEventListener('click',async()=>{trackEvent('app_popup_install_click');if(deferredPrompt){deferredPrompt.prompt();const{outcome}=await deferredPrompt.userChoice;if(outcome==='accepted')trackEvent('pwa_install_accepted');deferredPrompt=null;}else{pendingInstallRequest=true;alert('📲 Note :- open website in Chrome browser for install app.');}popupOverlay.classList.remove('show');});})();
 
 // ============================
-// ✅ SMART LINK AD LOGIC ON TOOLS & GAMES ONLY
+// ✅ DOWNLOAD BUTTON ONLY (NO AD on Tools / Games)
 // ============================
-
-// 👇 Smart Link URLs
-const SMART_LINK_URLS = [
-    "https://omg10.com/4/11282250",
-    "https://www.effectivecpmnetwork.com/kpp9quaiv?key=3a638b01a2e7af75d0d234ff56b4d28f"
-];
-
-function getRandomSmartLink() {
-    return SMART_LINK_URLS[Math.floor(Math.random() * SMART_LINK_URLS.length)];
-}
-
-let adClickState = 0; // 0 = ready for 1st click, 1 = waiting for 2nd click
-let adCooldown = false; // 1-second cooldown flag
-
-function handleClickRedirect(e, url) {
-    e.preventDefault();
-    
-    if (adCooldown) {
-        window.open(url, '_blank');
-        return;
-    }
-
-    if (adClickState === 0) {
-        window.open(getRandomSmartLink(), '_blank');
-        adClickState = 1;
-    } else if (adClickState === 1) {
-        window.open(url, '_blank');
-        adClickState = 0;
-        adCooldown = true;
-        setTimeout(() => { adCooldown = false; }, 1000);
-    }
-}
-
-// Attach Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
-    // 1) Download Button (Direct, No AD)
     const downloadBtn = document.getElementById('downloadBtn');
     if (downloadBtn) {
         downloadBtn.addEventListener('click', processAutoDetectDownload);
     }
-
-    // 2) Telegram Button (Direct Link, No AD) - already has target="_blank"
-    // No JS needed for Telegram, it will open directly.
-
-    // 3) Tools & Games Grids (index 1 onwards)
-    const gridContainers = document.querySelectorAll('.grid-items');
-    if (gridContainers.length >= 2) {
-        for (let i = 1; i < gridContainers.length; i++) {
-            const currentGrid = gridContainers[i];
-            const links = currentGrid.querySelectorAll('.item-link');
-            links.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const url = this.href;
-                    handleClickRedirect(e, url);
-                });
-            });
-        }
-    }
+    // ✅ Tools & Games links now open directly — NO smart link ads, NO 2-click logic.
 });
 
 // ============================
